@@ -10908,3 +10908,7 @@ a.text-dark:focus {
   }
 }
 
+#app {
+  min-height: 100vh;
+}
+

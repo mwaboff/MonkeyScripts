@@ -7,10 +7,10 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>MonkeyScripts</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
 
 
     <!-- Fonts -->
@@ -23,16 +23,19 @@
 </head>
 <body>
     <div id="app">
-        @include("partials.navbar")
+        {{-- @include("partials.navbar") --}}
 
-        <main class="py-4">
+        {{-- <main class="py-4">
             <div class="container">
                 @yield('content')
             </div>
-        </main>
+        </main> --}}
 
-        @include("partials.footer")        
+        @yield('content')
+
+        {{-- @include("partials.footer")         --}}
     </div>
+    <script type="text/javascript" src="js/app.js"></script>
 
 
 </body>

@@ -19,6 +19,11 @@ function Example() {
 
 export default Example;
 
+console.log(document);
 if (document.getElementById('example')) {
+    console.log('example id is here!');
     ReactDOM.render(<Example />, document.getElementById('example'));
+} else {
+    console.log("hmm this apparently doesn't exist:");
+    console.log(document.getElementById('example'));
 }
