@@ -7,6 +7,31 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+
 #app {
   min-height: 100vh;
 }
+
+.footer {
+  background-color: $dark-bkg;
+  color: $light-txt;
+  padding: 30px 0;
+}
+
+.script-list {
+  padding: 0;
+}
+
+.script-entry {
+  list-style: none;
+  width: 100%;
+  text-align: center;
+  margin: 0 0 2px 0;
+}
+

@@ -88,37 +88,63 @@ class ScriptsController extends Controller
         //
     }
 
-    public static function getRecommendedScripts($limit = 10)
+    public static function recommend(Request $request)
     {
-        $results = [
-            'Recently Updated' => self::getRecentScripts($limit),
-            'Top Downloads' => self::getTopDownloadedScripts($limit),
-            'Editor\'s Choice' => self::getEditorsChoiceScripts($limit),
-            'Top Rated' => self::getTopRatedScripts($limit)
-        ];
+        if (!static::validateRecommendRequestInput($request)) {
+            return "Invalid Input";
+        }
 
-        return $results;
+        switch ($request->type) {
+            case 'recent':
+                $result = self::getRecent($request->count);
+                break;
+            case 'toprated':
+                $result = self::getTopRated($request->count);
+                break;
+            case 'topdownload':
+                $result = self::getTopDownloads($request->count);
+                break;
+            case 'choice':
+                $result = self::getEditorsChoice($request->count);
+                break;
+        }
+
+        return $result;
     }
 
-    private static function getRecentScripts($limit = 10)
+    private static function validateRecommendRequestInput(Request $request) {
+        return $request->type && $request->count && $request->count < 15;
+    }
+
+    // public static function getRecommended($limit = 10)
+    // {
+    //     $results = [
+    //         'Recently Updated' => self::getRecentScripts($limit),
+    //         'Top Downloads' => self::getTopDownloadedScripts($limit),
+    //         'Editor\'s Choice' => self::getEditorsChoiceScripts($limit),
+    //         'Top Rated' => self::getTopRatedScripts($limit)
+    //     ];
+
+    //     return $results;
+    // }
+
+    private static function getRecent($limit = 10)
     {
         return DB::table('scripts')->orderBy('updated_at', 'desc')->take($limit)->get()->toArray();
     }
 
-    private static function getTopDownloadedScripts($limit = 10)
+    private static function getTopRated($limit = 10)
     {
         return DB::table('scripts')->take($limit)->get()->toArray();
     }
 
-    private static function getEditorsChoiceScripts($limit = 10) 
+    private static function getTopDownloads($limit = 10)
     {
         return DB::table('scripts')->take($limit)->get()->toArray();
     }
 
-    private static function getTopRatedScripts($limit = 10)
+    private static function getEditorsChoice($limit = 10) 
     {
         return DB::table('scripts')->take($limit)->get()->toArray();
     }
-
-    
 }

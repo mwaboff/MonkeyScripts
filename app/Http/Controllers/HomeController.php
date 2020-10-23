@@ -23,8 +23,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $recommended_scripts = ScriptsController::getRecommendedScripts();
-        return view('home', compact('recommended_scripts'));
+        // $recommended_scripts = ScriptsController::getRecommended();
+        // return view('home', compact('recommended_scripts'));
+        return view('home');
     }
 
 }
