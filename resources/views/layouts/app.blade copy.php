@@ -28,7 +28,19 @@
     </script>  -->
 </head>
 <body>
-    @yield('content')
+    <div id="app">
+        {{-- @include("partials.navbar") --}}
+
+        {{-- <main class="py-4">
+            <div class="container">
+                @yield('content')
+            </div>
+        </main> --}}
+
+        @yield('content')
+
+        {{-- @include("partials.footer")         --}}
+    </div>
     <script type="text/javascript" src="js/app.js"></script>
 
 
