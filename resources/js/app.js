@@ -15,5 +15,9 @@ require('./bootstrap');
 require('./components/Header');
 require('./components/Home');
 require('./components/Footer');
+require('./components/About');
+
+/* Start the Router which will manage which components to render */
+require('./Router');
 
 

@@ -4,13 +4,16 @@ import ReactDOM from 'react-dom';
 
 function Footer(props) {
   return (
-    <div className="footer">
+    <footer className="footer">
       <div className="container">
         I am a footer!
       </div>
-    </div>
+    </footer>
   );
 }
 
+export default Footer;
 
-ReactDOM.render(<Footer isLoggedIn="1" />, document.getElementById('react-footer'));
+
+
+// ReactDOM.render(<Footer isLoggedIn="1" />, document.getElementById('react-footer'));

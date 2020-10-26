@@ -1,5 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {
+  BrowserRouter,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
+import LoginRegister from './LoginRegister.js';
+
 
 
 class Header extends React.Component {
@@ -11,15 +20,19 @@ class Header extends React.Component {
           <NavbarLogo />
           <NavbarToggler />
           <NavbarLinks isLoggedIn={this.props.isLoggedIn}/>
+          <LoginRegister />
         </div>
       </nav>
     )
   }
 }
 
+export default Header;
+
+
 function NavbarLogo() {
   return (
-    <a className="navbar-brand" href="/">MonkeyScripts</a>
+    <Link to="/" className="navbar-brand">MonkeyScripts</Link>
   )
 }
 
@@ -36,14 +49,15 @@ function NavbarLinks(props) {
     <div className="collapse navbar-collapse" id="navbarSupportedContent">
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
-          <a className="nav-link" href="/login">Login</a>
+          <Link to="/about" className="nav-link">About</Link>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="/register">Register</a>
+          <Link to="" className="nav-link" data-toggle="modal" data-target="#login-modal" onClick={(e) => e.preventDefault }>Login/Register</Link>
         </li>
       </ul>
     </div>
   )
 }
 
-ReactDOM.render(<Header isLoggedIn="1" />, document.getElementById('react-header'));
+
+// ReactDOM.render(<Header isLoggedIn="1" />, document.getElementById('react-header'));

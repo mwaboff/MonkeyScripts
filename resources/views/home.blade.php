@@ -1,10 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<div id="react-header"></div>
+<!-- <div id="react-header"></div>
 <div id="react-body"></div>
 <div id="react-footer"></div>
-<div id="example"></div>
+<div id="example"></div> -->
+<div id="app"></div>
 @endsection
 
 

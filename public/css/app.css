@@ -10915,6 +10915,10 @@ a.text-dark:focus {
   scroll-behavior: smooth;
 }
 
+body {
+  min-height: 100vh;
+}
+
 #app {
   min-height: 100vh;
 }
@@ -10923,6 +10927,10 @@ a.text-dark:focus {
   background-color: #333333;
   color: #DDDDDD;
   padding: 30px 0;
+  bottom: 0;
+  height: 100px;
+  width: 100%;
+  position: relative;
 }
 
 .script-list {

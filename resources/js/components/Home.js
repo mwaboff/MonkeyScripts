@@ -7,14 +7,17 @@ class Home extends React.Component {
   render() {
     return (
       <div className="container">
-        <IntroBanner />
+        <HomeBanner />
         <ScriptHomeRecommender />
       </div>
     )
   }
 }
 
-function IntroBanner(props) {
+export default Home;
+
+
+function HomeBanner(props) {
   return (
   <div className="jumbotron">
     <div>
@@ -24,8 +27,6 @@ function IntroBanner(props) {
   </div>
   )
 }
-export default IntroBanner;
-
 
 class ScriptHomeRecommender extends React.Component {
   render() {
@@ -40,4 +41,4 @@ class ScriptHomeRecommender extends React.Component {
   }
 }
 
-ReactDOM.render(<Home isLoggedIn="1" />, document.getElementById('react-body'));
+// ReactDOM.render(<Home isLoggedIn="1" />, document.getElementById('react-body'));

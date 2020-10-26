@@ -41,13 +41,13 @@ use Illuminate\Support\Facades\Route;
 
 //Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/{path?}', 'HomeController@index')->name('home');
 
-Route::get('/script/create', 'ScriptsController@create')->name('script_create');
+// Route::get('/script/create', 'ScriptsController@create')->name('script_create');
 
-Route::get('/script/{id}', 'ScriptsController@show')->name('script_show');
+// Route::get('/script/{id}', 'ScriptsController@show')->name('script_show');
 
-Route::get('/privacy', function() {
-    return view('static_pages/privacy');
-});
+// Route::get('/privacy', function() {
+//     return view('static_pages/privacy');
+// });
 
