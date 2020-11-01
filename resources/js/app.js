@@ -20,4 +20,9 @@ require('./components/About');
 /* Start the Router which will manage which components to render */
 require('./Router');
 
+/* Require interfaces */
+require('./interfaces/RequestInterface.js');
+require('./interfaces/CookieInterface.js');
+require('./interfaces/AuthInterface.js');
+
 

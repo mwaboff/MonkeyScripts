@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Laravel\Passport\Http\Controllers\AccessTokenController;
 use App\Http\Middleware\ApiLogin;
+use App\Http\Controllers\Auth\RegisterController;
 // use \Laravel\Passport\Http\Controllers\AccessTokenController;
 
 /*
@@ -27,3 +28,5 @@ Route::get('/script/recommend', 'ScriptsController@recommend');
 // });
 
 Route::post('login', [AccessTokenController::class, 'issueToken'])->middleware(['api-login', 'throttle'])->name('login');
+
+Route::post('register', [RegisterController::class, 'register'])->name('register');
