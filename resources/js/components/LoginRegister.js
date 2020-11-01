@@ -17,12 +17,8 @@ class LoginRegister extends React.Component {
             </div>
             <div className="modal-body">
               <div className="container-fluid">
-                <div className="col-md-4  ml-auto">
-                  left column
-                </div>
-                <div className="col-md-4  ml-auto">
-                  right column
-                </div>
+                <LoginColumn />
+                <RegisterColumn />
               </div>
             </div>
             <div className="modal-footer">
@@ -40,3 +36,19 @@ class LoginRegister extends React.Component {
 }
 
 export default LoginRegister;
+
+function LoginColumn(props) {
+  return(
+    <div className="col-md-4  ml-auto">
+    left column
+  </div>
+  )
+}
+
+function RegisterColumn(props) {
+  return(
+    <div className="col-md-4  ml-auto">
+    left column
+  </div>
+  )
+}
