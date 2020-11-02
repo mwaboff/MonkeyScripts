@@ -7,8 +7,9 @@ class AuthInterface {
     RequestInterface.sendRequest("/api/login", "POST", {username: username, password: password}).then(response => AuthInterface.manageLogin(username, response));
   }
 
-  static async register(username, email, password) {
-    RequestInterface.sendRequest("/api/register", "POST", {username: username, email: email, password: password})
+  static async register(username, email, password, password_confirmation) {
+    RequestInterface.sendRequest("/api/register", "POST", {name: username, email: email, password: password, password_confirmation: password_confirmation})
+      .then(response => AuthInterface.manageRegistration(response));
   }
 
   static manageLogin(username, response) {
@@ -21,6 +22,10 @@ class AuthInterface {
     } else {
       alert ("Failed login :(");
     }
+  }
+
+  static manageRegistration(response) {
+    console.log(response);
   }
 
 }

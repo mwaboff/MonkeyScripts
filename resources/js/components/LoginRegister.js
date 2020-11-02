@@ -29,10 +29,13 @@ class LoginRegister extends React.Component {
 
   submitRegistration(e) {
     e.preventDefault();
+    console.log('IN SUBMIT REGISTRATION');
     let form = e.srcElement;
     let email = form.email.value;
     let username = form.username.value;
     let password = form.password.value;
+    let password_confirmation = form['password-confirm'].value;
+    AuthInterface.register(username, email, password, password_confirmation);
   }
 
   render() {
@@ -78,8 +81,8 @@ function RegisterColumn(props) {
         <LoginRegisterFormField field_name="username" />
         <LoginRegisterFormField field_name="email" />
         <LoginRegisterFormField field_name="password" />
-        <LoginRegisterFormField field_name="confirm-password" label="Confirm Password"/>
-        <button type="button" className="btn btn-primary">Register</button>
+        <LoginRegisterFormField field_name="password-confirm" label="Confirm Password"/>
+        <input type="submit" className="btn btn-primary" value="Register" />
       </form>
     </div>
   )
