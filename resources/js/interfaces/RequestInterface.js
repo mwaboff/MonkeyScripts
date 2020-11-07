@@ -1,3 +1,6 @@
+import AuthInterface from "./AuthInterface";
+import CookieInterface from "./CookieInterface";
+
 class RequestInterface {
 
   static async sendRequest(target, method="GET", body={}) {
@@ -15,20 +18,31 @@ class RequestInterface {
 
   static async sendPostRequest(target, method, body) {
     console.log("sending post request: " + body);
+
     let response = await fetch(target, {
       method: method,
       mode: 'cors',
       credentials: 'same-origin',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
+      headers: RequestInterface.defineHeader(),
       redirect: 'manual',
       referrerPolicy: 'no-referrer',
       body: JSON.stringify(body),
     });
 
     return response.json();
+  }
+
+  static defineHeader() {
+    let headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    }
+
+    if (AuthInterface.isLoggedIn) {
+      headers["Authorization"] = "Bearer " + AuthInterface.getAccessToken();
+    }
+
+    return headers;
   }
 }
 

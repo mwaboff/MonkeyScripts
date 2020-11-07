@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Laravel\Passport\Http\Controllers\AccessTokenController;
 use App\Http\Middleware\ApiLogin;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ScriptsController;
 // use \Laravel\Passport\Http\Controllers\AccessTokenController;
 
 /*
@@ -22,11 +23,14 @@ use App\Http\Controllers\UserController;
 //     return $request->user();
 // });
 
-Route::get('/script/recommend', 'ScriptsController@recommend');
+Route::get('script/recommend', 'ScriptsController@recommend');
 // Route::get('/script/recommend', function (Request $request) {
     // return "hello";
 // });
 
+Route::post('script/new', [ScriptsController::class, 'create'])->middleware(['auth:api'])->name('create-script');
+
 Route::post('login', [AccessTokenController::class, 'issueToken'])->middleware(['api-login', 'throttle'])->name('login');
 
+Route::post('whoami', [UserController::class, 'whoIs'])->name('whoami');
 Route::post('register', [UserController::class, 'create'])->name('register');

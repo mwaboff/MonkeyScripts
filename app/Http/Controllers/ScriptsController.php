@@ -19,16 +19,7 @@ class ScriptsController extends Controller
         return "You have arrived at the page for script main page";
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-        return view('scripts.script_create');
-    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -86,6 +77,18 @@ class ScriptsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function create(Request $request)
+    {
+        $user_id = auth("api")->user()->id;
+        $new_script = Script::create([
+            'author_id' => $user_id,
+            'title' => $request['title'],
+            'description' => $request['description'],
+            'code' => $request['code'],
+        ]);
+        return json_encode($new_script);
     }
 
     public static function recommend(Request $request)

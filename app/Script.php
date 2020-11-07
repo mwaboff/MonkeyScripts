@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\SoftDelete;
 
 class Script extends Model
 {
-    protected $fillable = [ ];
+    protected $fillable = [
+        'title', 'description', 'summary', 'code', 'author_id',
+    ];
 
     protected $dates = ['deleted_at'];
 

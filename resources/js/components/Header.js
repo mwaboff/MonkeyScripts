@@ -52,12 +52,12 @@ function NavbarLinks(props) {
           <Link to="/about" className="nav-link">About</Link>
         </li>
         <li className="nav-item">
+          <Link to="/script" className="nav-link">Create</Link>
+        </li>
+        <li className="nav-item">
           <Link to="" className="nav-link" data-toggle="modal" data-target="#login-modal" onClick={(e) => e.preventDefault }>Login/Register</Link>
         </li>
       </ul>
     </div>
   )
 }
-
-
-// ReactDOM.render(<Header isLoggedIn="1" />, document.getElementById('react-header'));

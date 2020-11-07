@@ -92,7 +92,7 @@ function LoginRegisterFormField(props) {
   return (
     <div>
       <label>{ props.label ? props.label:props.field_name }</label>
-      <input className="login-inputs" name={props.field_name}></input>
+      <input className="login-inputs form-control" name={props.field_name}></input>
     </div>
 
   )

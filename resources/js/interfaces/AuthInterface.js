@@ -3,8 +3,10 @@ import CookieInterface from './CookieInterface.js';
 
 class AuthInterface {
 
-  static async login(username, password) {
-    RequestInterface.sendRequest("/api/login", "POST", {username: username, password: password}).then(response => AuthInterface.manageLogin(username, response));
+  static async login(email, password) {
+    RequestInterface.sendRequest("/api/login", "POST", {username: email, password: password})
+      .then(response => AuthInterface.manageLogin(email, response))
+      .then(AuthInterface.whoAmI());
   }
 
   static async register(username, email, password, password_confirmation) {
@@ -13,11 +15,11 @@ class AuthInterface {
   }
 
   static manageLogin(username, response) {
+    console.log(response);
     if(response.access_token) {
-      let cookie = new CookieInterface;
-      cookie.set('username', username);
-      cookie.set('access_token', response.access_token);
-      cookie.set('refresh_token', response.refresh_token);
+      CookieInterface.set('username', username);
+      CookieInterface.set('access_token', response.access_token);
+      CookieInterface.set('refresh_token', response.refresh_token);
       alert("you have logged in, " + username);
     } else {
       alert ("Failed login :(");
@@ -25,6 +27,25 @@ class AuthInterface {
   }
 
   static manageRegistration(response) {
+    console.log(response);
+  }
+
+  static isLoggedIn() {
+    return CookieInterface.get('access_token') ? true : false;
+  }
+
+  static getAccessToken() {
+    return CookieInterface.get('access_token');
+  }
+
+  static async whoAmI() {
+    let token = CookieInterface.get('access_token');
+    console.log("requesting: " + token);
+    RequestInterface.sendRequest("/api/whoami", "POST", {access_token: token})
+      .then(response => AuthInterface.updateAccountInfo(response));
+  }
+
+  static updateAccountInfo(response) {
     console.log(response);
   }
 

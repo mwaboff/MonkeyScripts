@@ -6,6 +6,8 @@ import Footer from './components/Footer.js';
 
 import Home from './components/Home.js';
 import About from './components/About.js';
+import About2 from './components/About2.js';
+import ScriptModify from './components/ScriptModify.js';
 
 
 
@@ -16,35 +18,44 @@ import {
   Link
 } from "react-router-dom";
 
+const UserContext = React.createContext({
+  current_username: '',
+  current_uid: -1
+});
+
 function Router(props) {
   return (
-    <BrowserRouter>
-      <Header />
+    <UserContext.Provider>
 
-      <Switch>
-        <Route path="/about">
-          <About />
-        </Route>
+      <BrowserRouter>
+        <Header />
 
-        <Route path="/script">
+        <Switch>
+          <Route path="/about">
+            <About />
+          </Route>
 
-        </Route>
-        <Route path="/admin">
+          <Route path="/script">
+            <ScriptModify />
+          </Route>
 
-        </Route>
+          <Route path="/about2">
+            <About2 />
+          </Route>
 
-        <Route path="/">
-          <Home />
-        </Route>
-      </Switch>
+          <Route path="/admin"></Route>
 
-      <Footer />
-    </BrowserRouter>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+
+        <Footer />
+      </BrowserRouter>
+    </UserContext.Provider>
+
   )
 }
 
 
-
-// ReactDOM.render(<Header isLoggedIn="1" />, document.getElementById('react-header'));
 ReactDOM.render(<Router isLoggedIn="1" />, document.getElementById('app'));
-// ReactDOM.render(<Footer isLoggedIn="1" />, document.getElementById('react-footer'));
