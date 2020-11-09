@@ -41,8 +41,15 @@ class ScriptsController extends Controller
     public function show($id)
     {
         $script = Script::findOrFail($id);
-        return view('scripts/script_view', compact('script')); // can chain with compact('id', 'name', 'password',...)
-        // return view('scripts/script_view')->with('id', $id);
+        $response = [
+            "id" => $script["id"],
+            "title" => $script["title"],
+            "author_id" => $script["author_id"],
+            "description" => $script["description"],
+            "code" => $script["code"]
+        ];
+
+        return json_encode($response);
     }
 
     /**

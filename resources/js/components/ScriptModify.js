@@ -15,7 +15,6 @@ class ScriptModify extends React.Component {
     login_form.addEventListener('submit', this.submitScript.bind(this));
   }
 
-
   submitScript(e) {
     e.preventDefault();
     let form = e.srcElement;

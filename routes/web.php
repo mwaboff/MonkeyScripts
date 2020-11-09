@@ -41,7 +41,10 @@ use Illuminate\Support\Facades\Route;
 
 // Auth::routes();
 
-Route::get('/{path?}', 'HomeController@index')->name('home');
+// Route::get('/{path?}', 'HomeController@index')->name('home');
+Route::any('/{any}/{all?}', 'HomeController@index')->name('home');
+// Route::get('/{path?}/{path1?}', 'HomeController@index')->name('home2');
+// Route::any('(.*)', 'HomeController@index')->name('home');
 
 // Route::get('/script/create', 'ScriptsController@create')->name('script_create');
 

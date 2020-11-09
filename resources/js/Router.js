@@ -6,8 +6,8 @@ import Footer from './components/Footer.js';
 
 import Home from './components/Home.js';
 import About from './components/About.js';
-import About2 from './components/About2.js';
 import ScriptModify from './components/ScriptModify.js';
+import ScriptView from './components/ScriptView.js';
 
 
 
@@ -15,7 +15,9 @@ import {
   BrowserRouter,
   Switch,
   Route,
-  Link
+  Link,
+  useParams,
+  useRouteMatch
 } from "react-router-dom";
 
 const UserContext = React.createContext({
@@ -35,12 +37,14 @@ function Router(props) {
             <About />
           </Route>
 
-          <Route path="/script">
+          
+
+          <Route exact path="/script/new">
             <ScriptModify />
           </Route>
 
-          <Route path="/about2">
-            <About2 />
+          <Route exact path="/script/:id">
+            <ScriptView />
           </Route>
 
           <Route path="/admin"></Route>
@@ -57,5 +61,48 @@ function Router(props) {
   )
 }
 
+function ScriptRouter(props) {
+  let { path, url } = useRouteMatch();
+
+  return (
+    <div>
+      <Switch>
+        <Route exact path="${path}/new" >
+          <div>hi there222</div>
+          <ScriptModify />
+        </Route>
+                  
+        <Route path={"${path}/:id"}>
+          <div>yoo</div>
+        </Route>
+
+      </Switch>
+    </div>
+
+  )
+}
+
+
+// function ScriptRouter(props) {
+//   let { path, url } = useRouteMatch();
+
+//   return (
+  // <div>
+  //   <Switch>
+  //     <Route path="${path}/new" >
+  //       <div>hi there222</div>
+  //       <ScriptModify />
+  //     </Route>
+                
+  //     <Route path={"${path}/:id"}>
+  //       <div>yoo</div>
+  //       {/* <ScriptView /> */}
+  //     </Route>
+
+  //   </Switch>
+  // </div>
+//   )
+
+// }
 
 ReactDOM.render(<Router isLoggedIn="1" />, document.getElementById('app'));

@@ -16,7 +16,6 @@ require('./components/Header');
 require('./components/Home');
 require('./components/Footer');
 require('./components/About');
-require('./components/About2');
 require('./components/ScriptModify');
 
 /* Start the Router which will manage which components to render */
@@ -26,5 +25,3 @@ require('./Router');
 require('./interfaces/RequestInterface.js');
 require('./interfaces/CookieInterface.js');
 require('./interfaces/AuthInterface.js');
-
-

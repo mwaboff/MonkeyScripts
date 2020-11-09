@@ -1,5 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {
+  BrowserRouter,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import RequestInterface from '../interfaces/RequestInterface';
+
 
 
 class ScriptList extends React.Component {
@@ -8,14 +16,6 @@ class ScriptList extends React.Component {
   constructor(props) {
     super(props);
     this.state = { list_type: props.listType, num_scripts: props.numScripts, response: [] };
-    this.script_list = [
-      {"script_id": 1, "title": "Script 1", "descr": "This is the description"},
-      {"script_id": 2, "title": "Script 2", "descr": "This is the description1"},
-      {"script_id": 3, "title": "Script 3", "descr": "This is the description2"},
-      {"script_id": 4, "title": "Script 4", "descr": "This is the description3"},
-      {"script_id": 5, "title": "Script 5", "descr": "This is the description4"},
-      {"script_id": 6, "title": "Script 6", "descr": "This is the description5"}
-    ];
   }
 
   componentDidMount() {
@@ -26,17 +26,13 @@ class ScriptList extends React.Component {
   }
 
   async fetchScriptList() {
-    const rec_url = "/api/script/recommend/?type=" + this.state.list_type + 
-      "&count=" + this.state.num_scripts;
-    const response = await fetch(rec_url);
-    return response.json();
+    const rec_url = "/api/script/recommend/?type=" + this.state.list_type + "&count=" + this.state.num_scripts;
+    return RequestInterface.sendRequest(rec_url);
   }
 
   render() {
     let script_entries = <ScriptEntryListWaiting />
-    // console.log(this.state);
     if (this.state.response.length) {
-      // console.log(this.state.response);
       script_entries = <ScriptEntryList scripts={this.state.response} />;
     }
 
@@ -96,10 +92,10 @@ class ScriptListTitle extends React.Component {
 
 function ScriptEntry(props) {
   return (
-    <div className="card">
+    <Link to={"script/" + props.script.id } className="card">
       <div className="card-body">
         <b> { props.script.title } </b> - { props.script.description }
       </div>
-    </div>
+    </Link>
   )
 }
