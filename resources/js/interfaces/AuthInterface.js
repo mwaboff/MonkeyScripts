@@ -1,5 +1,12 @@
+import React from 'react';
+
 import RequestInterface from './RequestInterface.js';
 import CookieInterface from './CookieInterface.js';
+
+export const UserContext = React.createContext({
+  current_username: '',
+  current_uid: -1
+});
 
 class AuthInterface {
 

@@ -8,24 +8,32 @@ import {
 } from "react-router-dom";
 
 import LoginRegister from './LoginRegister.js';
+// import Router from '../Router.js';
 
 
 
 class Header extends React.Component {
 
   render() {
+    let username = this.context['current_username'];
+    let user_id = this.context['current_uid'];
+
     return (
       <nav className="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div className="container">
           <NavbarLogo />
           <NavbarToggler />
-          <NavbarLinks isLoggedIn={this.props.isLoggedIn}/>
+          <NavbarLinks  username={username} user_id = {user_id} />
+          {/* { alert(user_id) } */}
+
           <LoginRegister />
         </div>
       </nav>
     )
   }
 }
+
+// Header.contextType = UserContext;
 
 export default Header;
 
@@ -48,16 +56,30 @@ function NavbarLinks(props) {
   return (
     <div className="collapse navbar-collapse" id="navbarSupportedContent">
       <ul className="navbar-nav ml-auto">
+      <li className="nav-item">
+          <a href="/tutorial" className="nav-link">Tutorial</a>
+        </li>
         <li className="nav-item">
           <Link to="/about" className="nav-link">About</Link>
         </li>
         <li className="nav-item">
-          <Link to="/script" className="nav-link">Create</Link>
+          { props.user_id }
         </li>
-        <li className="nav-item">
-          <Link to="" className="nav-link" data-toggle="modal" data-target="#login-modal" onClick={(e) => e.preventDefault }>Login/Register</Link>
-        </li>
+        {/* <LoggedInLinks user_id={ props.user_id } username={ props.username} />; */}
       </ul>
     </div>
+  )
+}
+
+function LoggedInLinks(props) {
+  return (
+  <>
+    <li className="nav-item">
+      <Link to="/script" className="nav-link">Create</Link>
+    </li>
+    <li className="nav-item">
+      <Link to={"/user/" + props.user_id} target="_blank">{ props.username }</Link>
+    </li>
+  </>
   )
 }

@@ -11,6 +11,7 @@ import {
 import RequestInterface from '../interfaces/RequestInterface';
 
 function ScriptView() {
+  // Have to do this functional wrapper as useParams "hook" can't be run in a class based component apparently
   let { id } = useParams();
   return (
     <ScriptViewMain id={ id } />
@@ -20,7 +21,6 @@ class ScriptViewMain extends React.Component {
 
   constructor(props) {
     super(props);
-    // let { id } = useParams();
     this.state = { 
       requested_id: props.id, 
       script_id: "-1", 
@@ -46,22 +46,18 @@ class ScriptViewMain extends React.Component {
   }
 
   async fetchScriptList() {
-    const rec_url = "/api/script?id=" + this.state.requested_id;
+    const rec_url = "/api/script/show?id=" + this.state.requested_id;
     return RequestInterface.sendRequest(rec_url);
   }
 
   render() {
-    // let script_entries = <ScriptEntryListWaiting />
-    // if (this.state.response.length) {
-    //   script_entries = <ScriptEntryList scripts={this.state.response} />;
-    // }
-
     return (
-      <div className="col-md-6">
+      <div className="container" readOnly>
         <ScriptTitle script_title = { this.state.script_title }/>
         <ScriptAuthor script_author = { this.state.script_author }/>
         <ScriptSummary script_summary = { this.state.script_summary } />
         <ScriptDescription script_descr = { this.state.script_descr } />
+        <ScriptInstallButton script_id = { this.state.script_id } />
         <ScriptCode script_code = { this.state.script_code } />
       </div>
     )
@@ -106,7 +102,14 @@ function ScriptDescription(props) {
 function ScriptCode(props) {
   return (
     <div>
-      { props.code }
+      <textarea className="form-control" value={ props.script_code } style={{height: 500 + "px"}} readOnly/>
     </div>
+  )
+}
+
+function ScriptInstallButton(props) {
+  let install_url = "/script/" + props.script_id + ".user.js";
+  return (
+    <a href={install_url} className="btn btn-primary">Install</a>
   )
 }

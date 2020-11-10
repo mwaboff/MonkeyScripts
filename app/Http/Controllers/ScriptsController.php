@@ -38,8 +38,9 @@ class ScriptsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
+        $id = $request["id"];
         $script = Script::findOrFail($id);
         $response = [
             "id" => $script["id"],
@@ -50,6 +51,12 @@ class ScriptsController extends Controller
         ];
 
         return json_encode($response);
+    }
+
+    public function install($script_id)
+    {
+        $script = Script::findOrFail($script_id);
+        return $script["code"];
     }
 
     /**

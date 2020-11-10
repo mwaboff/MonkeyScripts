@@ -6,9 +6,10 @@ import Footer from './components/Footer.js';
 
 import Home from './components/Home.js';
 import About from './components/About.js';
+import Tutorial from './components/Tutorial.js';
 import ScriptModify from './components/ScriptModify.js';
 import ScriptView from './components/ScriptView.js';
-
+// import UserContext from './interfaces/AuthInterface.js';
 
 
 import {
@@ -20,13 +21,18 @@ import {
   useRouteMatch
 } from "react-router-dom";
 
+
 const UserContext = React.createContext({
   current_username: '',
   current_uid: -1
 });
 
+
 function Router(props) {
+  const user_info = React.useContext(UserContext);
   return (
+    <>
+    <div>{user_info.current_uid}</div>
     <UserContext.Provider>
 
       <BrowserRouter>
@@ -35,6 +41,9 @@ function Router(props) {
         <Switch>
           <Route path="/about">
             <About />
+          </Route>
+          <Route path="/tutorial">
+            <Tutorial />
           </Route>
 
           
@@ -57,7 +66,7 @@ function Router(props) {
         <Footer />
       </BrowserRouter>
     </UserContext.Provider>
-
+  </>
   )
 }
 

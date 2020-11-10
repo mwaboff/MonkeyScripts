@@ -24,12 +24,9 @@ use App\Http\Controllers\ScriptsController;
 // });
 
 Route::get('script/recommend', 'ScriptsController@recommend');
-// Route::get('/script/recommend', function (Request $request) {
-    // return "hello";
-// });
 
 Route::post('script/new', [ScriptsController::class, 'create'])->middleware(['auth:api'])->name('create-script');
-Route::post('script/show', [ScriptsController::class, 'show'])->name('show-script');
+Route::get('script/show', [ScriptsController::class, 'show'])->name('show-script');
 
 Route::post('login', [AccessTokenController::class, 'issueToken'])->middleware(['api-login', 'throttle'])->name('login');
 
