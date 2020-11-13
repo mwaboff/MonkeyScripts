@@ -63,7 +63,10 @@ function NavbarLinks(props) {
           <Link to="/about" className="nav-link">About</Link>
         </li>
         <li className="nav-item">
-          { props.user_id }
+          <Link to="/script/new" className="nav-link">Create</Link>
+        </li>
+        <li className="nav-item">
+          <Link to="" className="nav-link" data-toggle="modal" data-target="#login-modal" onClick={(e) => e.preventDefault }>Login/Register</Link>
         </li>
         {/* <LoggedInLinks user_id={ props.user_id } username={ props.username} />; */}
       </ul>

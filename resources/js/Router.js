@@ -56,6 +56,11 @@ function Router(props) {
             <ScriptView />
           </Route>
 
+          <Route exact path="/script/:id/edit">
+            <ScriptModify />
+          </Route>
+
+
           <Route path="/admin"></Route>
 
           <Route path="/">
@@ -90,28 +95,5 @@ function ScriptRouter(props) {
 
   )
 }
-
-
-// function ScriptRouter(props) {
-//   let { path, url } = useRouteMatch();
-
-//   return (
-  // <div>
-  //   <Switch>
-  //     <Route path="${path}/new" >
-  //       <div>hi there222</div>
-  //       <ScriptModify />
-  //     </Route>
-                
-  //     <Route path={"${path}/:id"}>
-  //       <div>yoo</div>
-  //       {/* <ScriptView /> */}
-  //     </Route>
-
-  //   </Switch>
-  // </div>
-//   )
-
-// }
 
 ReactDOM.render(<Router isLoggedIn="1" />, document.getElementById('app'));

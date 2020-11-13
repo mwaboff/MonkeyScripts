@@ -33,7 +33,7 @@ class ScriptViewMain extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchScriptList().then(response => 
+    this.fetchScriptInfo().then(response => 
       this.setState({
         script_id: response["id"],
         script_title: response["title"],
@@ -45,7 +45,7 @@ class ScriptViewMain extends React.Component {
     );
   }
 
-  async fetchScriptList() {
+  async fetchScriptInfo() {
     const rec_url = "/api/script/show?id=" + this.state.requested_id;
     return RequestInterface.sendRequest(rec_url);
   }
@@ -58,6 +58,7 @@ class ScriptViewMain extends React.Component {
         <ScriptSummary script_summary = { this.state.script_summary } />
         <ScriptDescription script_descr = { this.state.script_descr } />
         <ScriptInstallButton script_id = { this.state.script_id } />
+        <ScriptEditButton script_id = { this.state.script_id } />
         <ScriptCode script_code = { this.state.script_code } />
       </div>
     )
@@ -111,5 +112,12 @@ function ScriptInstallButton(props) {
   let install_url = "/script/" + props.script_id + ".user.js";
   return (
     <a href={install_url} className="btn btn-primary">Install</a>
+  )
+}
+
+function ScriptEditButton(props) {
+  let edit_url = "/script/" + props.script_id + "/edit";
+  return (
+    <Link to={ edit_url } className="btn">Edit</Link>
   )
 }

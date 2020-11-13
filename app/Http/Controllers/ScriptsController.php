@@ -59,27 +59,35 @@ class ScriptsController extends Controller
         return $script["code"];
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+    // /**
+    //  * Show the form for editing the specified resource.
+    //  *
+    //  * @param  int  $id
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function edit($id)
+    // {
+    //     //
+    // }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function edit(Request $request)
     {
         //
+        $user_id = auth("api")->user()->id;
+        $script = Script::findOrFail($request["script_id"]);
+        $script->title = $request["title"];
+        $script->description = $request["description"];
+        $script->code = $request["code"];
+        $script->save();
+
+        return "{message: success}";
+
     }
 
     /**
@@ -88,9 +96,14 @@ class ScriptsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
         //
+        $user_id = auth("api")->user()->id;
+        $script = Script::findOrFail($request["script_id"]);
+        $script->delete();
+
+        return "{message: success}";
     }
 
     public function create(Request $request)
