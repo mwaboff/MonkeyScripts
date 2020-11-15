@@ -4,11 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
 
 
 class Script extends Model
 {
     use SoftDeletes;
+    use Searchable;
 
     protected $fillable = [
         'title', 'description', 'summary', 'code', 'author_id',

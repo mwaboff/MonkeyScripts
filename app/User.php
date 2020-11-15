@@ -9,12 +9,14 @@ use Laravel\Passport\HasApiTokens;
 
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
 
 class User extends Authenticatable
 {
     use Notifiable;
     use HasApiTokens;
     use SoftDeletes;
+    use Searchable;
 
     /**
      * The attributes that are mass assignable.
