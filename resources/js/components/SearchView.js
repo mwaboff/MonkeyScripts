@@ -37,25 +37,41 @@ class SearchViewMain extends React.Component {
       script_results: [],
       user_results: []
     };
-    console.log("query state: " + this.state.query);
   }
 
   componentDidMount() {
-    console.log("component mounted: " + this.state.query);
     if (this.state.query === "null") return;
 
-    document.getElementById('monkey-search-box').value = this.state.query;
+    let search_box = document.getElementById('monkey-search-box');
+    search_box.value = this.state.query;
 
-    this.fetchResults()
-      .then(response => 
+    this.processQuery();
+    search_box.addEventListener("change", this.processQuery.bind(this));
+
+    
+  }
+
+  processQuery(e) {
+    if (e) {
+      e.preventDefault();
+      if (e.target.value) {
         this.setState({
-          script_results: response["script_results"],
-          user_results: response["user_results"]
+          query: e.target.value
         })
-      );
+      }
+    }
+    
+    this.fetchResults().then(response => 
+      this.setState({
+        script_results: response["script_results"],
+        user_results: response["user_results"]
+      })
+    );
+
   }
 
   async fetchResults() {
+    console.log("fetching results for this query: " + this.state.query);
     const search_url = "/api/search";
     const search_data = {
       "query": this.state.query
