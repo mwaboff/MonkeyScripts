@@ -54,4 +54,13 @@ class User extends Authenticatable
     public function ratings() {
         return $this->hasMany('App\Rating', 'user_id');
     }
+
+    public function toSearchableArray()
+    {
+        $array = [
+            $this->name 
+        ];
+
+        return $array;
+    }
 }

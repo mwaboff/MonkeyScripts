@@ -32,6 +32,8 @@ Route::get('script/show', [ScriptsController::class, 'show'])->name('show-script
 
 Route::get('user/info', [UserController::class, 'info'])->name('info-user');
 
+Route::post('search', [SearchController::class, 'search'])->name('search');
+
 Route::post('login', [AccessTokenController::class, 'issueToken'])->middleware(['api-login', 'throttle'])->name('login');
 
 Route::post('whoami', [UserController::class, 'whoIs'])->name('whoami');

@@ -2,12 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import ScriptList from './ScriptList.js';
+import Search from './Search.js';
 
 class Home extends React.Component {
   render() {
     return (
       <div className="container">
         <HomeBanner />
+        <Search />
         <ScriptHomeRecommender />
       </div>
     )

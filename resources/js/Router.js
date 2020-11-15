@@ -10,6 +10,7 @@ import Tutorial from './components/Tutorial.js';
 import ScriptModify from './components/ScriptModify.js';
 import ScriptView from './components/ScriptView.js';
 import UserView from './components/UserView.js';
+import SearchView from './components/SearchView.js';
 // import UserContext from './interfaces/AuthInterface.js';
 
 
@@ -63,6 +64,10 @@ function Router(props) {
 
           <Route exact path="/user/:id">
             <UserView />
+          </Route>
+
+          <Route exact path="/search">
+            <SearchView />
           </Route>
 
 

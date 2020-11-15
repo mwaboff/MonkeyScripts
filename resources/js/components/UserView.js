@@ -55,10 +55,12 @@ class UserViewMain extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="container">
         <UserName name={ this.state.user_name } />
-        <UserInfo info={ this.state.user_info } />
+        <div className="row">
         <UserScriptList script_list={ this.state.user_scripts } />
+        <UserInfo info={ this.state.user_info } />
+        </div>
       </div>
     )
   }
@@ -76,7 +78,7 @@ function UserName(props) {
 
 function UserInfo(props) {
   return (
-    <div>
+    <div className="col-md-3">
       <b>Member Since:</b> { props.info.join_date }
       <b>Number of Scripts:</b> { props.info.num_scripts }
     </div>
@@ -89,7 +91,7 @@ function UserScriptList(props) {
     script_entries = <ScriptEntryList scripts={ props.script_list } />;
   }
   return (
-    <div>
+    <div className="col-md-9">
       { script_entries }
     </div>
   )

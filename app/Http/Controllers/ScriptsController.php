@@ -147,7 +147,7 @@ class ScriptsController extends Controller
         return Script::select('id', 'title', 'author_id', 'description')->take($limit)->get()->toArray();
     }
 
-    public static function getScriptsByUser($uid, $limit) {
-        return Script::select('id', 'title', 'author_id', 'description')->where('author_id', $uid)->take($limit)->get()->toArray();
+    public static function getScriptsByUser($uid) {
+        return Script::select('id', 'title', 'author_id', 'description')->where('author_id', $uid)->get()->toArray();
     }
 }

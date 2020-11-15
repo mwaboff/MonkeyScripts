@@ -17,6 +17,7 @@ export default function ScriptView() {
     <ScriptViewMain id={ id } />
   )
 }
+
 class ScriptViewMain extends React.Component {
 
   constructor(props) {

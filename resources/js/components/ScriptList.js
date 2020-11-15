@@ -22,7 +22,6 @@ class ScriptList extends React.Component {
     this.fetchScriptList().then(script_list => 
       this.setState({response: script_list})
     );
-
   }
 
   async fetchScriptList() {

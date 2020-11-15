@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
 
+use App\User;
+
 
 class Script extends Model
 {
@@ -29,9 +31,10 @@ class Script extends Model
 
     public function toSearchableArray()
     {
+        $author_name = User::find($this->author_id);
         // $array = $this->toArray();
         $array = [
-            $this->title, $this->description, $this->summary, $this->author()->name, 
+            $this->title, $this->description, $this->summary, $author_name 
         ];
 
         return $array;
