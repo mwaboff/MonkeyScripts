@@ -6,6 +6,7 @@ use Laravel\Passport\Http\Controllers\AccessTokenController;
 use App\Http\Middleware\ApiLogin;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ScriptsController;
+use App\Http\Controllers\SearchController;
 // use \Laravel\Passport\Http\Controllers\AccessTokenController;
 
 /*
