@@ -10,7 +10,7 @@ import {
 } from "react-router-dom";
 import RequestInterface from '../interfaces/RequestInterface';
 
-function ScriptView() {
+export default function ScriptView() {
   // Have to do this functional wrapper as useParams "hook" can't be run in a class based component apparently
   let { id } = useParams();
   return (
@@ -68,8 +68,6 @@ class ScriptViewMain extends React.Component {
   }
 
 }
-
-export default ScriptView;
 
 function ScriptTitle(props) {
   return (

@@ -48,7 +48,7 @@ class ScriptList extends React.Component {
 
 export default ScriptList;
 
-function ScriptEntryList(props) {
+export function ScriptEntryList(props) {
   return (
     <ul className="script-list">
 
@@ -61,7 +61,7 @@ function ScriptEntryList(props) {
   )
 }
 
-function ScriptEntryListWaiting() {
+export function ScriptEntryListWaiting() {
   return (
     <ul className="script-list">
       <li key="1" className="card">Loading...</li>

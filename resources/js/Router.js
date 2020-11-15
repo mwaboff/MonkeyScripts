@@ -9,6 +9,7 @@ import About from './components/About.js';
 import Tutorial from './components/Tutorial.js';
 import ScriptModify from './components/ScriptModify.js';
 import ScriptView from './components/ScriptView.js';
+import UserView from './components/UserView.js';
 // import UserContext from './interfaces/AuthInterface.js';
 
 

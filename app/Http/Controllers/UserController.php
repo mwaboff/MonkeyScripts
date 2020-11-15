@@ -43,9 +43,13 @@ class UserController extends Controller
     {
         $id = $request["id"];
         $user = User::findOrFail($id);
+        $script_list = ScriptsController::getScriptsByUser($id);
         
         return json_encode([
-            "name" => $user->name
+            "name" => $user->name,
+            "num_scripts" => count($script_list),
+            "script_list" => $script_list,
+            "join_date" => $user->created_at
         ]);
     }
 

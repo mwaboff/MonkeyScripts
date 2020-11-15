@@ -18,6 +18,7 @@ require('./components/Footer');
 require('./components/About');
 require('./components/Tutorial');
 require('./components/ScriptModify');
+require('./components/UserView');
 
 /* Start the Router which will manage which components to render */
 require('./Router');
