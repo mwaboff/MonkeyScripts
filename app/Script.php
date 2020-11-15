@@ -26,4 +26,14 @@ class Script extends Model
     public function ratings() {
         return $this->hasMany('App\Rating', 'script_id');
     }
+
+    public function toSearchableArray()
+    {
+        // $array = $this->toArray();
+        $array = [
+            $this->title, $this->description, $this->summary, $this->author()->name, 
+        ];
+
+        return $array;
+    }
 }
