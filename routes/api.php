@@ -30,6 +30,8 @@ Route::post('script/edit', [ScriptsController::class, 'edit'])->middleware(['aut
 Route::post('script/destroy', [ScriptsController::class, 'destroy'])->middleware(['auth:api'])->name('destroy-script');
 Route::get('script/show', [ScriptsController::class, 'show'])->name('show-script');
 
+Route::get('user/info', [UserController::class, 'info'])->name('info-user');
+
 Route::post('login', [AccessTokenController::class, 'issueToken'])->middleware(['api-login', 'throttle'])->name('login');
 
 Route::post('whoami', [UserController::class, 'whoIs'])->name('whoami');

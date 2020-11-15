@@ -6,32 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 use App\Script;
+use App\User;
 
 class ScriptsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        return "You have arrived at the page for script main page";
-    }
-
-
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
     /**
      * Display the specified resource.
      *
@@ -42,10 +20,12 @@ class ScriptsController extends Controller
     {
         $id = $request["id"];
         $script = Script::findOrFail($id);
+        $author = User::findOrFail($script["author_id"]);
         $response = [
             "id" => $script["id"],
             "title" => $script["title"],
             "author_id" => $script["author_id"],
+            "author_name" => $author["name"],
             "description" => $script["description"],
             "code" => $script["code"]
         ];
@@ -58,17 +38,6 @@ class ScriptsController extends Controller
         $script = Script::findOrFail($script_id);
         return $script["code"];
     }
-
-    // /**
-    //  * Show the form for editing the specified resource.
-    //  *
-    //  * @param  int  $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function edit($id)
-    // {
-    //     //
-    // }
 
     /**
      * Update the specified resource in storage.
@@ -160,21 +129,25 @@ class ScriptsController extends Controller
 
     private static function getRecent($limit = 10)
     {
-        return DB::table('scripts')->orderBy('updated_at', 'desc')->take($limit)->get()->toArray();
+        return Script::select('id', 'title', 'author_id', 'description')->orderBy('updated_at', 'desc')->take($limit)->get()->toArray();
     }
 
     private static function getTopRated($limit = 10)
     {
-        return DB::table('scripts')->take($limit)->get()->toArray();
+        return Script::select('id', 'title', 'author_id', 'description')->take($limit)->get()->toArray();
     }
 
     private static function getTopDownloads($limit = 10)
     {
-        return DB::table('scripts')->take($limit)->get()->toArray();
+        return Script::select('id', 'title', 'author_id', 'description')->take($limit)->get()->toArray();
     }
 
     private static function getEditorsChoice($limit = 10) 
     {
-        return DB::table('scripts')->take($limit)->get()->toArray();
+        return Script::select('id', 'title', 'author_id', 'description')->take($limit)->get()->toArray();
+    }
+
+    public static function getScriptsByUser($uid, $limit = 10) {
+        return Script::select('id', 'title', 'author_id', 'description')->where('author_id', $uid)->take($limit)->get()->toArray();
     }
 }

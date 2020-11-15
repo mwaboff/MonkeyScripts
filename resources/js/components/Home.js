@@ -32,10 +32,10 @@ class ScriptHomeRecommender extends React.Component {
   render() {
     return (
       <div className="home-script-recommendations row">
-        <ScriptList listType="topdownload" numScripts="10" />
-        <ScriptList listType="toprated" numScripts="10" />
-        <ScriptList listType="recent" numScripts="10" />
-        <ScriptList listType="choice" numScripts="10" />
+        <ScriptList listType="topdownload" numScripts="6" />
+        <ScriptList listType="toprated" numScripts="6" />
+        <ScriptList listType="recent" numScripts="6" />
+        <ScriptList listType="choice" numScripts="6" />
       </div>
     )
   }

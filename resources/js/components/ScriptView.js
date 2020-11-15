@@ -28,21 +28,24 @@ class ScriptViewMain extends React.Component {
       script_title: "Loading...", 
       script_summary: "Loading...", 
       script_descr: "Loading...", 
-      script_code: "Loading..." 
+      script_code: "Loading...",
+      author_name: "Loading...", 
     };
   }
 
   componentDidMount() {
-    this.fetchScriptInfo().then(response => 
-      this.setState({
-        script_id: response["id"],
-        script_title: response["title"],
-        script_author: response["author_id"],
-        script_summary: "???",
-        script_descr: response["description"],
-        script_code: response["code"]
-      })
-    );
+    this.fetchScriptInfo()
+      .then(response => 
+        this.setState({
+          script_id: response["id"],
+          script_title: response["title"],
+          script_author: response["author_id"],
+          author_name: response["author_name"],
+          script_summary: "???",
+          script_descr: response["description"],
+          script_code: response["code"]
+        })
+      )
   }
 
   async fetchScriptInfo() {
@@ -54,7 +57,7 @@ class ScriptViewMain extends React.Component {
     return (
       <div className="container" readOnly>
         <ScriptTitle script_title = { this.state.script_title }/>
-        <ScriptAuthor script_author = { this.state.script_author }/>
+        <ScriptAuthor author_id = { this.state.script_author } author_name = { this.state.author_name } />
         <ScriptSummary script_summary = { this.state.script_summary } />
         <ScriptDescription script_descr = { this.state.script_descr } />
         <ScriptInstallButton script_id = { this.state.script_id } />
@@ -79,7 +82,12 @@ function ScriptTitle(props) {
 function ScriptAuthor(props) {
   return (
     <div>
-      { props.script_author }
+      <div>
+        Author: {props.author_name }
+      </div>
+      <div>
+        UID: { props.author_id }
+      </div>
     </div>
   )
 }

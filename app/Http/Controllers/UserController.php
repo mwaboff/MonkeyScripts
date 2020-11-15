@@ -36,7 +36,17 @@ class UserController extends Controller
             'password' => Hash::make($request['password']),
         ]);
 
-        return "hi";
+        return "{message: success}";
+    }
+
+    public function info(Request $request)
+    {
+        $id = $request["id"];
+        $user = User::findOrFail($id);
+        
+        return json_encode([
+            "name" => $user->name
+        ]);
     }
 
     public function whoAmI(Request $request) {

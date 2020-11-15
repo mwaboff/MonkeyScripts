@@ -32,7 +32,7 @@ function Router(props) {
   const user_info = React.useContext(UserContext);
   return (
     <>
-    <div>{user_info.current_uid}</div>
+    {/* <div>{user_info.current_uid}</div> */}
     <UserContext.Provider>
 
       <BrowserRouter>
@@ -58,6 +58,10 @@ function Router(props) {
 
           <Route exact path="/script/:id/edit">
             <ScriptModify />
+          </Route>
+
+          <Route exact path="/user/:id">
+            <UserView />
           </Route>
 
 
