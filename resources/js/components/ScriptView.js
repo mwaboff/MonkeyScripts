@@ -82,7 +82,7 @@ function ScriptAuthor(props) {
   return (
     <div>
       <div>
-        Author: {props.author_name }
+        Author: <Link to={ "/user/" + props.author_id }>{ props.author_name }</Link>
       </div>
       <div>
         UID: { props.author_id }

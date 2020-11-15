@@ -91,7 +91,7 @@ class ScriptListTitle extends React.Component {
 
 function ScriptEntry(props) {
   return (
-    <Link to={"script/" + props.script.id } className="card">
+    <Link to={"/script/" + props.script.id } className="card">
       <div className="card-body">
         <b> { props.script.title } </b> - { props.script.description }
       </div>
