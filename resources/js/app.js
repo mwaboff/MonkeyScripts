@@ -46,9 +46,6 @@ class App extends React.Component {
         auth_group: 0
       }
     });
-
-    console.log("App.setLoggedOut");
-    console.log(this.state.user);
   }
 
   setLoggedIn(name='', uid='') {

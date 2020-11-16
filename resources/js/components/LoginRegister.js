@@ -7,7 +7,6 @@ class LoginRegister extends React.Component {
 
   constructor(props) {
     super(props);
-    console.log(props);
     this.state = {
       setLoggedIn: props.setLoggedIn
     }
@@ -41,11 +40,7 @@ class LoginRegister extends React.Component {
   }
 
   manageLogin(response) {
-    console.log("in LoginRegister.manageLogin");
-    console.log("current response:");
-    console.log(response);
     if(response['user_id']) {
-      console.log("there is a UID");
       this.state.setLoggedIn(response['user_name'], response['user_id']);
     }
   }

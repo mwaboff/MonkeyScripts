@@ -39,7 +39,6 @@ class AuthInterface {
   }
 
   static isLoggedIn() {
-    console.log("Testing if loggedin: " + CookieInterface.get('user_id'));
     return CookieInterface.get('access_token') ? true : false;
   }
 

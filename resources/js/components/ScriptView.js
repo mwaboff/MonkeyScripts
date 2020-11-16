@@ -9,6 +9,8 @@ import {
 
 } from "react-router-dom";
 import RequestInterface from '../interfaces/RequestInterface';
+import UserContext from '../contexts/UserContext.js';
+
 
 export default function ScriptView() {
   // Have to do this functional wrapper as useParams "hook" can't be run in a class based component apparently
@@ -62,7 +64,11 @@ class ScriptViewMain extends React.Component {
         <ScriptSummary script_summary = { this.state.script_summary } />
         <ScriptDescription script_descr = { this.state.script_descr } />
         <ScriptInstallButton script_id = { this.state.script_id } />
-        <ScriptEditButton script_id = { this.state.script_id } />
+        <UserContext.Consumer>
+          {(value) => (<ScriptEditButton user={ value.user } script_id = { this.state.script_id } />)}
+        </UserContext.Consumer>
+
+        {/* <ScriptEditButton script_id = { this.state.script_id } /> */}
         <ScriptCode script_code = { this.state.script_code } />
       </div>
     )
@@ -123,8 +129,14 @@ function ScriptInstallButton(props) {
 }
 
 function ScriptEditButton(props) {
-  let edit_url = "/script/" + props.script_id + "/edit";
+  let edit_button = "";
+  if (props.user.uid != '') {
+    let edit_url = "/script/" + props.script_id + "/edit";
+    edit_button = <Link to={ edit_url } className="btn">Edit</Link>;
+  }
   return (
-    <Link to={ edit_url } className="btn">Edit</Link>
+    <>
+    { edit_button }
+    </>
   )
 }

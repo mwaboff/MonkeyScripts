@@ -32,7 +32,6 @@ class Header extends React.Component {
 
   startLogout(e) {
     e.preventDefault();
-    console.log("logging out");
     this.state.setLoggedOut();
   }
 
