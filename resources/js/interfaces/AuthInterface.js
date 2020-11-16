@@ -22,7 +22,6 @@ class AuthInterface {
   }
 
   static manageLogin(username, response) {
-    console.log(response);
     if(response.access_token) {
       CookieInterface.set('username', username);
       CookieInterface.set('access_token', response.access_token);
@@ -34,7 +33,6 @@ class AuthInterface {
   }
 
   static manageRegistration(response) {
-    console.log(response);
   }
 
   static isLoggedIn() {
@@ -47,13 +45,11 @@ class AuthInterface {
 
   static async whoAmI() {
     let token = CookieInterface.get('access_token');
-    console.log("requesting: " + token);
     RequestInterface.sendRequest("/api/whoami", "POST", {access_token: token})
       .then(response => AuthInterface.updateAccountInfo(response));
   }
 
   static updateAccountInfo(response) {
-    console.log(response);
   }
 
 }

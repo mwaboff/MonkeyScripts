@@ -83,7 +83,6 @@ class ScriptModifyMain extends React.Component {
       code: form["script-code"].value
     };
 
-    console.log("SCRIPT ID: " + this.state.script_id);
     let target_address = "/api/script/new";
     if(this.state.script_id >= 0) {
       target_address = "/api/script/edit";

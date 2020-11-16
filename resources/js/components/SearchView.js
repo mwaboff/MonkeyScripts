@@ -18,7 +18,6 @@ export default function SearchView() {
   // Have to do this functional wrapper as useParams "hook" can't be run in a class based component apparently
   let query = useQuery()
   let search_string = query.get("q");
-  console.log("search string: " + search_string);
   return (
     <SearchViewMain query={ search_string } />
   )
@@ -71,7 +70,6 @@ class SearchViewMain extends React.Component {
   }
 
   async fetchResults() {
-    console.log("fetching results for this query: " + this.state.query);
     const search_url = "/api/search";
     const search_data = {
       "query": this.state.query

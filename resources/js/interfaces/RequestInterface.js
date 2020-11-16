@@ -11,13 +11,11 @@ class RequestInterface {
   }
   
   static async sendGetRequest(target) {
-    console.log("sending get request");
     let response = await fetch(target);
     return response.json();
   }
 
   static async sendPostRequest(target, method, body) {
-    console.log("sending post request: " + body);
 
     let response = await fetch(target, {
       method: method,
