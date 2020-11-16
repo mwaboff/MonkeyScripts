@@ -11,8 +11,6 @@ import ScriptModify from './components/ScriptModify.js';
 import ScriptView from './components/ScriptView.js';
 import UserView from './components/UserView.js';
 import SearchView from './components/SearchView.js';
-// import UserContext from './interfaces/AuthInterface.js';
-
 
 import {
   BrowserRouter,
@@ -24,19 +22,9 @@ import {
 } from "react-router-dom";
 
 
-const UserContext = React.createContext({
-  current_username: '',
-  current_uid: -1
-});
-
-
 function Router(props) {
-  const user_info = React.useContext(UserContext);
   return (
     <>
-    {/* <div>{user_info.current_uid}</div> */}
-    <UserContext.Provider>
-
       <BrowserRouter>
         <Header />
 
@@ -47,8 +35,6 @@ function Router(props) {
           <Route path="/tutorial">
             <Tutorial />
           </Route>
-
-          
 
           <Route exact path="/script/new">
             <ScriptModify />
@@ -80,10 +66,11 @@ function Router(props) {
 
         <Footer />
       </BrowserRouter>
-    </UserContext.Provider>
   </>
   )
 }
+
+export default Router;
 
 function ScriptRouter(props) {
   let { path, url } = useRouteMatch();
@@ -106,4 +93,3 @@ function ScriptRouter(props) {
   )
 }
 
-ReactDOM.render(<Router isLoggedIn="1" />, document.getElementById('app'));

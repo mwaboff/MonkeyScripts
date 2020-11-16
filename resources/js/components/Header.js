@@ -6,6 +6,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import UserContext from '../contexts/UserContext.js';
 
 import LoginRegister from './LoginRegister.js';
 // import Router from '../Router.js';
@@ -23,9 +24,9 @@ class Header extends React.Component {
         <div className="container">
           <NavbarLogo />
           <NavbarToggler />
-          <NavbarLinks  username={username} user_id = {user_id} />
-          {/* { alert(user_id) } */}
-
+          <UserContext.Consumer>
+            {(value) => (<NavbarLinks  user={ value } />) }
+          </UserContext.Consumer>
           <LoginRegister />
         </div>
       </nav>
@@ -53,6 +54,9 @@ function NavbarToggler() {
 }
 
 function NavbarLinks(props) {
+  let login_link = <Link to="" className="nav-link" data-toggle="modal" data-target="#login-modal" onClick={(e) => e.preventDefault }>Login/Register</Link>;
+  
+  console.log(props.user);
   return (
     <div className="collapse navbar-collapse" id="navbarSupportedContent">
       <ul className="navbar-nav ml-auto">
@@ -66,7 +70,7 @@ function NavbarLinks(props) {
           <Link to="/script/new" className="nav-link">Create</Link>
         </li>
         <li className="nav-item">
-          <Link to="" className="nav-link" data-toggle="modal" data-target="#login-modal" onClick={(e) => e.preventDefault }>Login/Register</Link>
+          { login_link }
         </li>
         {/* <LoggedInLinks user_id={ props.user_id } username={ props.username} />; */}
       </ul>

@@ -54,16 +54,19 @@ class ScriptModifyMain extends React.Component {
     let delete_form = document.getElementById('script-delete');
     delete_form.addEventListener('submit', this.deleteScript.bind(this));
 
-    this.fetchScriptInfo().then(response => 
-      this.setState({
-        script_id: response["id"],
-        script_title: response["title"],
-        script_author: response["author_id"],
-        script_summary: "???",
-        script_descr: response["description"],
-        script_code: response["code"]
-      })
-    );
+    if (this.state.requested_id) {
+      this.fetchScriptInfo().then(response => 
+        this.setState({
+          script_id: response["id"],
+          script_title: response["title"],
+          script_author: response["author_id"],
+          script_summary: "???",
+          script_descr: response["description"],
+          script_code: response["code"]
+        })
+      );
+    }
+    
 
   }
 

@@ -29,7 +29,6 @@ class LoginRegister extends React.Component {
 
   submitRegistration(e) {
     e.preventDefault();
-    console.log('IN SUBMIT REGISTRATION');
     let form = e.srcElement;
     let email = form.email.value;
     let username = form.username.value;

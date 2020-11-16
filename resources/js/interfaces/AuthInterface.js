@@ -3,11 +3,6 @@ import React from 'react';
 import RequestInterface from './RequestInterface.js';
 import CookieInterface from './CookieInterface.js';
 
-export const UserContext = React.createContext({
-  current_username: '',
-  current_uid: -1
-});
-
 class AuthInterface {
 
   static async login(email, password) {
@@ -43,10 +38,11 @@ class AuthInterface {
     return CookieInterface.get('access_token');
   }
 
-  static async whoAmI() {
-    let token = CookieInterface.get('access_token');
-    RequestInterface.sendRequest("/api/whoami", "POST", {access_token: token})
-      .then(response => AuthInterface.updateAccountInfo(response));
+  static whoAmI() {
+    return {
+      name: CookieInterface.get('username'),
+      uid: CookieInterface.get('uid')
+    }
   }
 
   static updateAccountInfo(response) {
