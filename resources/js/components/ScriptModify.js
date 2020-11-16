@@ -10,6 +10,7 @@ import {
   Link,
   useParams,
 } from "react-router-dom";
+import AuthInterface from '../interfaces/AuthInterface';
 
 function ScriptModify() {
   // Have to do this functional wrapper as useParams "hook" can't be run in a class based component apparently
@@ -36,10 +37,10 @@ class ScriptModifyMain extends React.Component {
       script_summary: "",
       script_desc: "",
       script_code: "",
+      author_id: "",
+      my_id: AuthInterface.whoAmI()["uid"]
     };
-
   }
-
 
   getScriptInfo(script_id) {
     let rec_url = "/api/script/show?id=" + this.state.requested_id;
@@ -51,22 +52,27 @@ class ScriptModifyMain extends React.Component {
     let login_form = document.getElementById('script-form');
     login_form.addEventListener('submit', this.submitScript.bind(this));
 
-    let delete_form = document.getElementById('script-delete');
-    delete_form.addEventListener('submit', this.deleteScript.bind(this));
 
     if (this.state.requested_id) {
       this.fetchScriptInfo().then(response => 
         this.setState({
           script_id: response["id"],
           script_title: response["title"],
-          script_author: response["author_id"],
+          author_id: response["author_id"],
           script_summary: "???",
           script_descr: response["description"],
-          script_code: response["code"]
+          script_code: response["code"],
+          my_id: AuthInterface.whoAmI()["uid"]
         })
       );
     }
-    
+  }
+
+  componentDidUpdate() {
+    let delete_form = document.getElementById('script-delete');
+    if (delete_form) {
+      delete_form.addEventListener('submit', this.deleteScript.bind(this));
+    }
 
   }
 
@@ -77,6 +83,12 @@ class ScriptModifyMain extends React.Component {
 
   submitScript(e) {
     e.preventDefault();
+    if (!isMyScript(this.state.author_id, this.state.my_id)) {
+      alert("You do not have permission to edit this");
+      return;
+    }
+
+
     let form = e.srcElement;
     let script_data = {
       script_id: this.state.script_id ? this.state.script_id : "",
@@ -117,9 +129,10 @@ class ScriptModifyMain extends React.Component {
   render(props) {
     return (
       <div className="container">
+        <NotAllowedAlert author_id={ this.state.author_id } my_id={ this.state.my_id } />
         <PageTitle id={this.state.requested_id}/>
         <ScriptForm script_info={ this.state }/>
-        <ScriptDestroyButton />
+        <ScriptDestroyButton author_id={ this.state.author_id } my_id={ this.state.my_id } />
       </div>
       
     )
@@ -127,6 +140,17 @@ class ScriptModifyMain extends React.Component {
 }
 
 export default ScriptModify;
+
+
+
+function NotAllowedAlert(props) {
+  let alert = "";
+  if (!isMyScript(props.author_id, props.my_id)) {
+    alert = <div>You Do Not Have Permission To Edit This Script!</div>
+  }
+
+  return alert;
+}
 
 function PageTitle(props) {
   return (
@@ -152,11 +176,21 @@ function ScriptForm(props) {
 }
 
 function ScriptDestroyButton(props) {
-  let destroy_url = "/script/destroy";
+  let destroy_url = "api/script/destroy";
+  let destroy_button = <form id="script-delete" action={ destroy_url }method="POST"><input type="submit" className="btn" value="Delete" /></form>
+
+  if (!isMyScript(props.author_id, props.my_id)) {
+    destroy_button = "";
+  }
 
   return (
-    <form id="script-delete" action="api/script/destroy" method="POST">
-      <input type="submit" className="btn" value="Delete" />
-    </form>
+    <>
+    { destroy_button }
+    </>
   )
+}
+
+
+function isMyScript(script_author_id, my_user_id) {
+  return script_author_id != '' && script_author_id == my_user_id;
 }

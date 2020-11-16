@@ -1,6 +1,6 @@
 import Cookie from 'universal-cookie';
 
-const COOKIE_HANDLER = new Cookie();
+const COOKIE_HANDLER = new Cookie("MonkeyScripts");
 
 
 class CookieInterface {
@@ -9,7 +9,7 @@ class CookieInterface {
     return COOKIE_HANDLER.get(key);
   }
 
-  static set(key, value, options={}) {
+  static set(key, value, options={path:"/", sameSite:"strict"}) {
     COOKIE_HANDLER.set(key, value, options);
   }
 

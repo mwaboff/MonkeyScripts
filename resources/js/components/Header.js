@@ -61,7 +61,9 @@ export default Header;
 
 function NavbarLogo() {
   return (
-    <Link to="/" className="navbar-brand">MonkeyScripts</Link>
+      <Link to="/" className="navbar-brand">
+        MonkeyScripts.org
+      </Link>
   )
 }
 

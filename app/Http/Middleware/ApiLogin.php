@@ -19,11 +19,11 @@ class ApiLogin
     {
 
         
-        $secret = DB::table('oauth_clients')->where('id', 2)->pluck('secret')->first();
+        $secret = DB::table('oauth_clients')->where('id', 1)->pluck('secret')->first();
 
         $request->merge([
             'grant_type' => 'password',
-            'client_id' => 2,
+            'client_id' => 1,
             'client_secret' => $secret
         ]);
         

@@ -27,7 +27,7 @@ class ScriptViewMain extends React.Component {
     this.state = { 
       requested_id: props.id, 
       script_id: "-1", 
-      script_author: "Loading...", 
+      author_id: "Loading...", 
       script_title: "Loading...", 
       script_summary: "Loading...", 
       script_descr: "Loading...", 
@@ -42,7 +42,7 @@ class ScriptViewMain extends React.Component {
         this.setState({
           script_id: response["id"],
           script_title: response["title"],
-          script_author: response["author_id"],
+          author_id: response["author_id"],
           author_name: response["author_name"],
           script_summary: "???",
           script_descr: response["description"],
@@ -60,12 +60,12 @@ class ScriptViewMain extends React.Component {
     return (
       <div className="container" readOnly>
         <ScriptTitle script_title = { this.state.script_title }/>
-        <ScriptAuthor author_id = { this.state.script_author } author_name = { this.state.author_name } />
+        <ScriptAuthor author_id = { this.state.author_id } author_name = { this.state.author_name } />
         <ScriptSummary script_summary = { this.state.script_summary } />
         <ScriptDescription script_descr = { this.state.script_descr } />
         <ScriptInstallButton script_id = { this.state.script_id } />
         <UserContext.Consumer>
-          {(value) => (<ScriptEditButton user={ value.user } script_id = { this.state.script_id } />)}
+          {(value) => (<ScriptEditButton user={ value.user } script_id = { this.state.script_id } author_id = { this.state.author_id } />)}
         </UserContext.Consumer>
 
         {/* <ScriptEditButton script_id = { this.state.script_id } /> */}
@@ -130,7 +130,7 @@ function ScriptInstallButton(props) {
 
 function ScriptEditButton(props) {
   let edit_button = "";
-  if (props.user.uid != '') {
+  if (props.user.uid != '' && props.user.uid == props.author_id) {
     let edit_url = "/script/" + props.script_id + "/edit";
     edit_button = <Link to={ edit_url } className="btn">Edit</Link>;
   }
