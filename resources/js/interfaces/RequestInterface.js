@@ -7,7 +7,7 @@ class RequestInterface {
     if (method == "GET") {
       return await RequestInterface.sendGetRequest(target);
     }
-    return await RequestInterface.sendPostRequest(target, method="POST", body);
+    return await RequestInterface.sendPostRequest(target, method=method, body);
   }
   
   static async sendGetRequest(target) {
@@ -31,9 +31,12 @@ class RequestInterface {
   }
 
   static defineHeader() {
+    let csrf = document.querySelector('meta[name="csrf-token"]').content;
+
     let headers = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
+      'X-CSRF-TOKEN': csrf
     }
 
     if (AuthInterface.isLoggedIn) {

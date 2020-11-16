@@ -9,15 +9,34 @@ import {
 import UserContext from '../contexts/UserContext.js';
 
 import LoginRegister from './LoginRegister.js';
-// import Router from '../Router.js';
 
 
 
 class Header extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      setLoggedIn: props.setLoggedIn,
+      setLoggedOut: props.setLoggedOut
+    }
+
+  }
+
+  componentDidUpdate() {
+    let logout_button = document.getElementById('logout-button');
+    if(logout_button){
+      logout_button.addEventListener('click', this.startLogout.bind(this));
+    }
+    
+  }
+
+  startLogout(e) {
+    e.preventDefault();
+    console.log("logging out");
+    this.state.setLoggedOut();
+  }
 
   render() {
-    let username = this.context['current_username'];
-    let user_id = this.context['current_uid'];
 
     return (
       <nav className="navbar navbar-expand-md navbar-light bg-white shadow-sm">
@@ -25,9 +44,11 @@ class Header extends React.Component {
           <NavbarLogo />
           <NavbarToggler />
           <UserContext.Consumer>
-            {(value) => (<NavbarLinks  user={ value } />) }
+            {(value) => (<NavbarLinks  user={ value.user } />) }
           </UserContext.Consumer>
-          <LoginRegister />
+          <UserContext.Consumer>
+            {(value) => (<LoginRegister setLoggedIn={ value.setLoggedIn } setLoggedOut={ value.setLoggedOut } />)}
+          </UserContext.Consumer>
         </div>
       </nav>
     )
@@ -54,9 +75,12 @@ function NavbarToggler() {
 }
 
 function NavbarLinks(props) {
-  let login_link = <Link to="" className="nav-link" data-toggle="modal" data-target="#login-modal" onClick={(e) => e.preventDefault }>Login/Register</Link>;
-  
-  console.log(props.user);
+  let logged_links = <LoggedOutLinks />
+
+  if(props.user.uid != "") {
+    logged_links = <LoggedInLinks user = {props.user} />;
+  }
+
   return (
     <div className="collapse navbar-collapse" id="navbarSupportedContent">
       <ul className="navbar-nav ml-auto">
@@ -66,13 +90,7 @@ function NavbarLinks(props) {
         <li className="nav-item">
           <Link to="/about" className="nav-link">About</Link>
         </li>
-        <li className="nav-item">
-          <Link to="/script/new" className="nav-link">Create</Link>
-        </li>
-        <li className="nav-item">
-          { login_link }
-        </li>
-        {/* <LoggedInLinks user_id={ props.user_id } username={ props.username} />; */}
+        { logged_links }
       </ul>
     </div>
   )
@@ -80,13 +98,26 @@ function NavbarLinks(props) {
 
 function LoggedInLinks(props) {
   return (
-  <>
+    <>
+      <li className="nav-item">
+        <Link to="/script/new" className="nav-link">Create</Link>
+      </li>
+      <li className="nav-item">
+        <Link to={ "/user/" + props.user.uid } className="nav-link">Profile</Link>
+      </li>
+      <li className="nav-item">
+        <Link to="" id="logout-button" className="nav-link">Logout</Link>
+      </li>
+    </>
+  )
+}
+
+function LoggedOutLinks(props) {
+  return (
+    <>
     <li className="nav-item">
-      <Link to="/script" className="nav-link">Create</Link>
+      <Link to="" className="nav-link" data-toggle="modal" data-target="#login-modal" onClick={(e) => e.preventDefault() }>Login/Register</Link>
     </li>
-    <li className="nav-item">
-      <Link to={"/user/" + props.user_id} target="_blank">{ props.username }</Link>
-    </li>
-  </>
+    </>
   )
 }

@@ -26,11 +26,9 @@ class App extends React.Component {
     this.state = {
       user: {
         username: '',
-        uid: -1,
+        uid: '',
         auth_group: 0
-      },
-      setLoggedOut: this.setLoggedOut.bind(this),
-      setLoggedIn: this.setLoggedIn.bind(this)
+      }
     }
   }
 
@@ -39,34 +37,51 @@ class App extends React.Component {
   }
 
   setLoggedOut() {
-    if (AuthInterface.isLoggedIn) return;
+    AuthInterface.logout();
 
     this.setState({
       user: {
         username: '',
-        uid: -1,
+        uid: '',
         auth_group: 0
       }
-    })
+    });
+
+    console.log("App.setLoggedOut");
+    console.log(this.state.user);
   }
 
-  setLoggedIn() {
-    if (!AuthInterface.isLoggedIn) return;
-
-    let $user_info = AuthInterface.whoAmI();
+  setLoggedIn(name='', uid='') {
+    let $user_info = {};
+    if (name == '' && uid == '' && AuthInterface.isLoggedIn()) {
+      $user_info = AuthInterface.whoAmI();
+    } else {
+      $user_info = {
+        name: name,
+        uid: uid
+      }
+    }
 
     this.setState({
       user: {
         username: $user_info.name,
-        uid: $user_info.id,
+        uid: $user_info.uid,
         auth_group: 0
       }
-    })
+    });
   }
 
   render() {
+
+    let context_values = {
+      user: this.state.user,
+      setLoggedOut: this.setLoggedOut.bind(this),
+      setLoggedIn: this.setLoggedIn.bind(this)
+    }
+
+    // console.log("running app render");
     return (
-      <UserContext.Provider value={ this.state.user }>
+      <UserContext.Provider value={ context_values }>
       <Router />
       </UserContext.Provider>
     );

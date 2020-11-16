@@ -7,7 +7,10 @@ class LoginRegister extends React.Component {
 
   constructor(props) {
     super(props);
-    // this.auth = new AuthInterface;
+    console.log(props);
+    this.state = {
+      setLoggedIn: props.setLoggedIn
+    }
   }
 
   componentDidMount() {
@@ -24,7 +27,7 @@ class LoginRegister extends React.Component {
     let form = e.srcElement;
     let email = form.email.value;
     let password = form.password.value;
-    AuthInterface.login(email, password);
+    AuthInterface.login(email, password).then((response) => this.manageLogin(response));
   }
 
   submitRegistration(e) {
@@ -35,6 +38,16 @@ class LoginRegister extends React.Component {
     let password = form.password.value;
     let password_confirmation = form['password-confirm'].value;
     AuthInterface.register(username, email, password, password_confirmation);
+  }
+
+  manageLogin(response) {
+    console.log("in LoginRegister.manageLogin");
+    console.log("current response:");
+    console.log(response);
+    if(response['user_id']) {
+      console.log("there is a UID");
+      this.state.setLoggedIn(response['user_name'], response['user_id']);
+    }
   }
 
   render() {

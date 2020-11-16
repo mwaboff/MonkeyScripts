@@ -12,6 +12,9 @@ import ScriptView from './components/ScriptView.js';
 import UserView from './components/UserView.js';
 import SearchView from './components/SearchView.js';
 
+import UserContext from './contexts/UserContext.js';
+
+
 import {
   BrowserRouter,
   Switch,
@@ -26,7 +29,9 @@ function Router(props) {
   return (
     <>
       <BrowserRouter>
-        <Header />
+        <UserContext.Consumer>
+          {(value) => (<Header setLoggedOut={ value.setLoggedOut } setLoggedOut={ value.setLoggedOut } />)}
+        </UserContext.Consumer>
 
         <Switch>
           <Route path="/about">
