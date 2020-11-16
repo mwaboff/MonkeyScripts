@@ -16,6 +16,10 @@ class CreateInteractionsTable extends Migration
         Schema::create('interactions', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->foreignId('user_id');
+            $table->foreignId('script_id');
+            $table->boolean('viewed');
+            $table->boolean('downloaded');
         });
     }
 
