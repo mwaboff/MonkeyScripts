@@ -37,6 +37,9 @@ class ScriptViewMain extends React.Component {
   }
 
   componentDidMount() {
+    let install_button = document.getElementById('install-button');
+    install_button.addEventListener('click', this.sendClickedDownload.bind(this));
+
     this.fetchScriptInfo()
       .then(response => 
         this.setState({
@@ -51,9 +54,16 @@ class ScriptViewMain extends React.Component {
       )
   }
 
+  sendClickedDownload(e) {
+    e.preventDefault();
+    const req_url = "/api/script/install/" + this.state.script_id;
+    RequestInterface.sendRequest(req_url, "POST");
+
+  }
+
   async fetchScriptInfo() {
-    const rec_url = "/api/script/show?id=" + this.state.requested_id;
-    return RequestInterface.sendRequest(rec_url);
+    const req_url = "/api/script/show?id=" + this.state.requested_id;
+    return RequestInterface.sendRequest(req_url, "POST");
   }
 
   render() {
@@ -124,7 +134,7 @@ function ScriptCode(props) {
 function ScriptInstallButton(props) {
   let install_url = "/script/" + props.script_id + ".user.js";
   return (
-    <a href={install_url} className="btn btn-primary">Install</a>
+    <a href={install_url} id="install-button" className="btn btn-primary">Install</a>
   )
 }
 
@@ -132,7 +142,7 @@ function ScriptEditButton(props) {
   let edit_button = "";
   if (props.user.uid != '' && props.user.uid == props.author_id) {
     let edit_url = "/script/" + props.script_id + "/edit";
-    edit_button = <Link to={ edit_url } className="btn">Edit</Link>;
+    edit_button = <a href={ edit_url } className="btn">Edit</a>;
   }
   return (
     <>

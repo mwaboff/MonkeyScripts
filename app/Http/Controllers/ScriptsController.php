@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use App\Http\Controllers\PassportUserVerifyController;
 use App\Script;
 use App\User;
+use App\Interaction;
 
 class ScriptsController extends Controller
 {
@@ -21,6 +23,9 @@ class ScriptsController extends Controller
         $id = $request["id"];
         $script = Script::findOrFail($id);
         $author = User::findOrFail($script["author_id"]);
+        $bearer_token = $request->header('Authorization');
+        $visitor_user = PassportUserVerifyController::getUser($bearer_token);
+
         $response = [
             "id" => $script["id"],
             "title" => $script["title"],
@@ -30,13 +35,29 @@ class ScriptsController extends Controller
             "code" => $script["code"]
         ];
 
+        if($visitor_user != null) {
+            $interaction = Interaction::createOrUpdateInteraction($visitor_user->id, $script["id"], true, false);   
+        }
+
         return json_encode($response);
     }
 
-    public function install($script_id)
+    public function clickedInstall(Request $request, $script_id) {
+        $bearer_token = $request->header('Authorization');
+        $visitor_user = PassportUserVerifyController::getUser($bearer_token);
+        // dd($visitor_user);
+        if($visitor_user != null) {
+            $interaction = Interaction::createOrUpdateInteraction($visitor_user->id, $script_id, false, true);   
+        }
+
+        return json_encode(["message"=>"success"]);
+    }
+
+    public function install(Request $request, $script_id)
     {
         $script = Script::findOrFail($script_id);
         return $script["code"];
+        
     }
 
     /**
@@ -84,6 +105,7 @@ class ScriptsController extends Controller
             'description' => $request['description'],
             'code' => $request['code'],
         ]);
+        
         return json_encode($new_script);
     }
 

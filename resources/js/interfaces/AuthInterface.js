@@ -6,6 +6,7 @@ import CookieInterface from './CookieInterface.js';
 class AuthInterface {
 
   static async login(email, password) {
+    console.log("Sending LOGIN request");
     return RequestInterface.sendRequest("/api/login", "POST", {username: email, password: password})
       .then(response => AuthInterface.manageLogin(email, response));
   }

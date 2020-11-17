@@ -29,7 +29,9 @@ Route::get('script/recommend', 'ScriptsController@recommend');
 Route::post('script/new', [ScriptsController::class, 'create'])->middleware(['auth:api'])->name('create-script');
 Route::post('script/edit', [ScriptsController::class, 'edit'])->middleware(['auth:api'])->name('edit-script');
 Route::post('script/destroy', [ScriptsController::class, 'destroy'])->middleware(['auth:api'])->name('destroy-script');
-Route::get('script/show', [ScriptsController::class, 'show'])->name('show-script');
+Route::post('script/show', [ScriptsController::class, 'show'])->name('show-script');
+Route::post('script/install/{script_id}', [ScriptsController::class, 'clickedInstall'])->name('clicked-install-script');
+// Route::post('script/install/{script_id}', [ScriptsController::class, 'install'])->name('install-script');
 
 Route::get('user/info', [UserController::class, 'info'])->name('info-user');
 

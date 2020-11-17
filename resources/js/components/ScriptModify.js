@@ -78,7 +78,7 @@ class ScriptModifyMain extends React.Component {
 
   async fetchScriptInfo() {
     const rec_url = "/api/script/show?id=" + this.state.requested_id;
-    return RequestInterface.sendRequest(rec_url);
+    return RequestInterface.sendRequest(rec_url, "POST", {});
   }
 
   submitScript(e) {
@@ -190,7 +190,6 @@ function ScriptDestroyButton(props) {
   )
 }
 
-
 function isMyScript(script_author_id, my_user_id) {
-  return script_author_id != '' && script_author_id == my_user_id;
+  return script_author_id == '' || script_author_id == my_user_id;
 }
