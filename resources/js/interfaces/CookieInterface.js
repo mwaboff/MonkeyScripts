@@ -13,8 +13,8 @@ class CookieInterface {
     COOKIE_HANDLER.set(key, value, options);
   }
 
-  static remove(key) {
-    COOKIE_HANDLER.remove(key);
+  static remove(key, options={path:"/", sameSite:"strict"}) {
+    COOKIE_HANDLER.remove(key, options);
   }
 }
 
