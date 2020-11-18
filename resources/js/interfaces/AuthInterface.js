@@ -23,7 +23,6 @@ class AuthInterface {
     CookieInterface.remove('user_id');
     CookieInterface.remove('access_token');
     CookieInterface.remove('refresh_token');
-    console.log('just attempted removing ')
   }
 
   static manageLogin(username, response) {

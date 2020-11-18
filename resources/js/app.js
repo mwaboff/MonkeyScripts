@@ -37,7 +37,6 @@ class App extends React.Component {
   }
 
   setLoggedOut() {
-    console.log('in the set logged out method');
     AuthInterface.logout();
 
     this.setState({
