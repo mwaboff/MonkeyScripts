@@ -11,14 +11,14 @@ class CalculateSimularities extends Command
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'recommendation:generate {type}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'This script generates the simularities of scripts and users based off of interactions made on the site.';
 
     /**
      * Create a new command instance.
@@ -37,6 +37,7 @@ class CalculateSimularities extends Command
      */
     public function handle()
     {
+        $generator_type = $this->argument('type');
         return 0;
     }
 }
