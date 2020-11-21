@@ -98,4 +98,23 @@ class Simularity
         return [$sum1, $sum2];
 
     }
+
+    static function createInsertArrays($pearson_scores, $naive_sum_scores) {
+        $data = [];
+        foreach ($pearson_scores as $elem1_id => $elem1_pearson_scores) {
+            foreach($elem1_pearson_scores as $elem2_id => $pearson_score) {
+                $pearson_score = $pearson_scores[$elem1_id][$elem2_id] ? $pearson_scores[$elem1_id][$elem2_id] : 0;
+                $sum_score = $naive_sum_scores[$elem1_id][$elem2_id] ? $naive_sum_scores[$elem1_id][$elem2_id] : 0;
+                
+                $data[] = [
+                    'elem1_id' => $elem1_id,
+                    'elem2_id' => $elem2_id,
+                    'pearson_score' => $pearson_score,
+                    'sum_score' => $sum_score
+                ];
+            }
+        }
+
+        return $data;
+    }
 }
