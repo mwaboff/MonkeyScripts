@@ -38,6 +38,11 @@ class CalculateSimularities extends Command
     public function handle()
     {
         $generator_type = $this->argument('type');
+        if ($generator_type == 'user') {
+
+        } elseif ($generator_type == 'script') {
+            ScriptSimularity::generate();
+        }
         return 0;
     }
 }
