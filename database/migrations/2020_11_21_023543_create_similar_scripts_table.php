@@ -15,11 +15,12 @@ class CreateSimilarScriptsTable extends Migration
     {
         Schema::create('similar_scripts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('script_id');
-            $table->foreignId('similar_id');
-            $table->double('score', 8, 2)->default(0); // 00000000.00
+            $table->foreignId('elem1_id');
+            $table->foreignId('elem2_id');
+            $table->double('pearson_score', 8, 4)->default(0.0); // 00000000.0000
+            $table->integer('sum_score')->default(0);
 
-            $table->index('script_id');
+            // $table->index('script_id');
         });
     }
 

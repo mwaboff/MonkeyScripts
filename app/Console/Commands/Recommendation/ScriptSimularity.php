@@ -3,23 +3,20 @@
 namespace App\Console\Commands;
 
 use Illuminate\Support\Facades\DB;
-// use App\Http\ScriptSimularity;
+use App\SimilarScript;
 
 class ScriptSimularity extends Simularity
 {
 
     static function generate() {
-        $interactions = static::getInteractionsOrderedByScriptID();
+        $interactions = static::getInteractionsOrderedByColumn("script_id");
         $interaction_scores = static::sortScriptInteractions($interactions);
         $pearson_scores = static::generateSimularities($interaction_scores, "pearson");
         $naive_sum_scores = static::generateSimularities($interaction_scores, "sum");
-        // static::writeScriptSimularitiesToDB($pearson_scores, $naive_sum_scores);
-        print_r($pearson_scores);
+        static::writeScriptSimularitiesToDB($pearson_scores, $naive_sum_scores);
+        // print_r($pearson_scores);
     }
 
-    private static function getInteractionsOrderedByScriptID() {
-        return static::getInteractionsOrderedByColumn("script_id");
-    }
 
     static function sortScriptInteractions($interactions) {
         $script_scores = [];
@@ -33,28 +30,31 @@ class ScriptSimularity extends Simularity
         return $script_scores;
     }
 
-    static function writeSimularitiesToDB($pearson_scores, $naive_sum_scores) {
-        $chunks = array_chunk($scores, 5000);
-        $pearson_insert_lines = static::createInsertLines($pearson_scores);
+    static function writeScriptSimularitiesToDB($pearson_scores, $naive_sum_scores) {
+        $insert_arrays = static::createInsertArrays($pearson_scores, $naive_sum_scores);
+        $chunks = array_chunk($insert_arrays, 5000);
         foreach ($chunks as $chunk) {
-            static::writeSimilaritiesByChunk($chunk);
+            SimilarScript::insert($chunk);
         }
     }
 
-    static function createInsertLines() {
-
-    }
-
-    private static function writeSimilaritiesByChunk($chunk) {
-        foreach ($chunk as $scriptA => $scriptBs) {
-            foreach ($scriptBs as $scriptB => $score) {
-
+    static function createInsertArrays($pearson_scores, $naive_sum_scores) {
+        $data = [];
+        foreach ($pearson_scores as $elem1_id => $elem1_pearson_scores) {
+            foreach($elem1_pearson_scores as $elem2_id => $pearson_score) {
+                $pearson_score = $pearson_scores[$elem1_id][$elem2_id] ? $pearson_scores[$elem1_id][$elem2_id] : 0;
+                $sum_score = $naive_sum_scores[$elem1_id][$elem2_id] ? $naive_sum_scores[$elem1_id][$elem2_id] : 0;
+                
+                $data[] = [
+                    'elem1_id' => $elem1_id,
+                    'elem2_id' => $elem2_id,
+                    'pearson_score' => $pearson_score,
+                    'sum_score' => $sum_score
+                ];
             }
         }
-    }
 
-    static function scoreInteraction($viewed_status, $downloaded_status) {
-        return ($viewed_status * Simularity::VISIT_SCORE) + ($downloaded_status * Simularity::DOWNLOAD_SCORE);
+        return $data;
     }
 
 }

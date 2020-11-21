@@ -10,6 +10,10 @@ class Simularity
     const VISIT_SCORE=1;
     const DOWNLOAD_SCORE=1;
 
+    static function scoreInteraction($viewed_status, $downloaded_status) {
+        return ($viewed_status * Simularity::VISIT_SCORE) + ($downloaded_status * Simularity::DOWNLOAD_SCORE);
+    }
+
     static function getInteractionsOrderedByColumn($column_name) {
         // If I start worrying about having too big of a database, I can switch to using the "chunk" command
         return DB::table('monkeyscripts.interactions')
