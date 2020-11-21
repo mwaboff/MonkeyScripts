@@ -21,7 +21,7 @@ class Simularity
         $results = [];
         foreach ($interaction_scores as $entity1 => $entity1_scores) {
             foreach ($interaction_scores as $entity2 => $entity2_scores) {
-                if ($entity1 == $entity2 || isset($results[$entity1][$entity2])) break;
+                if ($entity1 == $entity2 || isset($results[$entity1][$entity2])) continue;
                     
                 if ($algorithm == "pearson") {
                     [$scoreA, $scoreB] = static::pearsonScore($entity1_scores, $entity2_scores);
