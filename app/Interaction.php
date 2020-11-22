@@ -3,6 +3,10 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+
+use App\Script;
+
 
 class Interaction extends Model
 {
@@ -49,6 +53,26 @@ class Interaction extends Model
         }
 
         return $script;
+    }
+
+    public static function getAllInteractedScriptsByUser($user_id, $viewed=true, $downloaded=true, $and=true) {
+        $results = [];
+        $query = DB::table('monkeyscripts.interactions')->where('user_id', $user_id);
+
+        if ($and) {
+            $query = $query->where('viewed', $viewed)->where('downloaded', $downloaded);
+        } else {
+            $query =$query->where('viewed', $viewed)->orWhere('downloaded', $downloaded);
+        }
+
+        $similar_ids = $query->orderBy('updated_at', 'DESC')->pluck('script_id');
+
+        foreach ($similar_ids as $script_id) {
+            $script = Script::find($script_id);
+            isset($script) ? ($results[] = $script) : null;
+        }
+
+        return $results;
     }
 
 

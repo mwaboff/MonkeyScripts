@@ -10,6 +10,8 @@ import {
 } from "react-router-dom";
 import RequestInterface from '../interfaces/RequestInterface';
 import UserContext from '../contexts/UserContext.js';
+import ScriptList from './ScriptList.js';
+
 
 
 export default function ScriptView() {
@@ -80,6 +82,7 @@ class ScriptViewMain extends React.Component {
 
         {/* <ScriptEditButton script_id = { this.state.script_id } /> */}
         <ScriptCode script_code = { this.state.script_code } />
+        <ScriptList listType="similar" numScripts="6" scriptId= { this.state.requested_id }/>
       </div>
     )
   }

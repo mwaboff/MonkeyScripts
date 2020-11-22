@@ -53,9 +53,10 @@ class UserController extends Controller
         ]);
     }
 
-    public function whoAmI(Request $request) {
-        
-        return json_encode(api("auth")->user());
+    // This will return null if noone is logged in
+    public static function currentLoggedInUser(Request $request) {
+        $bearer_token = $request->header('Authorization');
+        return PassportUserVerifyController::getUser($bearer_token); 
     }
 
 }

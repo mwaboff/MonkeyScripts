@@ -110,7 +110,8 @@ class Simularity
                     'elem1_id' => $elem1_id,
                     'elem2_id' => $elem2_id,
                     'pearson_score' => $pearson_score,
-                    'sum_score' => $sum_score
+                    'sum_score' => $sum_score,
+                    'combined_score' => ($pearson_score + 1) * $sum_score
                 ];
             }
         }

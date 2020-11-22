@@ -27,7 +27,7 @@ class PassportUserVerifyController {
       $request->headers->set('Authorization', $bearerToken);
       $result_user = $tokenguard->user($request);
     } catch (Exception $e) {
-      dd($e);
+      // dd($e);
     }
 
     return $result_user;

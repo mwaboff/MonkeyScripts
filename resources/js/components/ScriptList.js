@@ -1,3 +1,4 @@
+import { isSet } from 'lodash';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {
@@ -15,7 +16,11 @@ class ScriptList extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { list_type: props.listType, num_scripts: props.numScripts, response: [] };
+    this.state = { 
+      list_type: props.listType, 
+      num_scripts: props.numScripts, 
+      curr_script_id: props.scriptId,
+      response: [] };
   }
 
   componentDidMount() {
@@ -25,7 +30,8 @@ class ScriptList extends React.Component {
   }
 
   async fetchScriptList() {
-    const rec_url = "/api/script/recommend/?type=" + this.state.list_type + "&count=" + this.state.num_scripts;
+    let rec_url = "/api/script/recommend/?type=" + this.state.list_type + "&count=" + this.state.num_scripts;
+    if (this.state.curr_script_id) rec_url += "&scriptid=" + this.state.curr_script_id;
     return RequestInterface.sendRequest(rec_url);
   }
 
@@ -73,9 +79,10 @@ class ScriptListTitle extends React.Component {
     super(props);
     this.LIST_TYPES = {
       "topdownload": "Top Download", 
-      "toprated": "Top Rated",
+      "recommended": "Recommended",
       "recent": "Recently Updated",
-      "choice" : "Editor's Choice"
+      "official" : "Built by MonkeyScripts",
+      "similar" : "See What Other Users Are Interested In"
     };
   
     this.state = {title: this.LIST_TYPES[props.list_type]};

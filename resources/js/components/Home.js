@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-  import ScriptList from './ScriptList.js';
-  import Search from './Search.js';
+import ScriptList from './ScriptList.js';
+import Search from './Search.js';
 
 class Home extends React.Component {
   render() {
@@ -35,9 +35,9 @@ class ScriptHomeRecommender extends React.Component {
     return (
       <div className="home-script-recommendations row">
         <ScriptList listType="topdownload" numScripts="6" />
-        <ScriptList listType="toprated" numScripts="6" />
+        <ScriptList listType="recommended" numScripts="6" />
         <ScriptList listType="recent" numScripts="6" />
-        <ScriptList listType="choice" numScripts="6" />
+        <ScriptList listType="official" numScripts="6" />
       </div>
     )
   }

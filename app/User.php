@@ -11,6 +11,9 @@ use Laravel\Passport\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
 
+use App\Script;
+use App\Interaction;
+
 class User extends Authenticatable
 {
     use Notifiable;
@@ -62,5 +65,13 @@ class User extends Authenticatable
         ];
 
         return $array;
+    }
+
+    public function getInteractedScripts() {
+        return Interaction::getAllInteractedScriptsByUser($this->id, $visited=true, $downloaded=true, $and=false);
+    }
+
+    public function getDownloadedScripts() {
+        return Interaction::getAllInteractedScriptsByUser($this->id, $visited=true, $downloaded=true);
     }
 }

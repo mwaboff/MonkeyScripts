@@ -25,7 +25,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->command('recommendation:generate script')->everyOneMinute(); // Should change this to 5 minutes in production.
+        $schedule->command('recommendation:generate script')->everyMinute(); // Should change this to 5 minutes in production.
     }
 
     /**
