@@ -30,7 +30,12 @@ class ScriptList extends React.Component {
   }
 
   componentDidUpdate() {
-    
+    if(this.props.scriptId !== this.state.curr_script_id) {
+      this.setState({curr_script_id: this.props.scriptId });
+      this.fetchScriptList().then(script_list => 
+        this.setState({response: script_list})
+      );
+    }
   }
 
   async fetchScriptList() {
