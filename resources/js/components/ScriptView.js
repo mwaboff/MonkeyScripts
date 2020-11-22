@@ -41,38 +41,29 @@ class ScriptViewMain extends React.Component {
   componentDidMount() {
     let install_button = document.getElementById('install-button');
     install_button.addEventListener('click', this.sendClickedDownload.bind(this));
-
-    this.fetchScriptInfo()
-      .then(response => 
-        this.setState({
-          script_id: response["id"],
-          script_title: response["title"],
-          author_id: response["author_id"],
-          author_name: response["author_name"],
-          script_summary: response["summary"],
-          script_descr: response["description"],
-          script_code: response["code"]
-        })
-      );
+    this.initiateScriptFetch(this.state.requested_id);
   }
 
   componentDidUpdate() {
     if (this.props.id !== this.state.requested_id) {
       this.setState({requested_id: this.props.id});
-
-      this.fetchScriptInfo()
-      .then(response => 
-        this.setState({
-          script_id: response["id"],
-          script_title: response["title"],
-          author_id: response["author_id"],
-          author_name: response["author_name"],
-          script_summary: response["summary"],
-          script_descr: response["description"],
-          script_code: response["code"]
-        })
-      );
+      this.initiateScriptFetch(this.props.id);      
     }
+  }
+
+  initiateScriptFetch(requested_id) {
+    this.fetchScriptInfo(requested_id)
+    .then(response => 
+      this.setState({
+        script_id: response["id"],
+        script_title: response["title"],
+        author_id: response["author_id"],
+        author_name: response["author_name"],
+        script_summary: response["summary"],
+        script_descr: response["description"],
+        script_code: response["code"]
+      })
+    );
   }
 
   sendClickedDownload(e) {
@@ -82,8 +73,8 @@ class ScriptViewMain extends React.Component {
 
   }
 
-  async fetchScriptInfo() {
-    const req_url = "/api/script/show?id=" + this.state.requested_id;
+  async fetchScriptInfo(requested_id) {
+    const req_url = "/api/script/show?id=" + requested_id;
     return RequestInterface.sendRequest(req_url, "POST");
   }
 

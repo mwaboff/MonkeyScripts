@@ -29,6 +29,10 @@ class ScriptList extends React.Component {
     );
   }
 
+  componentDidUpdate() {
+    
+  }
+
   async fetchScriptList() {
     let rec_url = "/api/script/recommend/?type=" + this.state.list_type + "&count=" + this.state.num_scripts;
     if (this.state.curr_script_id) rec_url += "&scriptid=" + this.state.curr_script_id;
