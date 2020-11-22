@@ -49,11 +49,30 @@ class ScriptViewMain extends React.Component {
           script_title: response["title"],
           author_id: response["author_id"],
           author_name: response["author_name"],
-          script_summary: "???",
+          script_summary: response["summary"],
           script_descr: response["description"],
           script_code: response["code"]
         })
-      )
+      );
+  }
+
+  componentDidUpdate() {
+    if (this.props.id !== this.state.requested_id) {
+      this.setState({requested_id: this.props.id});
+
+      this.fetchScriptInfo()
+      .then(response => 
+        this.setState({
+          script_id: response["id"],
+          script_title: response["title"],
+          author_id: response["author_id"],
+          author_name: response["author_name"],
+          script_summary: response["summary"],
+          script_descr: response["description"],
+          script_code: response["code"]
+        })
+      );
+    }
   }
 
   sendClickedDownload(e) {

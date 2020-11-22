@@ -127,27 +127,22 @@ class ScriptsController extends Controller
     }
 
     private static function getRecent($limit = 10) {
-        $recent_scripts = Script::orderBy('updated_at', 'desc')->take($limit)->get();
+        $recent_scripts = Script::orderBy('updated_at', 'desc')->take($limit)->get()->all();
         return static::removeCodeFromScriptResults($recent_scripts);
-        // return Script::select('id', 'title', 'author_id', 'description')->orderBy('updated_at', 'desc')->take($limit)->get()->toArray();
     }
 
     private static function getRecommended($request, $limit = 10) {
         $recommended_scripts = static::getRecommendedScripts($request, $limit);
-        // $x = static::removeCodeFromScriptResults($recommended_scripts);
-        // return "hello";
         return static::removeCodeFromScriptResults($recommended_scripts);
-        // Script::select('id', 'title', 'author_id', 'description')->take($limit)->get()->toArray();
     }
 
     private static function getTopDownloads($limit = 10) {
         $top_downloads = static::getTopDownloadedScripts();
         return array_slice(static::removeCodeFromScriptResults($top_downloads), 0, $limit);
-        // return Script::select('id', 'title', 'author_id', 'description')->take($limit)->get()->toArray();
     }
 
     private static function getOfficiallyDevelopedScripts($limit = 10) {
-        $official_scripts = Script::where('author_id', 1)->take($limit)->get();
+        $official_scripts = Script::where('author_id', 1)->take($limit)->get()->all();
         return static::removeCodeFromScriptResults($official_scripts);
     }
 
@@ -169,6 +164,7 @@ class ScriptsController extends Controller
         $visitor = UserController::currentLoggedInUser($request);
 
         $script_list = isset($visitor) ? static::getRecommendedScriptsForUser($visitor, $limit) : static::getRecommendedScriptsForGeneric($limit);
+        $script_list = array_unique($script_list);
 
         shuffle($script_list); // Add some variety and randomness
         return array_slice($script_list, 0, $limit); // Return only the right number of results
@@ -176,6 +172,7 @@ class ScriptsController extends Controller
 
     private static function removeCodeFromScriptResults($script_list) {
         $result = [];
+        // $script_list = array_unique($script_list);
         foreach ($script_list as $script) {
             $result[] = [
                 'id' => $script->id,
@@ -210,7 +207,7 @@ class ScriptsController extends Controller
             $result = array_merge($result, $similar_scripts);
         }
 
-        return array_unique($result);
+        return $result;
     }
 
 

@@ -29,6 +29,11 @@ class Script extends Model
         return $this->hasMany('App\Rating', 'script_id');
     }
 
+    // Need to add this so we can use array_unique when creating automated lists.
+    public function __toString() {
+        return "Script #$this->id - $this->title";
+    }
+
     public function toSearchableArray()
     {
         $author_name = User::find($this->author_id);
