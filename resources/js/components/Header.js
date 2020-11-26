@@ -4,14 +4,13 @@ import UserContext from '../contexts/UserContext.js';
 import '../../css/Header.css';
 
 export default function Header(props) {
-  let supplement_component = props.supplement; // This can be anything like a search bar or script metadata
+  // props.supplement can be any component, such as a search bar or script metadata
   return (
     <div className="header-banner">
 
       <UserContext.Consumer>
         {(value) => (<Navbar setLoggedOut={ value.setLoggedOut } setLoggedOut={ value.setLoggedOut } />)}
       </UserContext.Consumer>
-
 
       <div className="container">
         <div className="header-text">

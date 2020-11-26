@@ -1,38 +1,21 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-
-import Navbar from './components/Navbar.js';
-import Footer from './components/Footer.js';
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import Home from './components/Home.js';
 import About from './components/About.js';
+import Footer from './components/Footer.js';
 import Tutorial from './components/Tutorial.js';
-import ScriptModify from './components/ScriptModify.js';
-import ScriptView from './components/ScriptView.js';
 import UserView from './components/UserView.js';
+import ScriptView from './components/ScriptView.js';
 import SearchView from './components/SearchView.js';
+import ScriptModify from './components/ScriptModify.js';
 
 import UserContext from './contexts/UserContext.js';
-
-
-import {
-  BrowserRouter,
-  Switch,
-  Route,
-  Link,
-  useParams,
-  useRouteMatch
-} from "react-router-dom";
-
 
 function Router(props) {
   return (
     <>
       <BrowserRouter>
-        {/* <UserContext.Consumer>
-          {(value) => (<Navbar setLoggedOut={ value.setLoggedOut } setLoggedOut={ value.setLoggedOut } />)}
-        </UserContext.Consumer> */}
-
         <Switch>
           <Route path="/about">
             <About />
@@ -61,7 +44,6 @@ function Router(props) {
             <SearchView />
           </Route>
 
-
           <Route path="/admin"></Route>
 
           <Route path="/">
@@ -77,24 +59,24 @@ function Router(props) {
 
 export default Router;
 
-function ScriptRouter(props) {
-  let { path, url } = useRouteMatch();
+// function ScriptRouter(props) {
+//   let { path, url } = useRouteMatch();
 
-  return (
-    <div>
-      <Switch>
-        <Route exact path="${path}/new" >
-          <div>hi there222</div>
-          <ScriptModify />
-        </Route>
+//   return (
+//     <div>
+//       <Switch>
+//         <Route exact path="${path}/new" >
+//           <div>hi there222</div>
+//           <ScriptModify />
+//         </Route>
                   
-        <Route path={"${path}/:id"}>
-          <div>yoo</div>
-        </Route>
+//         <Route path={"${path}/:id"}>
+//           <div>yoo</div>
+//         </Route>
 
-      </Switch>
-    </div>
+//       </Switch>
+//     </div>
 
-  )
-}
+//   )
+// }
 
