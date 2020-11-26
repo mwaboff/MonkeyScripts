@@ -1,0 +1,30 @@
+body {
+  font-family: var(--font-style-main);
+  font-size: var(--font-size-body);
+}
+
+.flex { display: flex !important; }
+
+.flex_column { flex-direction: column; }
+
+.flex_row { flex-direction: row; }
+
+.flex_center-full { 
+  align-items: center;
+  justify-content: center;
+}
+
+.flex_center-vertical {
+  flex-direction: column;
+  justify-content: center;
+}
+
+.flex_center-horizontal {
+  align-items: center;
+  flex-direction: column;
+}
+
+.flex_space-between {
+  align-content: space-between;
+  justify-content: space-between;
+}

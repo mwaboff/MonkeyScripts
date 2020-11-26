@@ -1,0 +1,105 @@
+:root {
+
+  /* Colors */
+  --primary600: #000923;
+  --primary500: #01103e;
+  --primary400: #021859;
+  --primary300: #4D5D8A;
+  --primary200: #99A2BC;
+  --primary100: #E5E7EE;
+
+  --neutral600: #0F0F10;
+  --neutral500: #3E3F41;
+  --neutral400: #717274;
+  --neutral300: #A6A7A8;
+  --neutral200: #F0F0F0;
+  --neutral100: #F8F8F8;
+
+  --accent-red600: #602440;
+  --accent-red500: #A94071;
+  --accent-red400: #F25CA2;
+  --accent-red300: #F58CBD;
+  --accent-red200: #F9BDD9;
+  --accent-red100: #FDEEF5;
+
+  --accent-green600: #235239;
+  --accent-green500: #3E8F64;
+  --accent-green400: #59CD90;
+  --accent-green300: #8ADCB0;
+  --accent-green200: #BCEBD2;
+  --accent-green100: #EEFAF3;
+
+  --accent-yellow600: #5E5618;
+  --accent-yellow500: #A5972A;
+  --accent-yellow400: #EDD83D;
+  --accent-yellow300: #F2E477;
+  --accent-yellow200: #F7EFB1;
+  --accent-yellow100: #FDFBEB;
+
+  --accent-blue600: #004A5E;
+  --accent-blue500: #0082A5;
+  --accent-blue400: #00BAED;
+  --accent-blue300: #4CCEF2;
+  --accent-blue200: #99E3F7;
+  --accent-blue100: #E5F8FD;
+
+  --border-radius: 5px;
+
+  /* Box Shadow */
+  --faded-shadow: 8px 12px 14px 0px #0009231a;
+
+
+  /* Fonts */
+  --font-style-main: 'Roboto', sans-serif;
+  --font-style-logo: 'Titan One', cursive;
+  --font-size-body: 16px;
+
+
+  /* Navbar */
+  --navbar-height: 55px;
+  --navbar-logo-size: 30px;
+
+  --navbar-text-color: var(--neutral100);
+  --navbar-logo-color: var(--neutral100);
+
+
+  /* Header */
+  --header-banner-height: 470px;
+  --header-title-size: 64px;
+  --header-subtitle-size: 34px;
+  --header-tagline-size: 23px;
+
+  --header-title-color: var(--neutral100);
+  --header-subtitle-color: var(--accent-red400);
+  --header-tagline-color: var(--neutral100);
+
+  --header-title-line-height: 0.8;
+
+  --header-text-padding: var(--navbar-height);
+  --header-titles-upper-static-margin: 100px;
+
+
+  /* Search Bar */
+  --search-bar-button-width: 50px;
+  --search-bar-height: 38px;
+  --search-bar-margin: 40px;
+  
+  --search-bar-color: var(--neutral100);
+
+
+  /* Script Tiles */
+  --script-tile-width: 228px;
+  --script-tile-height: 200px;
+  --script-tile-header-height: 60px;
+  --script-tile-footer-height: 30px;
+
+  --script-tile-background: var(--neutral100);
+  --script-tile-header-background: var(--accent-blue500);
+  --script-tile-header-background-primary: var(--accent-red500);
+  --script-tile-header-color: var(--neutral100);
+
+  --script-tile-padding: 10px;
+  
+  --script-header-font-size: 18px;
+
+}

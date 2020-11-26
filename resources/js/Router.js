@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Header from './components/Header.js';
+import Navbar from './components/Navbar.js';
 import Footer from './components/Footer.js';
 
 import Home from './components/Home.js';
@@ -29,9 +29,9 @@ function Router(props) {
   return (
     <>
       <BrowserRouter>
-        <UserContext.Consumer>
-          {(value) => (<Header setLoggedOut={ value.setLoggedOut } setLoggedOut={ value.setLoggedOut } />)}
-        </UserContext.Consumer>
+        {/* <UserContext.Consumer>
+          {(value) => (<Navbar setLoggedOut={ value.setLoggedOut } setLoggedOut={ value.setLoggedOut } />)}
+        </UserContext.Consumer> */}
 
         <Switch>
           <Route path="/about">

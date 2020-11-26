@@ -25,6 +25,7 @@
         "sass-loader": "^8.0.0"
     },
     "dependencies": {
+        "fitty": "^2.3.3",
         "react-router-dom": "^5.2.0",
         "universal-cookie": "^4.0.4"
     }

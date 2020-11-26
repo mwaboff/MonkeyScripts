@@ -1,0 +1,35 @@
+.header-banner {
+  background: var(--primary600);
+  color: var(--neutral100);
+  height: var(--header-banner-height);
+}
+
+.navbar-buffer {
+  height: var(--navbar-height);
+}
+
+.header-titles {
+  min-height: 100px;
+  margin-top: var(--header-titles-upper-static-margin);
+}
+
+.header-title {
+  color: var(--header-title-color);
+  font-size: var(--header-title-size);
+  line-height: var(--header-title-line-height);
+}
+
+.header-subtitle {
+  color: var(--header-subtitle-color);
+  font-size: var(--header-subtitle-size);
+  line-height: var(--header-subtitle-line-height);
+
+}
+
+
+.header-tagline {
+  color: var(--header-tagline-color);
+  font-size: var(--header-tagline-size);
+  line-height: var(--header-tagline-line-height);
+
+}

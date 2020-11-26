@@ -1,0 +1,18 @@
+.navbar-mks {
+  height: var(--navbar);
+  width: 100%;
+}
+
+.navbar-mks .nav-item a {
+  color: var(--navbar-text-color);
+}
+
+.navbar-mks .navbar-toggler-icon {
+  color: var(--navbar-text-color);
+}
+
+.navbar-brand {
+  color: var(--navbar-logo-color);
+  font-size: var(--navbar-logo-size);
+  font-family: var(--font-style-logo);
+}

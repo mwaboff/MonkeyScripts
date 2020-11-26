@@ -1,18 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import {
-  BrowserRouter,
-  Switch,
-  Route,
-  Link,
-  useParams,
-  useLocation
-
-} from "react-router-dom";
-import RequestInterface from '../interfaces/RequestInterface';
 import { ScriptEntryList, ScriptEntryListWaiting } from './ScriptList';
+import RequestInterface from '../interfaces/RequestInterface';
+import { useLocation } from "react-router-dom";
 import ScriptList from './ScriptList.js';
-import Search from './Search.js';
+import SearchBar from './SearchBar.js';
 
 
 export default function SearchView() {
@@ -82,7 +73,7 @@ class SearchViewMain extends React.Component {
 
     return (
       <div className="container" readOnly>
-        <Search />
+        <SearchBar />
         <UserScriptList script_results = { this.state.script_results } />
         <ScriptList listType="recommended" numScripts="6" />
       </div>

@@ -1,124 +1,47 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import {
-  BrowserRouter,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+import Navbar from './Navbar.js';
 import UserContext from '../contexts/UserContext.js';
+import '../../css/Header.css';
 
-import LoginRegister from './LoginRegister.js';
+export default function Header(props) {
+  let supplement_component = props.supplement; // This can be anything like a search bar or script metadata
+  return (
+    <div className="header-banner">
+
+      <UserContext.Consumer>
+        {(value) => (<Navbar setLoggedOut={ value.setLoggedOut } setLoggedOut={ value.setLoggedOut } />)}
+      </UserContext.Consumer>
 
 
-
-class Header extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      setLoggedIn: props.setLoggedIn,
-      setLoggedOut: props.setLoggedOut
-    }
-
-  }
-
-  componentDidUpdate() {
-    let logout_button = document.getElementById('logout-button');
-    if(logout_button){
-      logout_button.addEventListener('click', this.startLogout.bind(this));
-    }
-    
-  }
-
-  startLogout(e) {
-    e.preventDefault();
-    this.state.setLoggedOut();
-  }
-
-  render() {
-
-    return (
-      <nav className="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-        <div className="container">
-          <NavbarLogo />
-          <NavbarToggler />
-          <UserContext.Consumer>
-            {(value) => (<NavbarLinks  user={ value.user } />) }
-          </UserContext.Consumer>
-          <UserContext.Consumer>
-            {(value) => (<LoginRegister setLoggedIn={ value.setLoggedIn } setLoggedOut={ value.setLoggedOut } />)}
-          </UserContext.Consumer>
+      <div className="container">
+        <div className="header-text">
+          <div className="header-titles">
+            <Title title_text = { props.title } />
+            <Subtitle subtitle_text = { props.subtitle } />
+          </div>
+          <Tagline tagline_text = { props.tagline } />
+          <Tagline tagline_text = { props.tagline2 } />
         </div>
-      </nav>
-    )
-  }
-}
-
-// Header.contextType = UserContext;
-
-export default Header;
-
-
-function NavbarLogo() {
-  return (
-      <Link to="/" className="navbar-brand">
-        MonkeyScripts.org
-      </Link>
-  )
-}
-
-function NavbarToggler() {
-  return (
-    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle Navigation">
-      <span className="navbar-toggler-icon"></span>
-    </button>
-  )
-}
-
-function NavbarLinks(props) {
-  let logged_links = <LoggedOutLinks />
-
-  if(props.user.uid != "") {
-    logged_links = <LoggedInLinks user = {props.user} />;
-  }
-
-  return (
-    <div className="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul className="navbar-nav ml-auto">
-      <li className="nav-item">
-          <a href="/tutorial" className="nav-link">Tutorial</a>
-        </li>
-        <li className="nav-item">
-          <Link to="/about" className="nav-link">About</Link>
-        </li>
-        { logged_links }
-      </ul>
+        { props.supplement }
+      </div>
     </div>
+  );
+}
+
+function Title(props) {
+  return (
+    <div className="header-title">{ props.title_text }</div>
   )
 }
 
-function LoggedInLinks(props) {
+function Subtitle(props) {
   return (
-    <>
-      <li className="nav-item">
-        <Link to="/script/new" className="nav-link">Create</Link>
-      </li>
-      <li className="nav-item">
-        <Link to={ "/user/" + props.user.uid } className="nav-link">Profile</Link>
-      </li>
-      <li className="nav-item">
-        <Link to="" id="logout-button" className="nav-link">Logout</Link>
-      </li>
-    </>
+    <div className="header-subtitle">{ props.subtitle_text }</div>
   )
 }
 
-function LoggedOutLinks(props) {
+function Tagline(props) {
   return (
-    <>
-    <li className="nav-item">
-      <Link to="" className="nav-link" data-toggle="modal" data-target="#login-modal" onClick={(e) => e.preventDefault() }>Login/Register</Link>
-    </li>
-    </>
+    <div className="header-tagline">{ props.tagline_text }</div>
   )
 }

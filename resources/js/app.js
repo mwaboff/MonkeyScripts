@@ -6,6 +6,8 @@
 
 require('./bootstrap');
 
+import '../css/variables.css';
+import '../css/app.css';
 
 /* Start the Router which will manage which components to render */
 // require('./Router');
