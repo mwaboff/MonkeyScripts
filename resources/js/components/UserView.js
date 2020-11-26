@@ -9,7 +9,7 @@ import {
 
 } from "react-router-dom";
 import RequestInterface from '../interfaces/RequestInterface';
-import { ScriptEntryList, ScriptEntryListWaiting } from './ScriptList';
+import { ScriptTileList, ScriptEntryListWaiting } from './ScriptList';
 
 export default function UserView() {
   // Have to do this functional wrapper as useParams "hook" can't be run in a class based component apparently
@@ -88,7 +88,7 @@ function UserInfo(props) {
 function UserScriptList(props) {
   let script_entries = <ScriptEntryListWaiting />
   if (props.script_list.length) {
-    script_entries = <ScriptEntryList scripts={ props.script_list } />;
+    script_entries = <ScriptTileList scripts={ props.script_list } />;
   }
   return (
     <div className="col-md-9">

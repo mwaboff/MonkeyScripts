@@ -43,7 +43,10 @@
   --accent-blue200: #99E3F7;
   --accent-blue100: #E5F8FD;
 
+  /* General */
   --border-radius: 5px;
+  --container-width: 1200px;
+  --section-padding-height: 30px;
 
   /* Box Shadow */
   --faded-shadow: 8px 12px 14px 0px #0009231a;
@@ -88,7 +91,9 @@
 
 
   /* Script Tiles */
-  --script-tile-width: 228px;
+  /* --script-tile-width: 228px; */
+  --script-tile-width: 280px;
+
   --script-tile-height: 200px;
   --script-tile-header-height: 60px;
   --script-tile-footer-height: 30px;
@@ -102,4 +107,11 @@
   
   --script-header-font-size: 18px;
 
+  /* Script List */
+  --script-list-column-count: 4;
+  --script-list-grid-gap: 7px;
+
+  /* Intro Tiles */
+  --intro-tile-height: 132px;
+  --intro-tile-width: 191px;
 }

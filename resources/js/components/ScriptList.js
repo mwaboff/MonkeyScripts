@@ -1,26 +1,24 @@
 import { isSet } from 'lodash';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import {
-  BrowserRouter,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+import ScriptTile from './ScriptTile';
+import { Link } from "react-router-dom";
 import RequestInterface from '../interfaces/RequestInterface';
+import '../../css/ScriptList.css';
+
 
 
 
 class ScriptList extends React.Component {
-
-
   constructor(props) {
     super(props);
     this.state = { 
       list_type: props.listType, 
+      title: props.title,
+      is_primary: props.is_primary,
       num_scripts: props.numScripts, 
       curr_script_id: props.scriptId,
-      response: [] };
+      response: [] 
+    };
   }
 
   componentDidMount() {
@@ -45,35 +43,48 @@ class ScriptList extends React.Component {
   }
 
   render() {
-    let script_entries = <ScriptEntryListWaiting />
-    if (this.state.response.length) {
-      script_entries = <ScriptEntryList scripts={this.state.response} />;
-    }
-
     return (
-      <div className="col-md-6">
-        <ScriptListTitle list_type={this.state.list_type} />
-        {script_entries}
+      <div className="script-list">
+        <ScriptListTitle title={ this.state.title } />
+        <ScriptTileList scripts={ this.state.response } is_primary={ this.state.is_primary }/>
       </div>
     )
-  }
-
+  } 
 }
 
 export default ScriptList;
 
-export function ScriptEntryList(props) {
-  return (
-    <ul className="script-list">
 
+function ScriptListTitle(props) {
+  return (
+    <h3 className="script-list-title">{ props.title }</h3>
+  );
+}
+
+
+export function ScriptTileList(props) {
+  return (
+    <ul className="script-tile-list">
     {
       props.scripts.map((script) => 
-        <li key={script.id} className="script-entry card"><ScriptEntry script={script} /></li>
+        <li key={script.id}>
+          <ScriptTile 
+            title={ script.title } 
+            script_id={ script.id }
+            summary={ script.description }
+            downloads={ script.downloads }
+            is_primary={ props.is_primary }
+          />
+        </li>
       )
     }
     </ul>
   )
 }
+
+
+
+
 
 export function ScriptEntryListWaiting() {
   return (
@@ -83,26 +94,6 @@ export function ScriptEntryListWaiting() {
   )
 }
 
-class ScriptListTitle extends React.Component {
-  constructor(props) {
-    super(props);
-    this.LIST_TYPES = {
-      "topdownload": "Top Download", 
-      "recommended": "Recommended",
-      "recent": "Recently Updated",
-      "official" : "Built by MonkeyScripts",
-      "similar" : "See What Other Users Are Interested In"
-    };
-  
-    this.state = {title: this.LIST_TYPES[props.list_type]};
-  }
-
-  render() {
-    return (
-    <div className="script-list-title">{ this.state.title }</div>
-    )
-  }
-}
 
 
 function ScriptEntry(props) {

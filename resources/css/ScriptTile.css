@@ -1,17 +1,7 @@
 .script-tile {
   height: var(--script-tile-height);
   width: var(--script-tile-width);
-  border-radius: var(--border-radius);
   background: var(--script-tile-background);
-  box-shadow: var(--faded-shadow);
-  border: none;
-  user-select: none;
-  cursor: pointer;
-}
-
-.script-tile:active {
-  box-shadow: none;
-  transform: translate(2px, 2px);
 }
 
 .script-tile-header {
@@ -30,13 +20,15 @@
 }
 
 .script-title {
-  overflow: hidden;
-  text-overflow: ellipsis;
+  /* overflow: hidden;
+  text-overflow: ellipsis; */
 }
 
 .script-tile-body {
   flex: 1;
   padding: var(--script-tile-padding) calc(var(--script-tile-padding) * 2);
+  overflow: hidden;
+  text-overflow: ellipsis;
 
 }
 

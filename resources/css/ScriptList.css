@@ -1,0 +1,19 @@
+.script-list {
+  margin-top: var(--navbar-height);
+}
+
+.script-tile-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(var(--script-list-column-count), 1fr);
+  row-gap: var(--script-list-grid-gap);
+  column-gap: var(--script-list-grid-gap);
+}
+
+.script-list > li {
+  display: block;
+}
+
+.script-list-title {
+  display: block;
+}

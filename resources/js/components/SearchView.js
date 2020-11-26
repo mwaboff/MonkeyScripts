@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScriptEntryList, ScriptEntryListWaiting } from './ScriptList';
+import { ScriptTileList, ScriptEntryListWaiting } from './ScriptList';
 import RequestInterface from '../interfaces/RequestInterface';
 import { useLocation } from "react-router-dom";
 import ScriptList from './ScriptList.js';
@@ -85,7 +85,7 @@ class SearchViewMain extends React.Component {
 function UserScriptList(props) {
   let script_entries = <ScriptEntryListWaiting />;
     if (props.script_results) {
-      script_entries = <ScriptEntryList scripts={ props.script_results } />;
+      script_entries = <ScriptTileList scripts={ props.script_results } />;
     }
   return (
     <div>

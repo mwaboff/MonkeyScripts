@@ -1,8 +1,8 @@
 import React from 'react';
-import ScriptTile from './ScriptTile.js';
-import ScriptList from './ScriptList.js';
-import SearchBar from './SearchBar.js';
 import Header from './Header.js';
+import SearchBar from './SearchBar.js';
+import ScriptList from './ScriptList.js';
+import IntroBanner from './IntroBanner.js';
 
 class Home extends React.Component {
   render() {
@@ -15,7 +15,7 @@ class Home extends React.Component {
           supplement={ <SearchBar /> }
         />
 
-        {/* <Search /> */}
+        <IntroBanner />
         <ScriptHomeRecommender />
       </>
     )
@@ -40,16 +40,16 @@ class ScriptHomeRecommender extends React.Component {
   render() {
     return (
       <>
-      <div className="flex flex_center-horizontal">
+      {/* <div className="flex flex_center-horizontal">
       <ScriptTile script_id="2" title="HackForums Enhancement Suite v2.0 Electric Boogaloo" summary="Wow a real life summary" is_primary="true" downloads="1255" />
       <ScriptTile script_id="1" title="Custom Twitter Links" summary="Wow a real life summary" primary="true" downloads="305" />
-      </div>
+      </div> */}
 
-      <div className="home-script-recommendations row">
-        <ScriptList listType="topdownload" numScripts="6" />
-        <ScriptList listType="recommended" numScripts="6" />
-        <ScriptList listType="recent" numScripts="6" />
-        <ScriptList listType="official" numScripts="6" />
+      <div className="home-script-recommendations container">
+        <ScriptList listType="recommended" title="Recommended" numScripts="8" is_primary="true" />
+        <ScriptList listType="topdownload" title="Top Downloads" numScripts="8" />
+        <ScriptList listType="recent" title="Recently Updated" numScripts="8" />
+        <ScriptList listType="official" title="Editor's Choice" numScripts="8" />
       </div>
       </>
     )

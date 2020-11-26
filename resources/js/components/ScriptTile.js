@@ -1,15 +1,16 @@
 import React from 'react';
 import fitty from 'fitty';
+import { Link } from "react-router-dom";
 import '../../css/ScriptTile.css';
 
 
 export default function ScriptTile(props) {
   return (
-    <div className="card script-tile flex flex_column">
+    <Link to={"/script/" + props.script_id } className="mks-tile script-tile flex flex_column">
       <ScriptTileHeader title = { props.title } script_id = { props.script_id } is_primary = { props.is_primary } />
       <ScriptTileBody summary = { props.summary } downloads = { props.downloads }/>
       <ScriptTileBottom downloads = { props.downloads } />
-    </div>
+    </Link>
   )
 }
 
@@ -33,11 +34,23 @@ class ScriptTileHeader extends React.Component {
     });
   }
 
+  componentDidUpdate() {
+    let id = "#" + this.state.header_id;
+    fitty(id, {
+      minSize: 12,
+      maxSize: 20,
+      multiLine: true
+    });
+    
+  }
+
   render() {
     return ( 
-      <div id={ this.state.header_id } className= {"script-tile-header script-tile-primary flex flex_center-vertical " + this.state.is_primary }>
+      <div className= {"script-tile-header script-tile-primary flex flex_center-vertical " + this.state.is_primary }>
+        <div>
         <div id={ this.state.header_id } className="script-title">
           { this.state.title }
+        </div>
         </div>
       </div>
     )

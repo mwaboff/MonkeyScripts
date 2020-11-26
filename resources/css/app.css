@@ -1,7 +1,35 @@
 body {
   font-family: var(--font-style-main);
   font-size: var(--font-size-body);
+  background: var(--neutral100);
+  color: var(--primary600);
 }
+
+.container {
+  max-width: var(--container-width);
+}
+
+.mks-tile {
+  border-radius: var(--border-radius);
+  box-shadow: var(--faded-shadow);
+  background: var(--neutral100);
+  color: inherit;
+  text-decoration: inherit;
+  border: none;
+  user-select: none;
+  cursor: pointer;
+}
+
+.mks-tile:hover {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.mks-tile:active {
+  box-shadow: none;
+  transform: translate(2px, 2px);
+}
+
 
 .flex { display: flex !important; }
 
