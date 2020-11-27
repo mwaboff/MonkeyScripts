@@ -32,18 +32,24 @@ class SearchViewMain extends React.Component {
   }
 
   componentDidMount() {
-    if (this.state.query === "null") return;
-
     let search_box = document.getElementById('monkey-search-box');
+    search_box.addEventListener("change", this.processQuery.bind(this));
+
+
+    if (!this.state.query || this.state.query == "" || this.state.query === null || this.state.query === "null") return;
+    console.log("State Query =");
+    console.log(this.state.query);
+    console.log(typeof this.state.query);
+
     search_box.value = this.state.query;
 
     this.processQuery();
-    search_box.addEventListener("change", this.processQuery.bind(this));
 
     
   }
 
   processQuery(e) { 
+    if (e.target.value == '') return;
     if (e) {
       e.preventDefault();
       if (e.target.value) {
@@ -52,7 +58,6 @@ class SearchViewMain extends React.Component {
         })
       }
     }
-    
     this.fetchResults().then(response => 
       this.setState({
         script_results: response["script_results"],
@@ -90,9 +95,9 @@ class SearchViewMain extends React.Component {
 }
 
 function UserScriptList(props) {
-  let script_entries = "There's nothing here";
+  let script_entries = "I'm sorry, I couldn't find anything for your search term yet! Let's try something different.";
   console.log(props);
-    if (props.script_results) {
+    if (props.script_results && props.script_results.length > 0) {
       console.log(props.script_results);
       script_entries = <ScriptTileList scripts={ props.script_results } />;
     }
