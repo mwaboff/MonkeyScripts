@@ -1,5 +1,6 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { useEffect } from "react";
+import { BrowserRouter, Switch, Route, useLocation } from "react-router-dom";
 
 import Home from './components/Home.js';
 import About from './components/About.js';
@@ -16,6 +17,7 @@ function Router(props) {
   return (
     <>
       <BrowserRouter>
+        <ScrollToTop />
         <Switch>
           <Route path="/about">
             <About />
@@ -28,13 +30,19 @@ function Router(props) {
             <ScriptModify />
           </Route>
 
+          <Route exact path="/script/:id/edit">
+            <ScriptModify />
+          </Route>
+
+          <Route exact path="/script/:id/:display">
+            <ScriptView />
+          </Route>
+
           <Route exact path="/script/:id">
             <ScriptView />
           </Route>
 
-          <Route exact path="/script/:id/edit">
-            <ScriptModify />
-          </Route>
+          
 
           <Route exact path="/user/:id">
             <UserView />
@@ -59,24 +67,13 @@ function Router(props) {
 
 export default Router;
 
-// function ScriptRouter(props) {
-//   let { path, url } = useRouteMatch();
 
-//   return (
-//     <div>
-//       <Switch>
-//         <Route exact path="${path}/new" >
-//           <div>hi there222</div>
-//           <ScriptModify />
-//         </Route>
-                  
-//         <Route path={"${path}/:id"}>
-//           <div>yoo</div>
-//         </Route>
+function ScrollToTop() {
+  const { pathname } = useLocation();
 
-//       </Switch>
-//     </div>
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
-//   )
-// }
-
+  return null;
+}

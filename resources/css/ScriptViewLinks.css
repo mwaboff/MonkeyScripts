@@ -1,0 +1,19 @@
+.script-view-links {
+  border-radius: 0;
+}
+
+.script-view-tile {
+  width: 100%;
+  border-radius: 0;
+  height: 100px;
+  border-right: 1px solid var(--neutral300);
+}
+
+.script-view-tile:last-child {
+  border-bottom-right-radius: var(--border-radius);
+  border: none;
+}
+
+.script-view-tile:first-child {
+  border-bottom-left-radius: var(--border-radius);
+}

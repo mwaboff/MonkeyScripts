@@ -1,29 +1,19 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import RequestInterface from '../interfaces/RequestInterface';
-
-import {
-  Redirect,
-  BrowserRouter,
-  Switch,
-  Route,
-  Link,
-  useParams,
-} from "react-router-dom";
+import Header from './Header.js';
+import { Redirect,  useParams} from "react-router-dom";
+import { NoPermission } from './Alerts.js';
 import AuthInterface from '../interfaces/AuthInterface';
+import RequestInterface from '../interfaces/RequestInterface';
+import '../../css/ScriptModify.css';
 
 function ScriptModify() {
   // Have to do this functional wrapper as useParams "hook" can't be run in a class based component apparently
   let { id } = useParams();
-  if (id) {
-    return (
-      <ScriptModifyMain id={ id } />
-    )
-  } else {
-    return (
-      <ScriptModifyMain />
-    )
-  }
+  id = id ? id : ''; // React was complaining that I wasn't converting id to a string when it was unidentified. Quick fix.
+
+  return (
+    <ScriptModifyMain id={ id } />
+  )
 }
 
 class ScriptModifyMain extends React.Component {
@@ -127,13 +117,22 @@ class ScriptModifyMain extends React.Component {
   }
 
   render(props) {
+    if (!isMyScript(this.state.author_id, this.state.my_id)) {
+      return <NoPermission message="You do not have permission to edit this script" />
+    }
     return (
-      <div className="container">
+      <>
+      <Header 
+        title="Script Editor" 
+        subtitle="Changing the world, one script at a time!"
+      />
+      <div className="container section">
         <NotAllowedAlert author_id={ this.state.author_id } my_id={ this.state.my_id } />
         <PageTitle id={this.state.requested_id}/>
         <ScriptForm script_info={ this.state }/>
         <ScriptDestroyButton author_id={ this.state.author_id } my_id={ this.state.my_id } />
       </div>
+    </>
       
     )
   }

@@ -1,15 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import {
-  BrowserRouter,
-  Switch,
-  Route,
-  Link,
-  useParams,
-
-} from "react-router-dom";
+import Header from './Header.js';
+import { useParams } from "react-router-dom";
 import RequestInterface from '../interfaces/RequestInterface';
-import { ScriptTileList, ScriptEntryListWaiting } from './ScriptList';
+import { ScriptTileList } from './ScriptList';
+import '../../css/UserView.css';
 
 export default function UserView() {
   // Have to do this functional wrapper as useParams "hook" can't be run in a class based component apparently
@@ -26,10 +20,8 @@ class UserViewMain extends React.Component {
     this.state = { 
       requested_id: props.id, 
       user_name: "Loading...", 
-      user_info: {
-        join_date: "Loading...",
-        num_scripts: "Loading...",
-      },
+      join_date: "Loading...",
+      num_scripts: "Loading...",
       user_scripts: []
     };
   }
@@ -39,10 +31,8 @@ class UserViewMain extends React.Component {
       .then(response => 
         this.setState({
           user_name: response["name"],
-          user_info: {
-            join_date: response["join_date"],
-            num_scripts: response["num_scripts"]
-          },
+          join_date: response["join_date"],
+          num_scripts: response["num_scripts"],
           user_scripts: response["script_list"]
         })
       )
@@ -55,43 +45,36 @@ class UserViewMain extends React.Component {
 
   render() {
     return (
-      <div className="container">
-        <UserName name={ this.state.user_name } />
-        <div className="row">
+      <>
+      <Header 
+        title={this.state.user_name}
+        subtitle="User"
+      />
+      <div className="container section">
         <UserScriptList script_list={ this.state.user_scripts } />
-        <UserInfo info={ this.state.user_info } />
-        </div>
       </div>
+      </>
     )
   }
-}
-
-function UserName(props) {
-  return (
-    <div>
-      <h1>
-        { props.name }
-      </h1>
-    </div>
-  )
 }
 
 function UserInfo(props) {
   return (
     <div className="col-md-3">
-      <b>Member Since:</b> { props.info.join_date }
-      <b>Number of Scripts:</b> { props.info.num_scripts }
+      <b>Member Since:</b> { props.join_date }
+      <b>Number of Scripts:</b> { props.num_scripts }
     </div>
   )
 }
 
 function UserScriptList(props) {
-  let script_entries = <ScriptEntryListWaiting />
+  let script_entries = "There are no scripts here yet!";
   if (props.script_list.length) {
     script_entries = <ScriptTileList scripts={ props.script_list } />;
   }
   return (
-    <div className="col-md-9">
+    <div className="user-view-content">
+      <h1>Submitted Scripts</h1>
       { script_entries }
     </div>
   )

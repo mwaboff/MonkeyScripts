@@ -1,9 +1,10 @@
 import React from 'react';
-import { ScriptTileList, ScriptEntryListWaiting } from './ScriptList';
-import RequestInterface from '../interfaces/RequestInterface';
-import { useLocation } from "react-router-dom";
-import ScriptList from './ScriptList.js';
+import Header from './Header.js';
 import SearchBar from './SearchBar.js';
+import ScriptList from './ScriptList.js';
+import { useLocation } from "react-router-dom";
+import RequestInterface from '../interfaces/RequestInterface';
+import { ScriptTileList, ScriptEntryListWaiting } from './ScriptList';
 
 
 export default function SearchView() {
@@ -42,7 +43,7 @@ class SearchViewMain extends React.Component {
     
   }
 
-  processQuery(e) {
+  processQuery(e) { 
     if (e) {
       e.preventDefault();
       if (e.target.value) {
@@ -72,23 +73,32 @@ class SearchViewMain extends React.Component {
   render() {
 
     return (
-      <div className="container" readOnly>
-        <SearchBar />
-        <UserScriptList script_results = { this.state.script_results } />
-        <ScriptList listType="recommended" numScripts="6" />
+      <>
+      <Header 
+        title="Search"
+        subtitle="Find the perfect script!"
+        supplement= { <SearchBar /> }
+        />
+      <div className="container section">
+        <UserScriptList script_results = { this.state.script_results } title="Search Results" />
+        <ScriptList listType="recommended" numScripts="4" title="Other Recommended Scripts"/>
       </div>
+      </>
     )
   }
 
 }
 
 function UserScriptList(props) {
-  let script_entries = <ScriptEntryListWaiting />;
+  let script_entries = "There's nothing here";
+  console.log(props);
     if (props.script_results) {
+      console.log(props.script_results);
       script_entries = <ScriptTileList scripts={ props.script_results } />;
     }
   return (
     <div>
+      <h1>Search Results</h1>
       { script_entries }
     </div>
   )

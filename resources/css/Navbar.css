@@ -1,3 +1,8 @@
+.navbar {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
 .navbar-mks {
   height: var(--navbar);
   width: 100%;
@@ -5,6 +10,18 @@
 
 .navbar-mks .nav-item a {
   color: var(--navbar-text-color);
+}
+
+.nav-link {
+  padding: 0 15px !important;
+}
+
+.navbar-mks .nav-item a:last-child {
+  padding-right: 0;
+}
+
+.navbar-mks .nav-item a:hover {
+  color: var(--navbar-navitem-hover-color);
 }
 
 .navbar-mks .navbar-toggler-icon {
@@ -15,4 +32,13 @@
   color: var(--navbar-logo-color);
   font-size: var(--navbar-logo-size);
   font-family: var(--font-style-logo);
+}
+
+.navbar-brand:hover {
+  transform: scale(1.01);
+  color: var(--accent-red400);
+}
+
+.navbar-brand:active {
+  transform: scale(0.99);
 }

@@ -19,8 +19,7 @@ function IntroText(props) {
   return (
     <div className='intro-text flex flex_column flex_center-vertical'>
       <h1>New to user scripts?</h1>
-      <p>Ever want to download Youtube videos?</p>
-      <p>Favorite site irritating?</p>
+      <p>Ever frustrated with an annoying design issue on a website? <br />A user script may help!</p>
       <p>Click on the buttons to the right to get started!</p>
     </div>
   )
@@ -28,7 +27,7 @@ function IntroText(props) {
 
 function IntroTileList(props) {
   return (
-    <div className="intro-tile-list flex flex_center-full">
+    <div className="intro-tile-list section flex flex_center-full">
       <IntroTiles logo="book-open" text="Follow Tutorial" target="/tutorial" link_type="external"/>
       <IntroTiles logo="download" text="Install Manager" target="https://www.tampermonkey.net/" link_type="external"/>
       <IntroTiles logo="search" text="Find Scripts" target="/search" link_type="internal"/>
@@ -51,7 +50,7 @@ function IntroTiles(props) {
 
     </Link>
   )
-  }
+}
   
 
 function IntroTileContent(props) {

@@ -46,7 +46,7 @@
   /* General */
   --border-radius: 5px;
   --container-width: 1200px;
-  --section-padding-height: 30px;
+  --section-padding-height: 55px;
 
   /* Box Shadow */
   --faded-shadow: 8px 12px 14px 0px #0009231a;
@@ -64,10 +64,13 @@
 
   --navbar-text-color: var(--neutral100);
   --navbar-logo-color: var(--neutral100);
+  --navbar-navitem-hover-color: var(--accent-red400);
 
 
   /* Header */
   --header-banner-height: 470px;
+  --header-banner-height-sm: 450px;
+  --header-banner-height-lg: 470px;
   --header-title-size: 64px;
   --header-subtitle-size: 34px;
   --header-tagline-size: 23px;
@@ -78,8 +81,8 @@
 
   --header-title-line-height: 0.8;
 
-  --header-text-padding: var(--navbar-height);
-  --header-titles-upper-static-margin: 100px;
+  --header-text-padding: var(--section-padding-height);
+  --header-titles-upper-static-margin: var(--section-padding-height);
 
 
   /* Search Bar */
@@ -114,4 +117,7 @@
   /* Intro Tiles */
   --intro-tile-height: 132px;
   --intro-tile-width: 191px;
+
+  /* Script View */
+  --script-view-section-min-height: 20vh;
 }

@@ -1,6 +1,6 @@
 .search-bar {
-  max-height: var(--search-bar-height);
-  margin-top: var(--search-bar-margin);
+  height: var(--search-bar-height);
+  /* margin-top: var(--search-bar-margin); */
   width: 100%;
   overflow: hidden;
 }

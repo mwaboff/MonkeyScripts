@@ -5,23 +5,28 @@ import '../../css/Header.css';
 
 export default function Header(props) {
   // props.supplement can be any component, such as a search bar or script metadata
+  let size_class = props.size == "large" ? "header-lg" : "header-sm";
   return (
-    <div className="header-banner">
+    <div className={ "header-banner " + size_class }>
 
       <UserContext.Consumer>
         {(value) => (<Navbar setLoggedOut={ value.setLoggedOut } setLoggedOut={ value.setLoggedOut } />)}
       </UserContext.Consumer>
 
-      <div className="container">
-        <div className="header-text">
-          <div className="header-titles">
-            <Title title_text = { props.title } />
-            <Subtitle subtitle_text = { props.subtitle } />
+      <div className="container full-header">
+        <div className="header-components full-header flex flex_column">
+          <div className="header-text">
+            <div className="header-titles">
+              <Title title_text = { props.title } />
+              <Subtitle subtitle_text = { props.subtitle } />
+            </div>
+            <Tagline tagline_text = { props.tagline } />
+            <Tagline tagline_text = { props.tagline2 } />
           </div>
-          <Tagline tagline_text = { props.tagline } />
-          <Tagline tagline_text = { props.tagline2 } />
+          <div className="header-supplement flex flex_center-vertical">
+            { props.supplement }
+          </div>
         </div>
-        { props.supplement }
       </div>
     </div>
   );

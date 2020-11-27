@@ -1,25 +1,31 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-
+import Header from './Header.js';
+import SearchBar from './SearchBar.js';
+import ScriptList from './ScriptList.js';
 
 export default function Tutorial() {
   return (
-    <div className="container">
-      <StaticPageTitle title="Interactive Tutorial" />
+    <>
+    <Header 
+      title = "Tutorial"
+      subtitle = "Learn how to use user scripts!"
+      supplement = { <SearchBar /> }
+    />
+    <div className="container section">
       <TutorialText />
-    </div>
-  )
-}
+      <ScriptList listType="recommended" title="Now check out these scripts!" numScripts="8" is_primary="true" />
 
-function StaticPageTitle(props) {
-  return (
-    <h1>{ props.title }</h1>
+    </div>
+    </>
   )
 }
 
 function TutorialText() {
   return (
+    
     <div className="tutorial">
+      <h1>Welcome to MonkeyScripts!</h1>
+      <p>User scripts have the potential of opening up a huge potential for customization on the internet. </p>
       <div>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam tincidunt felis sit amet ipsum ultrices vestibulum. Duis dictum dignissim enim. Aliquam malesuada mauris mattis diam placerat condimentum. Curabitur porta eros magna, at accumsan augue convallis non. Pellentesque iaculis finibus tristique. Mauris nec ipsum a velit accumsan auctor nec a tortor. In tristique nulla tincidunt ex tempor, a vulputate massa malesuada. In consectetur ex sed sem pretium tempus. Pellentesque id erat ex. Phasellus a tempor nulla. Pellentesque vestibulum elit lacus, eget dignissim augue efficitur et. Nunc convallis molestie urna, sed sollicitudin tellus vulputate sed.
       </div>

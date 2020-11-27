@@ -1,0 +1,13 @@
+.script-view-content {
+  /* padding: var(--section-padding-height) 0; */
+  min-height: var(--script-view-section-min-height);
+}
+
+.script-view-metadata {
+  justify-content: space-between;
+  float: bottom;
+}
+
+.intro-tile-logo {
+  padding-right: 5px;
+}

@@ -1,14 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import {
-  BrowserRouter,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
-import UserContext from '../contexts/UserContext.js';
-
+import { Link } from "react-router-dom";
 import LoginRegister from './LoginRegister.js';
+import UserContext from '../contexts/UserContext.js';
 
 import '../../css/Navbar.css';
 
@@ -29,7 +22,6 @@ class Header extends React.Component {
     if(logout_button){
       logout_button.addEventListener('click', this.startLogout.bind(this));
     }
-    
   }
 
   startLogout(e) {
@@ -91,7 +83,7 @@ function NavbarLinks(props) {
           <a href="/tutorial" className="nav-link">Tutorial</a>
         </li>
         <li className="nav-item">
-          <Link to="/about" className="nav-link">About</Link>
+          <Link to="/search" className="nav-link">Search</Link>
         </li>
         { logged_links }
       </ul>

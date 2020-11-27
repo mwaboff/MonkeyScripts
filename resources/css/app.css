@@ -5,10 +5,24 @@ body {
   color: var(--primary600);
 }
 
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .container {
   max-width: var(--container-width);
 }
 
+.section {
+  margin-top: var( --section-padding-height);
+  margin-bottom: var( --section-padding-height);
+  height: 100%;
+  flex-grow: 1;
+}
+
+/* Basic MonkeyScript Tiles */
 .mks-tile {
   border-radius: var(--border-radius);
   box-shadow: var(--faded-shadow);
@@ -23,6 +37,7 @@ body {
 .mks-tile:hover {
   color: inherit;
   text-decoration: inherit;
+  transform: scale(1.02);
 }
 
 .mks-tile:active {
@@ -31,6 +46,7 @@ body {
 }
 
 
+/* Flex Helpers */
 .flex { display: flex !important; }
 
 .flex_column { flex-direction: column; }

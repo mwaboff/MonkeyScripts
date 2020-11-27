@@ -44,7 +44,7 @@ class ScriptList extends React.Component {
 
   render() {
     return (
-      <div className="script-list">
+      <div className="script-list section">
         <ScriptListTitle title={ this.state.title } />
         <ScriptTileList scripts={ this.state.response } is_primary={ this.state.is_primary }/>
       </div>

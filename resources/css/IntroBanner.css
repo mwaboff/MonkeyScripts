@@ -1,18 +1,14 @@
 .intro-banner {
   background: var(--primary100);
-  padding: var(--section-padding-height) 0;
+  /* padding: var(--section-padding-height) 0; */
 }
 
 .intro-text {
   flex-grow: 1;
 }
 
-.intro-banner-contents {
-  width: 100%;
-}
-
 .intro-tile-list {
-  flex-grow: 2;
+  flex-grow: 1;
   justify-content: space-between;
 }
 
