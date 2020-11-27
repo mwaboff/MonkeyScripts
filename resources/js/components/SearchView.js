@@ -35,14 +35,9 @@ class SearchViewMain extends React.Component {
     let search_box = document.getElementById('monkey-search-box');
     search_box.addEventListener("change", this.processQuery.bind(this));
 
-
     if (!this.state.query || this.state.query == "" || this.state.query === null || this.state.query === "null") return;
-
     search_box.value = this.state.query;
-
     this.processQuery();
-
-    
   }
 
   processQuery(e) { 

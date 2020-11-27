@@ -120,4 +120,7 @@
 
   /* Script View */
   --script-view-section-min-height: 20vh;
+
+  /* Script Controls */
+  --script-control-btn-height: 100px;
 }

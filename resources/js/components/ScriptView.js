@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 
 import RequestInterface from '../interfaces/RequestInterface';
 import UserContext from '../contexts/UserContext.js';
-import ScriptViewLinks from './ScriptViewLinks.js';
+import { ScriptControlList, ScriptControlButton } from './ScriptControl.js';
 import ScriptList from './ScriptList.js';
 import Header from './Header.js';
 
@@ -110,7 +110,7 @@ class ScriptViewMain extends React.Component {
       />
       <div className="container" readOnly>
         <UserContext.Consumer>
-          {(value) => (<ScriptViewLinks 
+          {(value) => (<ScriptViewControls 
             author_id = { this.state.author_id }  
             user = { value.user } 
             script_id = { this.state.script_id } 
@@ -140,6 +140,34 @@ function ScriptMetadata(props) {
       <ScriptMetadataComponent icon="user" text={ props.downloads } />
     </div>
   )
+}
+
+function ScriptViewControls(props) {
+  let install_url = "/script/" + props.script_id + ".user.js";
+
+  // Check to see if we should render the code button or the description button
+  let display_link = <ScriptControlButton logo="file-code" text="View Code "  target={ "/script/" + props.script_id + "/code" } />
+  if (props.display == "code") {
+    display_link = <ScriptControlButton logo="file-alt" text="View Description "  target={ "/script/" + props.script_id } />
+  }
+  
+  // Check to see if we should render an edit button
+  let edit_script_link = "";
+  console.log(props);
+  if (props.user.uid != '' && props.user.uid == props.author_id) {
+    let edit_url = "/script/" + props.script_id + "/edit";
+    edit_script_link = <ScriptControlButton logo="wrench" text="Edit" target={ edit_url }/>
+  }
+
+  return (
+    <ScriptControlList>
+      <ScriptControlButton logo="file-download" text="Install" elem_id= "install-button" target={ install_url } link_type="external" />
+      { display_link }
+      <ScriptControlButton logo="question" text="What is this?" target="/tutorial" link_type="external" />
+      { edit_script_link }
+    </ScriptControlList>
+  );
+
 }
 
 function ScriptMetadataComponent(props) {

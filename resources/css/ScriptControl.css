@@ -1,0 +1,19 @@
+.script-control-list {
+  border-radius: 0;
+}
+
+.script-control-btn {
+  width: 100%;
+  border-radius: 0;
+  height: var(--script-control-btn-height);
+  border-right: 1px solid var(--neutral300);
+}
+
+.script-control-btn:last-child {
+  border-bottom-right-radius: var(--border-radius);
+  border: none;
+}
+
+.script-control-btn:first-child {
+  border-bottom-left-radius: var(--border-radius);
+}
