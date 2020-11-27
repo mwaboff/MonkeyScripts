@@ -37,9 +37,6 @@ class SearchViewMain extends React.Component {
 
 
     if (!this.state.query || this.state.query == "" || this.state.query === null || this.state.query === "null") return;
-    console.log("State Query =");
-    console.log(this.state.query);
-    console.log(typeof this.state.query);
 
     search_box.value = this.state.query;
 
