@@ -5,7 +5,7 @@ import '../../css/ScriptControl.css';
 
 export function ScriptControlList(props) {
   return (
-    <div class="script-control-list flex flex_row">
+    <div className="script-control-list flex flex_row">
       { props.children }
     </div>
   )
@@ -26,9 +26,9 @@ export function ScriptControlButton(props) {
 
 function ScriptControlText(props) {
   return (
-    <>
+    <div className="flex flex_column flex_center-full">
       <i className={"intro-tile-logo fas fa-lg fa-"+props.logo} />
       <div className="intro-tile-text">{ props.text }</div>
-    </>
+    </div>
   )
 }

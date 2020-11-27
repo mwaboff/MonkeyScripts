@@ -41,9 +41,10 @@ class SearchViewMain extends React.Component {
   }
 
   processQuery(e) { 
-    if (e.target.value == '') return;
     if (e) {
       e.preventDefault();
+      if (e.target.value == '') return;
+
       if (e.target.value) {
         this.setState({
           query: e.target.value

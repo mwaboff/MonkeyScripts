@@ -71,7 +71,7 @@ export function ScriptTileList(props) {
           <ScriptTile 
             title={ script.title } 
             script_id={ script.id }
-            summary={ script.description }
+            summary={ script.summary }
             downloads={ script.downloads }
             is_primary={ props.is_primary }
           />

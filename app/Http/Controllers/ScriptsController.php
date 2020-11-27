@@ -29,6 +29,7 @@ class ScriptsController extends Controller
             "title" => $script["title"],
             "author_id" => $script["author_id"],
             "author_name" => $author["name"],
+            "summary" => $script["summary"],
             "description" => $script["description"],
             "code" => $script["code"]
         ];
@@ -62,6 +63,7 @@ class ScriptsController extends Controller
         $script = Script::findOrFail($request["script_id"]);
         $script->title = $request["title"];
         $script->description = $request["description"];
+        $script->summary = $request["summary"];
         $script->code = $request["code"];
         $script->save();
 
@@ -90,6 +92,7 @@ class ScriptsController extends Controller
             'author_id' => $user_id,
             'title' => $request['title'],
             'description' => $request['description'],
+            'summary' => $request['summary'],
             'code' => $request['code'],
         ]);
         

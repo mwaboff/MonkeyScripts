@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from './Header.js';
 import { Redirect,  useParams} from "react-router-dom";
+import { ScriptControlList, ScriptControlButton } from './ScriptControl.js';
 import { NoPermission } from './Alerts.js';
 import AuthInterface from '../interfaces/AuthInterface';
 import RequestInterface from '../interfaces/RequestInterface';
@@ -59,9 +60,11 @@ class ScriptModifyMain extends React.Component {
   }
 
   componentDidUpdate() {
+    console.log("COMPONENT UPDATED");
     let delete_form = document.getElementById('script-delete');
+    console.log(delete_form);
     if (delete_form) {
-      delete_form.addEventListener('submit', this.deleteScript.bind(this));
+      delete_form.addEventListener('click', this.deleteScript.bind(this));
     }
 
   }
@@ -77,7 +80,6 @@ class ScriptModifyMain extends React.Component {
       alert("You do not have permission to edit this");
       return;
     }
-
 
     let form = e.srcElement;
     let script_data = {
@@ -98,15 +100,13 @@ class ScriptModifyMain extends React.Component {
   }
 
   deleteScript(e) {
+    console.log("PREVENTING DEFAULT ACTION");
     e.preventDefault();
-    if (!confirm("Are you sure you want to delete this script?")) {
-      return;
-    }
+    if (!confirm("Are you sure you want to delete this script?")) return;
 
-    let target_address = "/api/script/destroy";
     let script_data = { "script_id": this.state.script_id }
-
-    RequestInterface.sendRequest(target_address, "POST", script_data)
+    RequestInterface.sendRequest("/api/script/destroy", "POST", script_data)
+    .then(response => this.redirectToHome());
   }
 
   redirectToScript(response) {
@@ -114,6 +114,10 @@ class ScriptModifyMain extends React.Component {
     return (
       <Redirect to={ "/script/" + script_id } />
     )
+  }
+
+  redirectToHome() {
+    return <Redirect to="/" />
   }
 
   render(props) {
@@ -126,11 +130,16 @@ class ScriptModifyMain extends React.Component {
         title="Script Editor" 
         subtitle="Changing the world, one script at a time!"
       />
-      <div className="container section">
-        <NotAllowedAlert author_id={ this.state.author_id } my_id={ this.state.my_id } />
-        <PageTitle id={this.state.requested_id}/>
-        <ScriptForm script_info={ this.state }/>
-        <ScriptDestroyButton author_id={ this.state.author_id } my_id={ this.state.my_id } />
+      <div className="container">
+        <ScriptEditControls 
+          script_id={ this.state.script_id }
+          is_logged_in={ isMyScript(this.state.author_id, this.state.my_id) }
+        />
+
+        <div className="section">
+          <PageTitle id={this.state.requested_id}/>
+          <ScriptForm script_info={ this.state }/>
+        </div>
       </div>
     </>
       
@@ -140,16 +149,70 @@ class ScriptModifyMain extends React.Component {
 
 export default ScriptModify;
 
-
-
-function NotAllowedAlert(props) {
-  let alert = "";
-  if (!isMyScript(props.author_id, props.my_id)) {
-    alert = <div>You Do Not Have Permission To Edit This Script!</div>
+function ScriptEditControls(props) {
+  let delete_button = "";
+  if (props.is_logged_in && props.script_id > 0) {
+    delete_button = <ScriptControlButton logo="trash-alt" text="Delete" elem_id="script-delete" target="/" link_type="external" />
   }
 
-  return alert;
+  return (
+    <ScriptControlList>
+
+      <ScriptControlButton logo="question" text="What is this?" target="/tutorial" link_type="external" />
+      { delete_button }
+
+    </ScriptControlList>
+  )
 }
+
+
+
+function ScriptViewControls(props) {
+  let install_url = "/script/" + props.script_id + ".user.js";
+
+  // Check to see if we should render the code button or the description button
+  let display_link = <ScriptControlButton logo="file-code" text="View Code "  target={ "/script/" + props.script_id + "/code" } />
+  if (props.display == "code") {
+    display_link = <ScriptControlButton logo="file-alt" text="View Description "  target={ "/script/" + props.script_id } />
+  }
+  
+  // Check to see if we should render an edit button
+  let edit_script_link = "";
+  console.log(props);
+  if (props.user.uid != '' && props.user.uid == props.author_id) {
+    let edit_url = "/script/" + props.script_id + "/edit";
+    edit_script_link = <ScriptControlButton logo="wrench" text="Edit" target={ edit_url }/>
+  }
+
+  return (
+    <ScriptControlList>
+      <ScriptControlButton logo="file-download" text="Install" elem_id= "install-button" target={ install_url } link_type="external" />
+      { display_link }
+      <ScriptControlButton logo="question" text="What is this?" target="/tutorial" link_type="external" />
+      { edit_script_link }
+    </ScriptControlList>
+  );
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function PageTitle(props) {
   return (

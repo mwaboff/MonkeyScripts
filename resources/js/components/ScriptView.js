@@ -1,12 +1,10 @@
 import React from 'react';
-import { Link, useParams } from "react-router-dom";
-
-import RequestInterface from '../interfaces/RequestInterface';
-import UserContext from '../contexts/UserContext.js';
-import { ScriptControlList, ScriptControlButton } from './ScriptControl.js';
-import ScriptList from './ScriptList.js';
 import Header from './Header.js';
-
+import ScriptList from './ScriptList.js';
+import { Link, useParams } from "react-router-dom";
+import UserContext from '../contexts/UserContext.js';
+import RequestInterface from '../interfaces/RequestInterface';
+import { ScriptControlList, ScriptControlButton } from './ScriptControl.js';
 import '../../css/ScriptView.css';
 
 
@@ -101,7 +99,6 @@ class ScriptViewMain extends React.Component {
         title={ this.state.script_title } 
         subtitle={ author_link }
         tagline={this.state.script_summary }
-        tagline2={ this.state.script_descr }
         supplement={ <ScriptMetadata 
           create_date = { this.state.create_date } 
           update_date = { this.state.update_date }
@@ -167,7 +164,6 @@ function ScriptViewControls(props) {
       { edit_script_link }
     </ScriptControlList>
   );
-
 }
 
 function ScriptMetadataComponent(props) {

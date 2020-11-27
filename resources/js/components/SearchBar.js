@@ -45,7 +45,7 @@ function SearchBasicForm(props) {
   return (
     <form id="monkey-search-form">
       <SearchIcon />
-      <input id="monkey-search-box" type="text" name="search-text" className="search-bar-mks search-component" placeholder="Find your next favorite script..." ></input>
+      <input id="monkey-search-box" type="text" name="search-text" className="search-bar-mks search-component" autoFocus="autofocus" placeholder="Find your next favorite script..." ></input>
       <SearchButton />
     </form>
   );

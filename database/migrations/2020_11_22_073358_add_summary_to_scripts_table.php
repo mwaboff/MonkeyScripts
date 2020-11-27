@@ -15,7 +15,7 @@ class AddSummaryToScriptsTable extends Migration
     {
         Schema::table('scripts', function (Blueprint $table) {
             //
-            $table->string('summary', 280);
+            $table->string('summary', 280)->default(NULL);
         });
     }
 
