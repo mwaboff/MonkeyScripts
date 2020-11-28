@@ -60,13 +60,10 @@ class ScriptModifyMain extends React.Component {
   }
 
   componentDidUpdate() {
-    console.log("COMPONENT UPDATED");
     let delete_form = document.getElementById('script-delete');
-    console.log(delete_form);
     if (delete_form) {
       delete_form.addEventListener('click', this.deleteScript.bind(this));
     }
-
   }
 
   async fetchScriptInfo() {

@@ -19,7 +19,10 @@
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <!-- <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
-    <script src="https://kit.fontawesome.com/ed15f71faa.js" crossorigin="anonymous"></script>
+
+    <!-- Highlight.js -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.4.0/styles/default.min.css">
+
 
 
     <!-- <script>
@@ -30,8 +33,10 @@
 </head>
 <body>
     @yield('content')
-    <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
 
+    <script src="https://kit.fontawesome.com/ed15f71faa.js" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.4.0/highlight.min.js"></script>
+    <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
 
 </body>
 </html>

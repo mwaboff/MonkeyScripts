@@ -6,6 +6,7 @@ import UserContext from '../contexts/UserContext.js';
 import RequestInterface from '../interfaces/RequestInterface';
 import { ScriptControlList, ScriptControlButton } from './ScriptControl.js';
 import '../../css/ScriptView.css';
+import { isSet } from 'lodash';
 
 
 
@@ -53,6 +54,10 @@ class ScriptViewMain extends React.Component {
     if(this.props.display !== this.state.display) {
       this.setState({display: this.props.display});
     }
+
+    let code_block = document.getElementById("mks-code");
+    if(code_block) hljs.highlightBlock(code_block);
+
   }
 
   initiateScriptFetch(requested_id) {
@@ -71,6 +76,8 @@ class ScriptViewMain extends React.Component {
         downloads: response["downloads"].toString()
       })
     );
+    
+
   }
 
   sendClickedDownload(e) {
@@ -188,7 +195,7 @@ function ScriptCode(props) {
   return (
     <div>
       <h1>Code</h1>
-      <textarea className="form-control" value={ props.script_code } style={{height: 500 + "px"}} readOnly/>
+      <pre id="mks-code" className="form-control javascript" style={{height: 500 + "px"}}>{ props.script_code }</pre>
     </div>
   )
 }
