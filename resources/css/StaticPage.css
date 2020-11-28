@@ -1,0 +1,3 @@
+.tutorial-section * {
+  margin: calc(var(--section-padding-height) / 2) 0;
+}

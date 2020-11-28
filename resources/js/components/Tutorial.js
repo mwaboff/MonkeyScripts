@@ -3,12 +3,15 @@ import Header from './Header.js';
 import SearchBar from './SearchBar.js';
 import ScriptList from './ScriptList.js';
 
+import '../../css/StaticPage.css';
+
+
 export default function Tutorial() {
   return (
     <>
     <Header 
       title = "Tutorial"
-      subtitle = "Learn how to use user scripts!"
+      subtitle = "What is this site even?"
       supplement = { <SearchBar /> }
     />
     <div className="container section">
@@ -24,16 +27,53 @@ function TutorialText() {
   return (
     
     <div className="tutorial">
-      <h1>Welcome to MonkeyScripts!</h1>
-      <p>User scripts have the potential of opening up a huge potential for customization on the internet. </p>
-      <div>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam tincidunt felis sit amet ipsum ultrices vestibulum. Duis dictum dignissim enim. Aliquam malesuada mauris mattis diam placerat condimentum. Curabitur porta eros magna, at accumsan augue convallis non. Pellentesque iaculis finibus tristique. Mauris nec ipsum a velit accumsan auctor nec a tortor. In tristique nulla tincidunt ex tempor, a vulputate massa malesuada. In consectetur ex sed sem pretium tempus. Pellentesque id erat ex. Phasellus a tempor nulla. Pellentesque vestibulum elit lacus, eget dignissim augue efficitur et. Nunc convallis molestie urna, sed sollicitudin tellus vulputate sed.
-      </div>
-      <div>
-        Donec et turpis augue. In nec nisl ex. Nulla sollicitudin, magna vel blandit fermentum, odio neque pretium lectus, ac tincidunt nibh ante et dui. Donec ut ante eu arcu tristique porta porta non quam. Quisque maximus ac sem sit amet faucibus. Donec mollis in ligula eu viverra. Sed et nisl vitae mauris dignissim cursus. Nam in turpis lacus. Duis et augue dapibus, maximus urna vitae, mattis nibh. Pellentesque accumsan porttitor accumsan. Pellentesque quam elit, imperdiet vel volutpat non, efficitur sed orci. Fusce a erat vel turpis finibus egestas. Maecenas facilisis arcu augue, non pharetra sem ornare sit amet. Nulla varius libero id velit euismod, sit amet feugiat nunc egestas.
+    <h1>Welcome to MonkeyScripts!</h1>
+      <div className="tutorial-section">
+        <div className="tutorial-text">
+          User scripts are small add-ons that can be installed on just about any desktop web browser via a tool called a user script "manager". These scripts have the ability to modify a web page, adding features or even fixing annoyances that the website owner can't be bothered to fix. There are user scripts out there that provide useful features, such as adding an automatic refresh button to work queues, to outright silly ones, like replacing every image with a picture of Nicolas Cage. Your imagination is the limit!
+        </div>
       </div>
 
-      <div id="monkeyscripts-tutorial-widget" className="card-body" style={{background: 'red'}} ><center><b>If the background is red, the script has not been installed. If it is green, it has been.</b></center></div>
+      <div className="mks-alert info flex flex_center-full"><i className="fas fa-lg fa-info-circle alert-icon" /> While powerful, user scripts can only modify what your browser can see, it cannot access secure items on another server.</div>
+
+      <div className="tutorial-section">
+        <h2 className="tutorial-section-header"><b>Step 1:</b> Install a User Script Manager</h2>
+        <div className="tutorial-text">
+          The first thing needed is to install a user script manager. The most popular manager, with over 10 million users, is <a href="https://www.tampermonkey.net/" target="_blank">Tampermonkey.</a> Open the <a href="https://www.tampermonkey.net/" target="_blank">Tampermonkey website</a> and click on the Download button for your browser.
+        </div>
+        <div className="tutorial-text">
+          This video will show you how to install Tampermonkey for Google Chrome. The Tampermonkey website has additional instruction videos for other browsers as well.
+        </div>
+        <div className="tutorial-video-container flex flex_center-full">
+          <iframe width="600" height="400" src="https://www.youtube.com/embed/cu4XeYtqXbM" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+        </div>
+      </div>
+
+      <div className="tutorial-section">
+        <h2 className="tutorial-section-header"><b>Step 2:</b> Find a Script</h2>
+        <div className="tutorial-text">
+          Once you have installed a manager, the next step is to find a script you would like to install. For practice, let's install <a href="/script/10" target="_blank">the MonkeyScripts Tutorial script</a>. Click on the link to be directed to the tutorial page and click the Install button. A new tab will open and your user script manager will ask if you want to install the script.
+        </div>
+        <div className="tutorial-text">
+          After you have installed the tutorial script, refresh this page. If done correctly, the box below will turn green!
+        </div>
+        <div id="monkeyscripts-tutorial-widget" className="mks-alert error" >
+          If the background is red, the test script has not been installed. When installed, this will turn green.
+        </div>
+      </div>
+
+      <div className="tutorial-section">
+        <h2 className="tutorial-section-header"><b>Step 3:</b> Enjoy!</h2>
+        <div className="tutorial-text">
+          Congratulations, you now know how to install and use user scripts! If you ever want to uninstall a script, simply open up the Tampermonkey extension menu and turn the script's slider off.
+        </div>
+        <div className="tutorial-image flex flex_center-full">
+          <img src="/img/tampermonkey_disable_script.png" width="358" height="400" />
+        </div>
+      </div>
+
+
+      
     </div>
   )
 }

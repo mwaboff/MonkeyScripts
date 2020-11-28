@@ -40,16 +40,11 @@ class ScriptHomeRecommender extends React.Component {
   render() {
     return (
       <>
-      {/* <div className="flex flex_center-horizontal">
-      <ScriptTile script_id="2" title="HackForums Enhancement Suite v2.0 Electric Boogaloo" summary="Wow a real life summary" is_primary="true" downloads="1255" />
-      <ScriptTile script_id="1" title="Custom Twitter Links" summary="Wow a real life summary" primary="true" downloads="305" />
-      </div> */}
-
       <div className="home-script-recommendations container">
         <ScriptList listType="recommended" title="Recommended" numScripts="4" is_primary="true" />
         <ScriptList listType="topdownload" title="Top Downloads" numScripts="8" />
         <ScriptList listType="recent" title="Recently Updated" numScripts="4" />
-        <ScriptList listType="official" title="Editor's Choice" numScripts="4" />
+        <ScriptList listType="official" title="Editor's Choice" numScripts="10" />
       </div>
       </>
     )

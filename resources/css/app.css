@@ -3,6 +3,7 @@ body {
   font-size: var(--font-size-body);
   background: var(--neutral100);
   color: var(--primary600);
+  line-height: 1.7;
 }
 
 #app {
@@ -45,6 +46,38 @@ body {
   transform: translate(2px, 2px);
 }
 
+.mks-alert {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  font-weight: bold;
+  padding: 30px;
+  border-radius: var(--border-radius);
+}
+
+.mks-alert.error {
+  background: var(--accent-red100);
+  border: 1px solid var(--accent-red600);
+  color: var(--accent-red600);
+}
+
+.mks-alert.info {
+  background: var(--accent-blue100);
+  border: 1px solid var(--accent-blue600);
+  color: var(--accent-blue600);
+}
+
+.mks-alert.success {
+  background: var(--accent-green100);
+  border: 1px solid var(--accent-green600);
+  color: var(--accent-green600);
+}
+
+.mks-alert .alert-icon {
+  font-size: 35px;
+  padding-right: 15px;
+}
 
 /* Flex Helpers */
 .flex { display: flex !important; }
