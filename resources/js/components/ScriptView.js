@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from './Header.js';
 import ScriptList from './ScriptList.js';
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import UserContext from '../contexts/UserContext.js';
 import RequestInterface from '../interfaces/RequestInterface';
 import { ScriptControlList, ScriptControlButton } from './ScriptControl.js';
@@ -13,9 +13,9 @@ import { isSet } from 'lodash';
 export default function ScriptView() {
   // Have to do this functional wrapper as useParams "hook" can't be run in a class based component apparently
   let { id, display } = useParams();
-  console.log(display);
+  let history = useHistory();
   return (
-    <ScriptViewMain id={ id } display={ display }/>
+    <ScriptViewMain id={ id } display={ display } history={ history }/>
   )
 }
 
@@ -110,16 +110,17 @@ class ScriptViewMain extends React.Component {
         tagline={this.state.script_summary }
         supplement={ metadata }
       />
-      <div className="container" readOnly>
-        <UserContext.Consumer>
-          {(value) => (<ScriptViewControls 
-            author_id = { this.state.author_id }  
-            user = { value.user } 
-            script_id = { this.state.script_id } 
-            display = { this.state.display }
-          />)}
-        </UserContext.Consumer>
 
+      <UserContext.Consumer>
+        {(value) => (<ScriptViewControls 
+          author_id = { this.state.author_id }  
+          user = { value.user } 
+          script_id = { this.state.script_id } 
+          display = { this.state.display }
+        />)}
+      </UserContext.Consumer>
+
+      <div className="container" readOnly>
         <div className="script-view-content section">
           { view_content }
         </div>
@@ -175,7 +176,7 @@ function ScriptViewControls(props) {
 function ScriptMetadataComponent(props) {
   return(
   <div className="flex flex_row script-view-metadata-component">
-    <i className={ "intro-tile-logo fas fa-lg fa-" + props.icon } />
+    <i className={ "script-view-metadata-icon fas fa-lg fa-" + props.icon } />
     <div className="intro-tile-text">{ props.title + props.text }</div>
   </div>
 

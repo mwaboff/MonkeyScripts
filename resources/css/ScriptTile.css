@@ -1,6 +1,12 @@
 .script-tile {
   height: var(--script-tile-height);
+  /* max-height: var(--script-tile-max-height); */
   width: var(--script-tile-width);
+  /* max-width: var(--script-tile-max-width); */
+/* 
+  height: 1fr;
+  width: 1fr; */
+
   background: var(--script-tile-background);
 }
 

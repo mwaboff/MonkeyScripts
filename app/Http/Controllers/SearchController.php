@@ -14,10 +14,9 @@ class SearchController extends Controller
     public function search(Request $request) {
         $query = $request["query"];
         $script_results = Script::search($query)->get()->toArray();
-        $user_results = User::search($query)->get()->toArray();
+        // $user_results = User::search($query)->get()->toArray();
         return [
-            "script_results" => $script_results,
-            "user_results" => $user_results
+            "script_results" => $script_results
         ];
     }
 }

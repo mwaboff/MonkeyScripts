@@ -33,6 +33,7 @@
   color: var(--header-title-color);
   font-size: var(--header-title-size);
   line-height: var(--header-title-line-height);
+  font-weight: bold;
 }
 
 .header-subtitle {

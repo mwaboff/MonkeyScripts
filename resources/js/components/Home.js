@@ -46,10 +46,10 @@ class ScriptHomeRecommender extends React.Component {
       </div> */}
 
       <div className="home-script-recommendations container">
-        <ScriptList listType="recommended" title="Recommended" numScripts="8" is_primary="true" />
+        <ScriptList listType="recommended" title="Recommended" numScripts="4" is_primary="true" />
         <ScriptList listType="topdownload" title="Top Downloads" numScripts="8" />
-        <ScriptList listType="recent" title="Recently Updated" numScripts="8" />
-        <ScriptList listType="official" title="Editor's Choice" numScripts="8" />
+        <ScriptList listType="recent" title="Recently Updated" numScripts="4" />
+        <ScriptList listType="official" title="Editor's Choice" numScripts="4" />
       </div>
       </>
     )

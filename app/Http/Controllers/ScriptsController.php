@@ -72,7 +72,7 @@ class ScriptsController extends Controller
         $script->code = $request["code"];
         $script->save();
 
-        return "{message: success}";
+        return json_encode($script);
 
     }
 
@@ -164,7 +164,7 @@ class ScriptsController extends Controller
     }
 
     public static function getScriptsByUser($uid) {
-        return Script::select('id', 'title', 'author_id', 'description')->where('author_id', $uid)->get()->toArray();
+        return Script::select('id', 'title', 'author_id', 'summary')->where('author_id', $uid)->get()->toArray();
     }
 
 

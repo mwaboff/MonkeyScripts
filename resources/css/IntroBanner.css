@@ -7,6 +7,10 @@
   flex-grow: 1;
 }
 
+.intro-text-header {
+  font-weight: bold;
+}
+
 .intro-tile-list {
   flex-grow: 1;
   justify-content: space-between;
@@ -15,9 +19,9 @@
 .intro-tile {
   height: var(--intro-tile-height);
   width: var(--intro-tile-width);
-  font-size: 20px;
+  font-size: var(--intro-tile-font-size);
 }
 
 .intro-tile-logo {
-  height: 20px;
+  height: var(--intro-tile-font-size);
 }

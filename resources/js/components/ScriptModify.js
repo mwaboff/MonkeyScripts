@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from './Header.js';
-import { Redirect,  useParams} from "react-router-dom";
+import { Redirect,  useParams, useHistory} from "react-router-dom";
 import { ScriptControlList, ScriptControlButton } from './ScriptControl.js';
 import { NoPermission } from './Alerts.js';
 import AuthInterface from '../interfaces/AuthInterface';
@@ -10,10 +10,11 @@ import '../../css/ScriptModify.css';
 function ScriptModify() {
   // Have to do this functional wrapper as useParams "hook" can't be run in a class based component apparently
   let { id } = useParams();
+  let history = useHistory();
   id = id ? id : ''; // React was complaining that I wasn't converting id to a string when it was unidentified. Quick fix.
 
   return (
-    <ScriptModifyMain id={ id } />
+    <ScriptModifyMain id={ id } history={ history }/>
   )
 }
 
@@ -40,8 +41,11 @@ class ScriptModifyMain extends React.Component {
   }
 
   componentDidMount() {
-    let login_form = document.getElementById('script-form');
-    login_form.addEventListener('submit', this.submitScript.bind(this));
+    // let login_form = document.getElementById('script-form');
+    // login_form.addEventListener('submit', this.submitScript1.bind(this));
+
+    let submit_button = document.getElementById('script-submit');
+    submit_button.addEventListener('click', this.submitScript.bind(this));
 
 
     if (this.state.requested_id) {
@@ -50,7 +54,7 @@ class ScriptModifyMain extends React.Component {
           script_id: response["id"],
           script_title: response["title"],
           author_id: response["author_id"],
-          script_summary: "???",
+          script_summary: response["summary"],
           script_descr: response["description"],
           script_code: response["code"],
           my_id: AuthInterface.whoAmI()["uid"]
@@ -78,7 +82,7 @@ class ScriptModifyMain extends React.Component {
       return;
     }
 
-    let form = e.srcElement;
+    let form = document.getElementById('script-form');
     let script_data = {
       script_id: this.state.script_id ? this.state.script_id : "",
       title: form["script-title"].value,
@@ -93,7 +97,7 @@ class ScriptModifyMain extends React.Component {
     }
 
     RequestInterface.sendRequest(target_address, "POST", script_data)
-      .then(response => this.redirectToScript(response));
+      .then(response => this.redirectToScript(response).bind(this));
   }
 
   deleteScript(e) {
@@ -108,9 +112,7 @@ class ScriptModifyMain extends React.Component {
 
   redirectToScript(response) {
     let script_id = response["id"];
-    return (
-      <Redirect to={ "/script/" + script_id } />
-    )
+    this.props.history.push("/script/" + script_id);
   }
 
   redirectToHome() {
@@ -127,12 +129,12 @@ class ScriptModifyMain extends React.Component {
         title="Script Editor" 
         subtitle="Changing the world, one script at a time!"
       />
-      <div className="container">
-        <ScriptEditControls 
-          script_id={ this.state.script_id }
-          is_logged_in={ isMyScript(this.state.author_id, this.state.my_id) }
-        />
+      <ScriptEditControls 
+        script_id={ this.state.script_id }
+        is_logged_in={ isMyScript(this.state.author_id, this.state.my_id) }
+      />
 
+      <div className="container">
         <div className="section">
           <PageTitle id={this.state.requested_id}/>
           <ScriptForm script_info={ this.state }/>
@@ -148,13 +150,16 @@ export default ScriptModify;
 
 function ScriptEditControls(props) {
   let delete_button = "";
+  let return_button = "";
   if (props.is_logged_in && props.script_id > 0) {
-    delete_button = <ScriptControlButton logo="trash-alt" text="Delete" elem_id="script-delete" target="/" link_type="external" />
+    delete_button = <ScriptControlButton logo="trash-alt" text="Delete" elem_id="script-delete" target="/" link_type="external" is_warning="true" />
+    return_button = <ScriptControlButton logo="file-code" text="View Script" target={"/script/" + props.script_id} />
   }
 
   return (
     <ScriptControlList>
-
+      <ScriptControlButton logo="upload" elem_id="script-submit" text="Submit" target="/" link_type="external" is_primary="true" />
+      { return_button }
       <ScriptControlButton logo="question" text="What is this?" target="/tutorial" link_type="external" />
       { delete_button }
 
@@ -179,7 +184,6 @@ function ScriptForm(props) {
       <textarea type="text" name="script-descr" className="form-control" style={{ height: 200 + "px" }} defaultValue={ props.script_info.script_descr }></textarea>
       <label htmlFor="script-code">Code</label>
       <textarea name="script-code" className="form-control" style={{height: 500 + "px"}} defaultValue={ props.script_info.script_code }></textarea>
-      <input type="submit" className="btn btn-primary" value="Submit" />
     </form>
   )
 

@@ -17,3 +17,14 @@
 .script-control-btn:first-child {
   border-bottom-left-radius: var(--border-radius);
 }
+
+.primary-control-btn {
+  background: var(--accent-green100);
+  /* border: 1px solid var(--accent-blue600); */
+  color: var(--accent-green600);
+}
+
+.warning-control-btn:hover {
+  background: var(--accent-red100);
+  color: var(--accent-red600);
+}
