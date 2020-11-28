@@ -165,55 +165,6 @@ function ScriptEditControls(props) {
   )
 }
 
-
-
-function ScriptViewControls(props) {
-  let install_url = "/script/" + props.script_id + ".user.js";
-
-  // Check to see if we should render the code button or the description button
-  let display_link = <ScriptControlButton logo="file-code" text="View Code "  target={ "/script/" + props.script_id + "/code" } />
-  if (props.display == "code") {
-    display_link = <ScriptControlButton logo="file-alt" text="View Description "  target={ "/script/" + props.script_id } />
-  }
-  
-  // Check to see if we should render an edit button
-  let edit_script_link = "";
-  console.log(props);
-  if (props.user.uid != '' && props.user.uid == props.author_id) {
-    let edit_url = "/script/" + props.script_id + "/edit";
-    edit_script_link = <ScriptControlButton logo="wrench" text="Edit" target={ edit_url }/>
-  }
-
-  return (
-    <ScriptControlList>
-      <ScriptControlButton logo="file-download" text="Install" elem_id= "install-button" target={ install_url } link_type="external" />
-      { display_link }
-      <ScriptControlButton logo="question" text="What is this?" target="/tutorial" link_type="external" />
-      { edit_script_link }
-    </ScriptControlList>
-  );
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function PageTitle(props) {
   return (
     <h1>{ props.id ? "Edit Script": "Create Script"}</h1>
@@ -235,21 +186,6 @@ function ScriptForm(props) {
     </form>
   )
 
-}
-
-function ScriptDestroyButton(props) {
-  let destroy_url = "api/script/destroy";
-  let destroy_button = <form id="script-delete" action={ destroy_url }method="POST"><input type="submit" className="btn" value="Delete" /></form>
-
-  if (!isMyScript(props.author_id, props.my_id)) {
-    destroy_button = "";
-  }
-
-  return (
-    <>
-    { destroy_button }
-    </>
-  )
 }
 
 function isMyScript(script_author_id, my_user_id) {

@@ -68,7 +68,7 @@ function ScriptTileBody(props) {
 function ScriptTileBottom(props) {
   return (
     <div className="script-tile-footer script-tile-user-count">
-      <i className="fas fa-user" /> { props.downloads } downloads
+      <i className="fas fa-user" /> { props.downloads }
     </div>
 
   )

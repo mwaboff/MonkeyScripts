@@ -3,6 +3,7 @@ import React from 'react';
 import RequestInterface from './RequestInterface.js';
 import CookieInterface from './CookieInterface.js';
 
+
 class AuthInterface {
 
   static async login(email, password) {
@@ -52,9 +53,6 @@ class AuthInterface {
       name: CookieInterface.get('username'),
       uid: CookieInterface.get('user_id')
     }
-  }
-
-  static updateAccountInfo(response) {
   }
 
 }

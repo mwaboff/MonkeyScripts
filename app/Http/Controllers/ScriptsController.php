@@ -20,6 +20,8 @@ class ScriptsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request) {
+
+        // dd($request);
         $id = $request["id"];
         $script = Script::findOrFail($id);
         $author = User::findOrFail($script["author_id"]);
@@ -31,6 +33,9 @@ class ScriptsController extends Controller
             "author_name" => $author["name"],
             "summary" => $script["summary"],
             "description" => $script["description"],
+            "created_day" => $script->getCreatedDay(),
+            "updated_day" => $script->getUpdatedDay(),
+            "downloads" => $script->getDownloadCount(),
             "code" => $script["code"]
         ];
 
@@ -40,7 +45,7 @@ class ScriptsController extends Controller
     }
 
     public function clickedInstall(Request $request, $script_id) {
-        InteractionController::processInteraction($request, $script["id"], ['visited'=>false, 'downloaded'=>true]);
+        InteractionController::processInteraction($request, $script_id, ['visited'=>false, 'downloaded'=>true]);
 
         return json_encode(["message"=>"success"]);
     }
@@ -181,7 +186,8 @@ class ScriptsController extends Controller
                 'id' => $script->id,
                 'title' => $script->title,
                 'summary' => $script->summary,
-                'description' => $script->description
+                'description' => $script->description,
+                'downloads' => $script->getDownloadCount()
             ];
         }
 

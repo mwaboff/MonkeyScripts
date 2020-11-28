@@ -11,7 +11,7 @@ use App\Script;
 class Interaction extends Model
 {
     protected $fillable = [
-        'user_id', 'script_id', 'viewed', 'downloaded'
+        'user_id', 'anon_id', 'script_id', 'viewed', 'downloaded'
     ];
 
     public function script() {
@@ -22,38 +22,51 @@ class Interaction extends Model
         return $this->belongsTo('App\User', 'user_id');
     }
 
-    public static function createOrUpdateInteraction($user_id, $script_id, $viewed, $downloaded) {
-        if ($user_id == "0") {
-            $script = static::createAnonInteraction($script_id, $viewed, $downloaded);
+    public static function createOrUpdateInteraction($user_id, $anon_id, $script_id, $viewed, $downloaded) {
+        if (isset($user_id)) $anon_id = null;
+        $interaction = Interaction::where('script_id', $script_id)->where('user_id', $user_id)->where('anon_id', $anon_id)->first();
+        if ($interaction) {
+            static::updateInteraction($interaction, $viewed, $downloaded);
         } else {
-            $script = static::createOrUpdateUserInteraction($user_id, $script_id, $viewed, $downloaded);
+            static::createInteraction($user_id, $anon_id, $script_id, $viewed, $downloaded);
         }
-
-        return $script;
-
     }
 
-    private static function createAnonInteraction($script_id, $viewed, $downloaded) {
-        return;
+    private static function updateInteraction($interaction, $viewed, $downloaded) {
+        $viewed == 1 ? $interaction->viewed = 1 : '';
+        $downloaded == 1 ? $interaction->downloaded = 1 : '';
+        $interaction->updated_at = date('Y-m-d H:i:s');
+        $interaction->save();
     }
 
-    private static function createOrUpdateUserInteraction($user_id, $script_id, $viewed, $downloaded) {
-        $script = Interaction::where('user_id', $user_id)->where('script_id', $script_id)->first();
-        if ($script) {
-            $viewed == 1 ? $script->viewed = 1 : '';
-            $downloaded == 1 ? $script->downloaded = 1 : '';
-            $script->save();
-        } else {
-            $script = Interaction::create([
-                "user_id" => $user_id,
-                "script_id" => $script_id,
-                "viewed" => $viewed,
-                "downloaded" => $downloaded
-            ]);
-        }
-
-        return $script;
+    private static function createInteraction($user_id, $anon_id, $script_id, $viewed, $downloaded) {
+        Interaction::create([
+            "user_id" => $user_id,
+            "anon_id" => $anon_id,
+            "script_id" => $script_id,
+            "viewed" => $viewed,
+            "downloaded" => $downloaded
+        ]);
     }
+
+    // private static function createOrUpdateUserInteraction($user_id, $script_id, $viewed, $downloaded) {
+    //     $script = Interaction::where('user_id', $user_id)->where('script_id', $script_id)->first();
+    //     if ($script) {
+    //         $viewed == 1 ? $script->viewed = 1 : '';
+    //         $downloaded == 1 ? $script->downloaded = 1 : '';
+    //         $script->save();
+    //     } else {
+    //         $script = Interaction::create([
+    //             "user_id" => $user_id,
+    //             "anon_id" => $anon_id,
+    //             "script_id" => $script_id,
+    //             "viewed" => $viewed,
+    //             "downloaded" => $downloaded
+    //         ]);
+    //     }
+
+    //     return $script;
+    // }
 
     public static function getAllInteractedScriptsByUser($user_id, $viewed=true, $downloaded=true, $and=true) {
         $results = [];

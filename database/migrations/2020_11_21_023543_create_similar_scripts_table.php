@@ -20,8 +20,6 @@ class CreateSimilarScriptsTable extends Migration
             $table->double('pearson_score', 8, 4)->default(0.0); // 00000000.0000
             $table->integer('sum_score')->default(0);
             $table->double('combined_score', 10, 2)->default(0.0);
-
-            // $table->index('script_id');
         });
     }
 

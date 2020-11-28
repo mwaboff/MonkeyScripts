@@ -17,7 +17,7 @@ class Simularity
     static function getInteractionsOrderedByColumn($column_name) {
         // If I start worrying about having too big of a database, I can switch to using the "chunk" command
         return DB::table('monkeyscripts.interactions')
-            ->select('user_id', 'script_id', 'viewed', 'downloaded')
+            ->select('user_id', 'anon_id', 'script_id', 'viewed', 'downloaded')
             ->orderBy($column_name)->get();
     }
 
@@ -88,6 +88,11 @@ class Simularity
 
         $sum1 = 0;
         $sum2 = 0;
+
+        // print_r($entity1_scores);
+        // print_r($entity2_scores);
+        // print_r($intersections);
+        // dd('--');
 
         // This isn't to determine 
         foreach ($intersections as $i => $intersection_id) {

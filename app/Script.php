@@ -44,4 +44,19 @@ class Script extends Model
 
         return $array;
     }
+
+    public function getCreatedDay()
+    {
+        return date('F jS, Y', strtotime($this->created_at)); // Will output date in this format: November 27th, 2020
+    }
+
+    public function getUpdatedDay()
+    {
+        return date('F jS, Y', strtotime($this->updated_at));
+
+    }
+
+    public function getDownloadCount() {
+        return Interaction::where('script_id', $this->id)->where('downloaded', 1)->count();
+    }
 }

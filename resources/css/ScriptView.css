@@ -11,3 +11,16 @@
 .intro-tile-logo {
   padding-right: 5px;
 }
+
+.script-view-metadata-component {
+  /* width: 100%; */
+  text-align: center;
+}
+
+.script-view-metadata-component:first-child {
+  text-align: left;
+}
+
+.script-view-metadata-component:last-child {
+  float: right;
+}

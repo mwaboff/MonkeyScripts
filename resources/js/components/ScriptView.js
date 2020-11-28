@@ -66,9 +66,9 @@ class ScriptViewMain extends React.Component {
         script_summary: response["summary"],
         script_descr: response["description"],
         script_code: response["code"],
-        create_date: response["create_date"],
-        update_date: response["update_date"],
-        downloads: response["downloads"]
+        create_date: response["created_day"],
+        update_date: response["updated_day"],
+        downloads: response["downloads"].toString()
       })
     );
   }
@@ -93,17 +93,15 @@ class ScriptViewMain extends React.Component {
       view_content = <ScriptCode script_code = { this.state.script_code } />;
     }
 
+    let metadata = <ScriptMetadata create_date = { this.state.create_date } update_date = { this.state.update_date } downloads = { this.state.downloads } />;
+
     return (
       <>
       <Header 
         title={ this.state.script_title } 
         subtitle={ author_link }
         tagline={this.state.script_summary }
-        supplement={ <ScriptMetadata 
-          create_date = { this.state.create_date } 
-          update_date = { this.state.update_date }
-          downloads = { this.state.downloads } 
-        /> }
+        supplement={ metadata }
       />
       <div className="container" readOnly>
         <UserContext.Consumer>
@@ -130,11 +128,12 @@ class ScriptViewMain extends React.Component {
 
 
 function ScriptMetadata(props) {
+  console.log(props.downloads);
   return (
     <div className="flex flex_row script-view-metadata">
       <ScriptMetadataComponent icon="calendar" text={ props.create_date } title="Submitted: "/>
       <ScriptMetadataComponent icon="calendar-alt" text={ props.update_date } title="Updated: "/>
-      <ScriptMetadataComponent icon="user" text={ props.downloads } />
+      <ScriptMetadataComponent icon="user" text={ props.downloads } title="Downloads: " />
     </div>
   )
 }
