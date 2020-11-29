@@ -35,6 +35,7 @@ class LoginRegister extends React.Component {
     let form = e.srcElement;
     let email = form.email.value;
     let password = form.password.value;
+    gtag('event', 'login', {'method': 'email'});
     AuthInterface.login(email, password).then((response) => this.manageLogin(response));
   }
 
@@ -45,6 +46,7 @@ class LoginRegister extends React.Component {
     let username = form.username.value;
     let password = form.password.value;
     let password_confirmation = form['password-confirm'].value;
+    gtag('event', 'sign_up', {'method': 'email'});
 
     this.setState({
       email: email,

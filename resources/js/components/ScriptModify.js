@@ -85,6 +85,8 @@ class ScriptModifyMain extends React.Component {
     }
 
     let form = document.getElementById('script-form');
+    if (!validateForm(form)) return;
+
     let script_data = {
       script_id: this.state.script_id ? this.state.script_id : "",
       title: form["script-title"].value,
@@ -103,9 +105,10 @@ class ScriptModifyMain extends React.Component {
   }
 
   deleteScript(e) {
-    console.log("PREVENTING DEFAULT ACTION");
     e.preventDefault();
     if (!confirm("Are you sure you want to delete this script?")) return;
+
+    gtag('event', 'page_view', {'page_location': {'page_location': window.location.pathname + "/delete" + window.location.search}})
 
     let script_data = { "script_id": this.state.script_id }
     RequestInterface.sendRequest("/api/script/destroy", "POST", script_data)
@@ -186,7 +189,7 @@ function ScriptForm(props) {
       <textarea type="text" name="script-descr" className="form-control" style={{ height: 200 + "px" }} defaultValue={ props.script_info.script_descr }></textarea>
       <label htmlFor="script-code">Code</label>
       <textarea name="script-code" className="form-control" style={{height: 500 + "px"}} defaultValue={ props.script_info.script_code }></textarea>
-      <input type="submit" id="script-submit" className="mks-tile" value="Submit" />
+      <input type="submit" id="script-submit" className="mks-tile primary-control-btn script-submit-btn" value="Submit" />
     </form>
   )
 

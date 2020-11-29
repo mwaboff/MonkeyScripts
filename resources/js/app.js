@@ -14,9 +14,7 @@ import '../css/app.css';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-
 import Router from './Router.js';
-
 
 import UserContext from './contexts/UserContext.js';
 import AuthInterface from './interfaces/AuthInterface.js';
@@ -32,6 +30,8 @@ class App extends React.Component {
         auth_group: 0
       }
     }
+
+    this.initializeGA();
   }
 
   componentDidMount() {
@@ -68,6 +68,23 @@ class App extends React.Component {
         auth_group: 0
       }
     });
+  }
+
+  initializeGA() {
+    let token = this.getMeta('ga-token'); // Returns null
+    
+  }
+
+  getMeta(metaName) {
+    const metas = document.getElementsByTagName('meta');
+  
+    for (let i = 0; i < metas.length; i++) {
+      if (metas[i].getAttribute('name') === metaName) {
+        return metas[i].getAttribute('content');
+      }
+    }
+  
+    return '';
   }
 
   render() {

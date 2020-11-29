@@ -43,6 +43,7 @@ class ScriptViewMain extends React.Component {
     let install_button = document.getElementById('install-button');
     install_button.addEventListener('click', this.sendClickedDownload.bind(this));
     this.initiateScriptFetch(this.state.requested_id);
+    gtag('event', 'page_view', {'page_location': window.location.pathname + window.location.search});
   }
 
   componentDidUpdate() {
@@ -83,6 +84,8 @@ class ScriptViewMain extends React.Component {
   sendClickedDownload(e) {
     // e.preventDefault();
     const req_url = "/api/script/install/" + this.state.script_id;
+    gtag('event', 'script_install', {'script_id': this.state.script_id });
+    
     RequestInterface.sendRequest(req_url, "POST");
 
   }
@@ -125,7 +128,7 @@ class ScriptViewMain extends React.Component {
           { view_content }
         </div>
 
-        <ScriptList listType="similar" numScripts="4" scriptId= { this.state.requested_id } title="Check out these other scripts!"/>
+        <ScriptList listType="similar" numScripts="4" scriptId= { this.state.requested_id } title="Check out these other scripts!" is_primary="true" />
       </div>
       </>
     )

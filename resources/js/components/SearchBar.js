@@ -26,6 +26,7 @@ class SearchMain extends React.Component {
   redirectToSearch(e) {
     e.preventDefault();
     let current_query = document.getElementById('monkey-search-box').value;
+    gtag('event', 'search', {'search_term': current_query });
     let query_address = "/search?q=" + encodeURIComponent(current_query);
     this.state['history'].push(query_address);
   }

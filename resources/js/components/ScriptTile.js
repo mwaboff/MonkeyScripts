@@ -5,8 +5,9 @@ import '../../css/ScriptTile.css';
 
 
 export default function ScriptTile(props) {
+  let primary_indicator = props.is_primary == "true" ? "?recommended=true" : "";
   return (
-    <Link to={"/script/" + props.script_id } className="mks-tile script-tile flex flex_column">
+    <Link to={"/script/" + props.script_id + primary_indicator } className="mks-tile script-tile flex flex_column">
       <ScriptTileHeader title = { props.title } script_id = { props.script_id } is_primary = { props.is_primary } />
       <ScriptTileBody summary = { props.summary } downloads = { props.downloads }/>
       <ScriptTileBottom downloads = { props.downloads } />

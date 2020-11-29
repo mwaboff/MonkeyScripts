@@ -7,6 +7,7 @@ import '../../css/StaticPage.css';
 
 
 export default function Tutorial() {
+  gtag('event', 'tutorial_begin');
   return (
     <>
     <Header 
