@@ -81,7 +81,7 @@ class ScriptViewMain extends React.Component {
   }
 
   sendClickedDownload(e) {
-    e.preventDefault();
+    // e.preventDefault();
     const req_url = "/api/script/install/" + this.state.script_id;
     RequestInterface.sendRequest(req_url, "POST");
 
