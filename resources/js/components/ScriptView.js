@@ -133,10 +133,7 @@ class ScriptViewMain extends React.Component {
 
 }
 
-
-
 function ScriptMetadata(props) {
-  console.log(props.downloads);
   return (
     <div className="flex flex_row script-view-metadata">
       <ScriptMetadataComponent icon="calendar" text={ props.create_date } title="Submitted: "/>
@@ -157,7 +154,6 @@ function ScriptViewControls(props) {
   
   // Check to see if we should render an edit button
   let edit_script_link = "";
-  console.log(props);
   if (props.user.uid != '' && props.user.uid == props.author_id) {
     let edit_url = "/script/" + props.script_id + "/edit";
     edit_script_link = <ScriptControlButton logo="wrench" text="Edit" target={ edit_url }/>

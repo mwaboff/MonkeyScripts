@@ -18,7 +18,6 @@ class LoginRegister extends React.Component {
 
   componentDidMount() {
     let elem_id = this.state.type + '-modal';
-    console.log(this.state);
     let login_form = document.getElementById(elem_id);
     login_form.addEventListener('submit', this.submitLogin.bind(this));
   }
@@ -33,7 +32,6 @@ class LoginRegister extends React.Component {
   }
 
   submitRegistration(e) {
-    console.log("submitting registration again");
     e.preventDefault();
     let form = e.srcElement;
     let email = form.email.value;
@@ -47,7 +45,6 @@ class LoginRegister extends React.Component {
     if(response['user_id']) {
       this.state.setLoggedIn(response['user_name'], response['user_id']);
     }
-    console.log(response);
     $('#login-modal').modal('hide');
     $('#register-modal').modal('hide');
   }

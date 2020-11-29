@@ -51,20 +51,15 @@ class App extends React.Component {
   }
 
   setLoggedIn(name='', uid='') {
-    console.log("processing login");
     let user_info = {};
     if (name == '' && uid == '' && AuthInterface.isLoggedIn()) {
       user_info = AuthInterface.whoAmI();
-      console.log('1');
     } else {
       user_info = {
         name: name,
         uid: uid
       };
-      console.log('2');
     }
-
-    console.log(user_info)
 
     this.setState({
       user: {
@@ -83,7 +78,6 @@ class App extends React.Component {
       setLoggedIn: this.setLoggedIn.bind(this)
     }
 
-    // console.log("running app render");
     return (
       <UserContext.Provider value={ context_values }>
       <Router />

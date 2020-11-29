@@ -14,23 +14,15 @@ class Navbar extends React.Component {
       setLoggedOut: props.setLoggedOut,
       user: props.user
     }
-
   }
 
   componentDidUpdate() {
-
-    console.log("UPDATED, current state is: ");
-    console.log(this.state.user);
-    let logout_button = document.getElementById('logout-button');
-    if(logout_button){
-      logout_button.addEventListener('click', this.startLogout.bind(this));
-    }
+    if (this.state.user.uid == this.props.user.uid) return;
+    
+    this.setState({ user: this.props.user });
   }
 
-  startLogout(e) {
-    e.preventDefault();
-    this.state.setLoggedOut();
-  }
+ 
 
   render() {
 
@@ -39,7 +31,7 @@ class Navbar extends React.Component {
         <div className="container">
           <NavbarLogo />
           <NavbarToggler />
-          <NavbarLinks  user={ this.state.user } />
+          <NavbarLinks  setLoggedOut={ this.state.setLoggedOut } user={ this.state.user } />
         </div>
       </nav>
     )
@@ -71,7 +63,7 @@ function NavbarLinks(props) {
   let logged_links = <LoggedOutLinks />
 
   if(props.user.uid != "") {
-    logged_links = <LoggedInLinks user = {props.user} />;
+    logged_links = <LoggedInLinks user = {props.user} setLoggedOut = {props.setLoggedOut} />;
   }
 
   return (
@@ -89,20 +81,39 @@ function NavbarLinks(props) {
   )
 }
 
-function LoggedInLinks(props) {
-  return (
-    <>
-      <li className="nav-item">
-        <Link to="/script/new" className="nav-link">Create</Link>
-      </li>
-      <li className="nav-item">
-        <Link to={ "/user/" + props.user.uid } className="nav-link">Profile</Link>
-      </li>
-      <li className="nav-item">
-        <Link to="" id="logout-button" className="nav-link">Logout</Link>
-      </li>
-    </>
-  )
+class LoggedInLinks extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount() {
+    let logout_button = document.getElementById('logout-button');
+    if(logout_button){
+      logout_button.addEventListener('click', this.startLogout.bind(this));
+    }
+  }
+
+  startLogout(e) {
+    e.preventDefault();
+    this.props.setLoggedOut();
+  }
+
+  render() {
+    return (
+      <>
+        <li className="nav-item">
+          <Link to="/script/new" className="nav-link">Create</Link>
+        </li>
+        <li className="nav-item">
+          <Link to={ "/user/" + this.props.user.uid } className="nav-link">Profile</Link>
+        </li>
+        <li className="nav-item">
+          <Link to="" id="logout-button" className="nav-link">Logout</Link>
+        </li>
+      </>
+    )
+  }
+  
 }
 
 function LoggedOutLinks(props) {

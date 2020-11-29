@@ -89,9 +89,7 @@ class SearchViewMain extends React.Component {
 
 function UserScriptList(props) {
   let script_entries = "I'm sorry, I couldn't find anything for your search term yet! Let's try something different.";
-  console.log(props);
     if (props.script_results && props.script_results.length > 0) {
-      console.log(props.script_results);
       script_entries = <ScriptTileList scripts={ props.script_results } />;
     }
   return (
