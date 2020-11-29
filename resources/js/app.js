@@ -51,20 +51,25 @@ class App extends React.Component {
   }
 
   setLoggedIn(name='', uid='') {
-    let $user_info = {};
+    console.log("processing login");
+    let user_info = {};
     if (name == '' && uid == '' && AuthInterface.isLoggedIn()) {
-      $user_info = AuthInterface.whoAmI();
+      user_info = AuthInterface.whoAmI();
+      console.log('1');
     } else {
-      $user_info = {
+      user_info = {
         name: name,
         uid: uid
-      }
+      };
+      console.log('2');
     }
+
+    console.log(user_info)
 
     this.setState({
       user: {
-        username: $user_info.name,
-        uid: $user_info.uid,
+        username: user_info.name,
+        uid: user_info.uid,
         auth_group: 0
       }
     });

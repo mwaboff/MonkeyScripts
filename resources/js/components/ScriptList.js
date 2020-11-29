@@ -1,9 +1,9 @@
-import { isSet } from 'lodash';
 import React from 'react';
 import ScriptTile from './ScriptTile';
 import { Link } from "react-router-dom";
 import RequestInterface from '../interfaces/RequestInterface';
 import '../../css/ScriptList.css';
+
 
 
 
@@ -82,7 +82,49 @@ export function ScriptTileList(props) {
   )
 }
 
+// export function ScriptTileList(props) {
+//   let splide_options = {
+//     type: 'loop',
+//     perPage: 4,
+//     perMove: 4,
+//     gap    : '1rem',
+//     breakpoints: {
+//       '960': {
+//         perPage: 3,
+//         perMove: 3,
+//         gap    : '1rem',
+//       },
+//       '768': {
+//         perPage: 2,
+//         PerMove: 2,
+//         gap    : '1rem',
+//       },
+//       '550': {
+//         perPage: 1,
+//         perMove: 1,
+//         gap    : '1rem',
+//       },
+//     }
+//   };
 
+//   return (
+//     <Splide options={ splide_options }>
+//       {
+//       props.scripts.map((script) => 
+//         <SplideSlide>
+//             <ScriptTile 
+//               title={ script.title } 
+//               script_id={ script.id }
+//               summary={ script.summary }
+//               downloads={ script.downloads }
+//               is_primary={ props.is_primary }
+//             />
+//         </SplideSlide>
+//       )
+//     }
+//     </Splide>
+//   )
+// }
 
 
 

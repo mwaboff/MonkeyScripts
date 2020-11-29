@@ -10,6 +10,7 @@ import UserView from './components/UserView.js';
 import ScriptView from './components/ScriptView.js';
 import SearchView from './components/SearchView.js';
 import ScriptModify from './components/ScriptModify.js';
+import LoginRegister from './components/LoginRegister.js';
 
 import UserContext from './contexts/UserContext.js';
 
@@ -61,6 +62,12 @@ function Router(props) {
 
         <Footer />
       </BrowserRouter>
+      <UserContext.Consumer>
+        {(value) => (<LoginRegister setLoggedIn={ value.setLoggedIn } user={ value.user } type="login" />)}
+      </UserContext.Consumer>
+      <UserContext.Consumer>
+        {(value) => (<LoginRegister setLoggedIn={ value.setLoggedIn } user={ value.user } type="register" />)}
+      </UserContext.Consumer>
   </>
   )
 }

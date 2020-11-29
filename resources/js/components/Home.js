@@ -25,17 +25,6 @@ class Home extends React.Component {
 export default Home;
 
 
-function HomeBanner(props) {
-  return (
-  <div className="jumbotron">
-    <div>
-      <h1>What are user scripts? How can they help?</h1>
-      <h4>User scripts are small browser extensions that can add features and fix bugs on your favorite sites!</h4>
-    </div>
-  </div>
-  )
-}
-
 class ScriptHomeRecommender extends React.Component {
   render() {
     return (
@@ -44,7 +33,7 @@ class ScriptHomeRecommender extends React.Component {
         <ScriptList listType="recommended" title="Recommended" numScripts="4" is_primary="true" />
         <ScriptList listType="topdownload" title="Top Downloads" numScripts="8" />
         <ScriptList listType="recent" title="Recently Updated" numScripts="4" />
-        <ScriptList listType="official" title="Editor's Choice" numScripts="10" />
+        <ScriptList listType="official" title="Editor's Choice" numScripts="4" />
       </div>
       </>
     )

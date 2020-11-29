@@ -1,6 +1,7 @@
 .header-banner {
-  background: var(--primary600);
+  background: url("/img/header_bkg_med.jpg");
   color: var(--neutral100);
+  position: relative;
   /* height: var(--header-banner-height); */
 }
 
@@ -22,6 +23,8 @@
 
 .header-text {
   flex-grow: 1;
+  /* z-index: 200 !important; */
+
 }
 
 .header-titles {
@@ -57,5 +60,18 @@
 }
 
 .header-supplement {
+  /* z-index: 200 !important; */
+
   height: calc(var(--section-padding-height) * 2);
+}
+
+.header-bkg-overlay {
+  background: var(--primary600);
+  position: absolute;
+  opacity: 0.85;
+  backdrop-filter: blur(var(2px));
+  height: 100%;
+  /* height: var(--header-banner-height-sm); */
+  /* z-index: 5; */
+  min-width: 100%;
 }

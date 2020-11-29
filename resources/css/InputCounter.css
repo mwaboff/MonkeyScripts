@@ -1,0 +1,15 @@
+.input-counter {
+  font-size: 13px;
+}
+
+.good-char-count {
+  color: var(--accent-green400);
+}
+
+.neutral-char-count {
+  color: var(--neutral500);
+}
+
+.bad-char-count {
+  color: var(--accent-red300);
+}

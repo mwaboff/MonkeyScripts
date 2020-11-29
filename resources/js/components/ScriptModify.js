@@ -1,10 +1,10 @@
 import React from 'react';
 import Header from './Header.js';
-import { Redirect,  useParams, useHistory} from "react-router-dom";
-import { ScriptControlList, ScriptControlButton } from './ScriptControl.js';
 import { NoPermission } from './Alerts.js';
 import AuthInterface from '../interfaces/AuthInterface';
 import RequestInterface from '../interfaces/RequestInterface';
+import { Redirect,  useParams, useHistory} from "react-router-dom";
+import { ScriptControlList, ScriptControlButton } from './ScriptControl.js';
 import '../../css/ScriptModify.css';
 
 function ScriptModify() {
@@ -44,6 +44,8 @@ class ScriptModifyMain extends React.Component {
     // let login_form = document.getElementById('script-form');
     // login_form.addEventListener('submit', this.submitScript1.bind(this));
 
+    let submit_control_button = document.getElementById('script-control-submit');
+    submit_control_button.addEventListener('click', this.submitScript.bind(this));
     let submit_button = document.getElementById('script-submit');
     submit_button.addEventListener('click', this.submitScript.bind(this));
 
@@ -158,7 +160,7 @@ function ScriptEditControls(props) {
 
   return (
     <ScriptControlList>
-      <ScriptControlButton logo="upload" elem_id="script-submit" text="Submit" target="/" link_type="external" is_primary="true" />
+      <ScriptControlButton logo="upload" elem_id="script-control-submit" text="Submit" target="/" link_type="external" is_primary="true" />
       { return_button }
       <ScriptControlButton logo="question" text="What is this?" target="/tutorial" link_type="external" />
       { delete_button }
@@ -177,13 +179,14 @@ function ScriptForm(props) {
   return (
     <form id="script-form" action="api/script/new" method="POST">
       <label htmlFor="script-title">Title</label>
-      <input type="text" name="script-title" className="form-control" defaultValue={ props.script_info.script_title }></input>
+      <input id="script-title" type="text" name="script-title" className="form-control" defaultValue={ props.script_info.script_title }></input>
       <label htmlFor="script-summary">Brief Summary</label>
       <input type="text" name="script-summary" className="form-control" defaultValue={ props.script_info.script_summary }></input>
       <label htmlFor="script-desc">Description</label>
       <textarea type="text" name="script-descr" className="form-control" style={{ height: 200 + "px" }} defaultValue={ props.script_info.script_descr }></textarea>
       <label htmlFor="script-code">Code</label>
       <textarea name="script-code" className="form-control" style={{height: 500 + "px"}} defaultValue={ props.script_info.script_code }></textarea>
+      <input type="submit" id="script-submit" className="mks-tile" value="Submit" />
     </form>
   )
 

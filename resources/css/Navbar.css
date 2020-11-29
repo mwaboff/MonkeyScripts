@@ -1,6 +1,7 @@
 .navbar {
   padding-top: 0;
   padding-bottom: 0;
+  /* z-index: 20; */
 }
 
 .navbar-mks {

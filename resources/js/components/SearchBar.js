@@ -42,12 +42,13 @@ class SearchMain extends React.Component {
 export default SearchBar;
 
 function SearchBasicForm(props) {
-  return (
+  return (<>
     <form id="monkey-search-form">
       <SearchIcon />
       <input id="monkey-search-box" type="text" name="search-text" className="search-bar-mks search-component" autoFocus="autofocus" placeholder="Find your next script..." ></input>
       <SearchButton />
     </form>
+</>
   );
 }
 

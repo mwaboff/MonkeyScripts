@@ -150,8 +150,11 @@ class ScriptsController extends Controller
     }
 
     private static function getOfficiallyDevelopedScripts($limit = 10) {
-        $official_scripts = Script::where('author_id', 1)->take($limit)->get()->all();
-        return static::removeCodeFromScriptResults($official_scripts);
+        $official_scripts = Script::where('author_id', 1)->get()->all();
+        $script_list = static::removeCodeFromScriptResults($official_scripts);
+        shuffle($script_list); // Add some variety and randomness
+        return array_slice($script_list, 0, $limit); // Return only the right number of results
+
     }
 
     private static function getSimilar($scriptid, $limit = 10) {
@@ -160,7 +163,11 @@ class ScriptsController extends Controller
     }
 
     private static function getEditorsChoice($limit = 10) {
-        return Script::select('id', 'title', 'author_id', 'description')->take($limit)->get()->toArray();
+        $script_list = Script::select('id', 'title', 'author_id', 'description')->take($limit)->get()->toArray();
+
+        shuffle($script_list); // Add some variety and randomness
+        return array_slice($script_list, 0, $limit); // Return only the right number of results
+
     }
 
     public static function getScriptsByUser($uid) {

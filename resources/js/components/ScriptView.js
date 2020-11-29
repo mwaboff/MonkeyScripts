@@ -165,7 +165,7 @@ function ScriptViewControls(props) {
 
   return (
     <ScriptControlList>
-      <ScriptControlButton logo="file-download" text="Install" elem_id= "install-button" target={ install_url } link_type="external" />
+      <ScriptControlButton logo="file-download" text="Install" elem_id= "install-button" target={ install_url } link_type="external" is_primary="true"/>
       { display_link }
       <ScriptControlButton logo="question" text="What is this?" target="/tutorial" link_type="external" />
       { edit_script_link }

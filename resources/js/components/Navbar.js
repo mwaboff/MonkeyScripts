@@ -1,23 +1,26 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import LoginRegister from './LoginRegister.js';
+// import LoginRegister from './LoginRegister.js';
 import UserContext from '../contexts/UserContext.js';
 
 import '../../css/Navbar.css';
 
 
 
-class Header extends React.Component {
+class Navbar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      setLoggedIn: props.setLoggedIn,
-      setLoggedOut: props.setLoggedOut
+      setLoggedOut: props.setLoggedOut,
+      user: props.user
     }
 
   }
 
   componentDidUpdate() {
+
+    console.log("UPDATED, current state is: ");
+    console.log(this.state.user);
     let logout_button = document.getElementById('logout-button');
     if(logout_button){
       logout_button.addEventListener('click', this.startLogout.bind(this));
@@ -36,21 +39,16 @@ class Header extends React.Component {
         <div className="container">
           <NavbarLogo />
           <NavbarToggler />
-          <UserContext.Consumer>
-            {(value) => (<NavbarLinks  user={ value.user } />) }
-          </UserContext.Consumer>
-          <UserContext.Consumer>
-            {(value) => (<LoginRegister setLoggedIn={ value.setLoggedIn } setLoggedOut={ value.setLoggedOut } />)}
-          </UserContext.Consumer>
+          <NavbarLinks  user={ this.state.user } />
         </div>
       </nav>
     )
   }
 }
 
-// Header.contextType = UserContext;
+// Navbar.contextType = UserContext;
 
-export default Header;
+export default Navbar;
 
 
 function NavbarLogo() {
@@ -111,7 +109,10 @@ function LoggedOutLinks(props) {
   return (
     <>
     <li className="nav-item">
-      <Link to="" className="nav-link" data-toggle="modal" data-target="#login-modal" onClick={(e) => e.preventDefault() }>Login/Register</Link>
+      <Link to="" className="nav-link" data-toggle="modal" data-target="#login-modal" onClick={(e) => e.preventDefault() }>Login</Link>
+    </li>
+    <li className="nav-item">
+      <Link to="" className="nav-link" data-toggle="modal" data-target="#register-modal" onClick={(e) => e.preventDefault() }>Register</Link>
     </li>
     </>
   )
