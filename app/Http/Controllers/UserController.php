@@ -36,7 +36,21 @@ class UserController extends Controller
             'password' => Hash::make($request['password']),
         ]);
 
-        return "{message: success}";
+        $result = [];
+
+        if ($user) {
+            $result = [
+                'message' => 'success',
+                'email' => $user->email,
+                'uid' => $user->uid
+            ];
+        } else {
+            $result = [
+                'message' => 'failure'
+            ];
+        }
+
+        return json_encode($result);
     }
 
     public function info(Request $request)

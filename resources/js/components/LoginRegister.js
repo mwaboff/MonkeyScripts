@@ -12,14 +12,21 @@ class LoginRegister extends React.Component {
     this.state = {
       setLoggedIn: props.setLoggedIn,
       user: props.user,
-      type: props.type == "login" ? "login" : "register"
+      type: props.type == "login" ? "login" : "register",
+      email: '',
+      password: ''
     }
   }
 
   componentDidMount() {
     let elem_id = this.state.type + '-modal';
     let login_form = document.getElementById(elem_id);
-    login_form.addEventListener('submit', this.submitLogin.bind(this));
+
+    if (this.state.type == "login") {
+      login_form.addEventListener('submit', this.submitLogin.bind(this));
+    } else {
+      login_form.addEventListener('submit', this.submitRegistration.bind(this));
+    }
   }
 
 
@@ -38,7 +45,13 @@ class LoginRegister extends React.Component {
     let username = form.username.value;
     let password = form.password.value;
     let password_confirmation = form['password-confirm'].value;
-    AuthInterface.register(username, email, password, password_confirmation).then((response) => this.manageLogin(response));
+
+    this.setState({
+      email: email,
+      password: password
+    })
+
+    AuthInterface.register(username, email, password, password_confirmation).then((response) => this.manageRegistration(response));
   }
 
   manageLogin(response) {
@@ -48,6 +61,15 @@ class LoginRegister extends React.Component {
     $('#login-modal').modal('hide');
     $('#register-modal').modal('hide');
   }
+
+  manageRegistration(response) {
+    // if (response['message'] != 'success') return;
+    console.log(response);
+
+    AuthInterface.login(this.state.email, this.state.password).then((response) => this.manageLogin(response));
+  }
+
+
 
   render() {
     let form_choice = (this.state.type == "login" ? <LoginPage /> : <RegisterPage />);
