@@ -53,7 +53,7 @@ function TutorialText() {
       <div className="tutorial-section">
         <h2 className="tutorial-section-header"><b>Step 2:</b> Find a Script</h2>
         <div className="tutorial-text">
-          Once you have installed a manager, the next step is to find a script you would like to install. For practice, let's install <a href="/script/10" target="_blank">the MonkeyScripts Tutorial script</a>. Click on the link to be directed to the tutorial page and click the Install button. A new tab will open and your user script manager will ask if you want to install the script.
+          Once you have installed a manager, the next step is to find a script you would like to install. For practice, let's install <a href="/script/1" target="_blank">the MonkeyScripts Tutorial script</a>. Click on the link to be directed to the tutorial page and click the Install button. A new tab will open and your user script manager will ask if you want to install the script.
         </div>
         <div className="tutorial-text">
           After you have installed the tutorial script, refresh this page. If done correctly, the box below will turn green!
