@@ -80,7 +80,7 @@ class LoginRegister extends React.Component {
   }
 
   manageRegistration(response) {
-    if(response['success' == true]) {
+    if(response['success'] == true) {
       AuthInterface.login(this.state.email, this.state.password).then((response) => this.manageLogin(response));
     } else {
       alert(response['message']);
