@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Recommendation;
 
 use Illuminate\Support\Facades\DB;
 use App\SimilarScript;

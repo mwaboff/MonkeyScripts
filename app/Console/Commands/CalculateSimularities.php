@@ -2,6 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Console\Commands\Recommendation\ScriptSimularity;
+
 use Illuminate\Console\Command;
 
 class CalculateSimularities extends Command
