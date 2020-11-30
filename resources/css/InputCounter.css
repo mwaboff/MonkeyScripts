@@ -3,7 +3,7 @@
 }
 
 .good-char-count {
-  color: var(--accent-green400);
+  color: var(--accent-green500);
 }
 
 .neutral-char-count {
@@ -11,5 +11,9 @@
 }
 
 .bad-char-count {
-  color: var(--accent-red300);
+  color: var(--accent-red500);
+}
+
+.ic-container {
+  align-items: flex-end;
 }

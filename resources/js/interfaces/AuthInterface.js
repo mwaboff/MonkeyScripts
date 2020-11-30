@@ -12,7 +12,7 @@ class AuthInterface {
   }
 
   static async register(username, email, password, password_confirmation) {
-    RequestInterface.sendRequest("/api/register", "POST", {name: username, email: email, password: password, password_confirmation: password_confirmation})
+    return RequestInterface.sendRequest("/api/register", "POST", {name: username, email: email, password: password, password_confirmation: password_confirmation})
       .then(response => AuthInterface.manageRegistration(response));
   }
 
@@ -37,6 +37,7 @@ class AuthInterface {
   }
 
   static manageRegistration(response) {
+    return response;
   }
 
   static isLoggedIn() {

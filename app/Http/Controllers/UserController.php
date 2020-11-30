@@ -23,11 +23,22 @@ class UserController extends Controller
      */
     public function create(Request $request)
     {
+
+        $result = [];
+
+        $existing_user_count = User::where('name', $request['name'])->count();
+        $existing_email_count = User::where('email', $request['email'])->count();
+
+        if ($existing_email_count > 0) return json_encode(['success'=>false, 'message' => 'Email is already used']);
+        if ($existing_user_count > 0) return json_encode(['success'=>false, 'message' => 'Username is taken']);
+
+
+
         // //Checks the validity of the the request
         $validated_data = $request->validate([
             'name' => ['required', 'unique:users', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users', 'min:5'],
+            'password' => ['required', 'string', 'min:8', 'max:255', 'confirmed'],
         ]);
 
         $user = User::create([
@@ -36,10 +47,11 @@ class UserController extends Controller
             'password' => Hash::make($request['password']),
         ]);
 
-        $result = [];
+        
 
         if ($user) {
             $result = [
+                'success' => true,
                 'message' => 'success',
                 'email' => $user->email,
                 'uid' => $user->uid

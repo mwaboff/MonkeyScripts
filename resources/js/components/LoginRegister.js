@@ -1,4 +1,5 @@
 import React from 'react';
+import { Alert } from './Alert.js';
 import InputCounter from './InputCounter.js';
 import AuthInterface from '../interfaces/AuthInterface';
 import '../../css/LoginRegister.css';
@@ -24,7 +25,7 @@ class LoginRegister extends React.Component {
 
     if (this.state.type == "login") {
       login_form.addEventListener('submit', this.submitLogin.bind(this));
-    } else {
+    } else if (this.state.type == "register") {
       login_form.addEventListener('submit', this.submitRegistration.bind(this));
     }
   }
@@ -32,6 +33,12 @@ class LoginRegister extends React.Component {
 
   submitLogin(e) {
     e.preventDefault();
+
+    if (!validateLoginForm()) {
+      document.getElementById('login-form').addEventListener('change', validateLoginForm);
+      return;
+    };
+
     let form = e.srcElement;
     let email = form.email.value;
     let password = form.password.value;
@@ -41,6 +48,12 @@ class LoginRegister extends React.Component {
 
   submitRegistration(e) {
     e.preventDefault();
+
+    if (!validateRegistrationForm()) {
+      document.getElementById('registration-form').addEventListener('change', validateRegistrationForm);
+      return;
+    };
+
     let form = e.srcElement;
     let email = form.email.value;
     let username = form.username.value;
@@ -59,16 +72,19 @@ class LoginRegister extends React.Component {
   manageLogin(response) {
     if(response['user_id']) {
       this.state.setLoggedIn(response['user_name'], response['user_id']);
+      $('#login-modal').modal('hide');
+      $('#register-modal').modal('hide');  
+    } else {
+      alert("Error: Invalid Credentials.")
     }
-    $('#login-modal').modal('hide');
-    $('#register-modal').modal('hide');
   }
 
   manageRegistration(response) {
-    // if (response['message'] != 'success') return;
-    console.log(response);
-
-    AuthInterface.login(this.state.email, this.state.password).then((response) => this.manageLogin(response));
+    if(response['success' == true]) {
+      AuthInterface.login(this.state.email, this.state.password).then((response) => this.manageLogin(response));
+    } else {
+      alert(response['message']);
+    }
   }
 
 
@@ -121,9 +137,15 @@ function LoginForm(props) {
   return(
     <form id="login-form" className="lr-form flex flex-column" action="/api/login" method="POST">
       <label className="mks-input-label" htmlFor="email">Email</label>
-      <input type="text" className="form-control mks-input" name="email" />
-      <label className="mks-input-label" htmlFor="email">Password</label>
-      <input type="password" className="form-control mks-input" name="password" />
+
+      
+      <input id="l-email" type="email" className="form-control mks-input" name="email" />
+
+      <div className="flex flex_row flex_space-between ic-container">
+        <label className="mks-input-label" htmlFor="password">Password</label>
+        <InputCounter elem_id="l-password" min={8} />
+      </div>
+      <input id="l-password" type="password" className="form-control mks-input" name="password" />
 
       <input type="submit" className="mks-tile mks-tile-primary" value="Login" />
     </form>
@@ -143,24 +165,74 @@ function RegisterForm(props) {
   return(
     <form id="registration-form" className="lr-form flex flex-column" action="/api/register" method="POST">
       <label className="mks-input-label" htmlFor="email">Email</label>
-      <input type="email" className="form-control mks-input" name="email" />
+      <input id="r-email" type="email" className="form-control mks-input" name="email" />
 
-      <label className="mks-input-label" htmlFor="email">Username</label>
-      <input type="text" className="form-control mks-input" name="username" />
+      <label className="mks-input-label" htmlFor="username">Username</label>
+      <input id="r-username" type="text" className="form-control mks-input" name="username" />
 
-      <div className="flex flex_row flex_space-between lr-password-container">
-        <label className="mks-input-label" htmlFor="email">Password</label>
-        <InputCounter elem_id="lr-password" min={8} />
+      <div className="flex flex_row flex_space-between ic-container">
+        <label className="mks-input-label" htmlFor="password">Password</label>
+        <InputCounter elem_id="r-password" min={8} />
       </div>
-      <input id="lr-password" type="password" className="form-control mks-input" name="password" />
+      <input id="r-password" type="password" className="form-control mks-input" name="password" />
 
-      <div className="flex flex_row flex_space-between lr-password-container">
-        <label className="mks-input-label" htmlFor="email">Confirm Password</label>
-        <InputCounter elem_id="lr-password-confirm" min={8} />
+      <div className="flex flex_row flex_space-between ic-container">
+        <label className="mks-input-label" htmlFor="password-confirm">Confirm Password</label>
+        <InputCounter elem_id="r-password-confirm" min={8} />
       </div>
-      <input id="lr-password-confirm" type="password" className="form-control mks-input" name="password-confirm" />
+      <input id="r-password-confirm" type="password" className="form-control mks-input" name="password-confirm" />
 
       <input type="submit" className="mks-tile mks-tile-primary" value="Register" />
     </form>
   )
+}
+
+
+
+function validateRegistrationForm() {
+  Alert.removeAllBadInput();
+  let result = true;
+  let email = document.getElementById("r-email");
+  let username = document.getElementById("r-username");
+  let password = document.getElementById("r-password")
+  let password_confirm = document.getElementById("r-password-confirm");
+
+  if (email.value.length < 5 && !email.value.includes("@")) {
+    Alert.setBadInput(email, "Please enter a valid email address");
+    result = false;
+  }
+  if (username.value.length <= 0 || username.value.length > 50) {
+    Alert.setBadInput(username, "Summary is required and cannot be more than 50 characters long");
+    result = false;
+  }
+  if (password.value.length < 8) {
+    Alert.setBadInput(password, "Passwords must be at least 8 characters long");
+    result = false;
+  }
+  if (password_confirm.value !== password.value) {
+    Alert.setBadInput(password_confirm, "Passwords do not match");
+    result = false;
+  }
+
+  return result;
+
+}
+
+
+function validateLoginForm() {
+  Alert.removeAllBadInput();
+  let result = true;
+  let email = document.getElementById("l-email");
+  let password = document.getElementById("l-password");
+
+  if (email.value.length < 5 && !email.value.includes("@")) {
+    Alert.setBadInput(email, "Please enter a valid email address");
+    result = false;
+  }
+  if (password.value.length < 8) {
+    Alert.setBadInput(password, "Passwords must be at least 8 characters long");
+    result = false;
+  }
+
+  return result;
 }

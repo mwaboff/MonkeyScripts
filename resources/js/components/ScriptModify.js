@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from './Header.js';
-import { NoPermission } from './Alerts.js';
+import InputCounter from './InputCounter.js';
+import { Alert, NoPermission } from './Alert.js';
 import AuthInterface from '../interfaces/AuthInterface';
 import RequestInterface from '../interfaces/RequestInterface';
 import { Redirect,  useParams, useHistory} from "react-router-dom";
@@ -41,9 +42,6 @@ class ScriptModifyMain extends React.Component {
   }
 
   componentDidMount() {
-    // let login_form = document.getElementById('script-form');
-    // login_form.addEventListener('submit', this.submitScript1.bind(this));
-
     let submit_control_button = document.getElementById('script-control-submit');
     submit_control_button.addEventListener('click', this.submitScript.bind(this));
     let submit_button = document.getElementById('script-submit');
@@ -80,12 +78,16 @@ class ScriptModifyMain extends React.Component {
   submitScript(e) {
     e.preventDefault();
     if (!isMyScript(this.state.author_id, this.state.my_id)) {
-      alert("You do not have permission to edit this");
+      alert("You do not have permission to edit this script.");
       return;
     }
 
     let form = document.getElementById('script-form');
-    if (!validateForm(form)) return;
+
+    if (!validateForm()) {
+      document.getElementById('script-form').addEventListener('change', validateForm);
+      return;
+    };
 
     let script_data = {
       script_id: this.state.script_id ? this.state.script_id : "",
@@ -101,7 +103,7 @@ class ScriptModifyMain extends React.Component {
     }
 
     RequestInterface.sendRequest(target_address, "POST", script_data)
-      .then(response => this.redirectToScript(response).bind(this));
+      .then(response => this.processSubmitResponse(response).bind(this));
   }
 
   deleteScript(e) {
@@ -115,14 +117,18 @@ class ScriptModifyMain extends React.Component {
     .then(response => this.redirectToHome());
   }
 
-  redirectToScript(response) {
-    let script_id = response["id"];
-    this.props.history.push("/script/" + script_id);
+  processSubmitResponse(response) {
+    if (response['success']) {
+      this.props.history.push("/script/" + response['script_id']);
+    } else {
+      alert(response['message']);
+    }
   }
 
   redirectToHome() {
     return <Redirect to="/" />
   }
+
 
   render(props) {
     if (!isMyScript(this.state.author_id, this.state.my_id)) {
@@ -181,20 +187,66 @@ function PageTitle(props) {
 function ScriptForm(props) {
   return (
     <form id="script-form" action="api/script/new" method="POST">
-      <label htmlFor="script-title">Title</label>
-      <input id="script-title" type="text" name="script-title" className="form-control" defaultValue={ props.script_info.script_title }></input>
-      <label htmlFor="script-summary">Brief Summary</label>
-      <input type="text" name="script-summary" className="form-control" defaultValue={ props.script_info.script_summary }></input>
-      <label htmlFor="script-desc">Description</label>
-      <textarea type="text" name="script-descr" className="form-control" style={{ height: 200 + "px" }} defaultValue={ props.script_info.script_descr }></textarea>
-      <label htmlFor="script-code">Code</label>
-      <textarea name="script-code" className="form-control" style={{height: 500 + "px"}} defaultValue={ props.script_info.script_code }></textarea>
+      <div className="flex flex_row flex_space-between ic-container">
+        <label className="mks-input-label" htmlFor="script-title">Title</label>
+        <InputCounter elem_id="script-title" min={3} max={50} />
+      </div>
+      <input id="script-title" type="text" name="script-title" className="form-control mks-input" defaultValue={ props.script_info.script_title }></input>
+
+
+      <div className="flex flex_row flex_space-between ic-container">
+        <label className="mks-input-label" htmlFor="script-summary">Brief Summary</label>
+        <InputCounter elem_id="script-summary" max={75} />
+      </div>
+      <input id="script-summary" type="text" name="script-summary" className="form-control mks-input" defaultValue={ props.script_info.script_summary }></input>
+
+
+      <div className="flex flex_row flex_space-between ic-container">
+        <label className="mks-input-label" htmlFor="script-desc">Description</label>
+        <InputCounter elem_id="script-descr" />
+      </div>
+      <textarea id="script-descr" type="text" name="script-descr" className="form-control mks-input" style={{ height: 200 + "px" }} defaultValue={ props.script_info.script_descr }></textarea>
+
+      <div className="flex flex_row flex_space-between ic-container">
+        <label className="mks-input-label" htmlFor="script-code">Code</label>
+        <InputCounter elem_id="script-code" />
+      </div>
+      <textarea id="script-code" name="script-code" className="form-control mks-input" style={{height: 500 + "px"}} defaultValue={ props.script_info.script_code }></textarea>
       <input type="submit" id="script-submit" className="mks-tile primary-control-btn script-submit-btn" value="Submit" />
     </form>
   )
 
 }
 
+
 function isMyScript(script_author_id, my_user_id) {
   return script_author_id == '' || script_author_id == my_user_id;
+}
+
+function validateForm() {
+  Alert.removeAllBadInput();
+  let result = true;
+  let title = document.getElementById("script-title");
+  let summary = document.getElementById("script-summary");
+  let description = document.getElementById("script-descr")
+  let code = document.getElementById("script-code");
+
+  if (title.value.length < 3 || title.value.length > 50) {
+    Alert.setBadInput(title, "Title has an incorrect length");
+    result = false;
+  }
+  if (summary.value.length <= 0 || summary.value.length > 75) {
+    Alert.setBadInput(summary, "Summary is required and cannot be more than 75 characters long");
+    result = false;
+  }
+  if (description.value.length <= 0) {
+    Alert.setBadInput(description, "Description is required");
+    result = false;
+  }
+  if (code.value.length <= 0) {
+    Alert.setBadInput(code, "Code is required");
+    result = false;
+  }
+
+  return result;
 }

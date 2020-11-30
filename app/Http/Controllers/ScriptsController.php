@@ -65,14 +65,19 @@ class ScriptsController extends Controller
     public function edit(Request $request) {
         //
         $user_id = auth("api")->user()->id;
-        $script = Script::findOrFail($request["script_id"]);
+        if (!$user_id) return json_encode(['success'=>false, 'message'=>'Invalid User']);
+
+        $script = Script::find($request["script_id"]);
+
+        if (!$script) return json_encode(['success'=>false, 'message'=>'Unable to locate script']);
+
         $script->title = $request["title"];
         $script->description = $request["description"];
         $script->summary = $request["summary"];
         $script->code = $request["code"];
         $script->save();
 
-        return json_encode($script);
+        return json_encode(['success'=>true, 'message'=>'', 'script_id'=>$script->id]);
 
     }
 
@@ -93,6 +98,10 @@ class ScriptsController extends Controller
 
     public function create(Request $request) {
         $user_id = auth("api")->user()->id;
+
+        if (!$user_id) return json_encode(['success'=>false, 'message'=>'Invalid User']);
+
+
         $new_script = Script::create([
             'author_id' => $user_id,
             'title' => $request['title'],
@@ -100,8 +109,21 @@ class ScriptsController extends Controller
             'summary' => $request['summary'],
             'code' => $request['code'],
         ]);
+
+        if ($new_script) {
+            $result = [
+                "success" => true,
+                "message" => '',
+                "script_id" => $new_script->id
+            ];
+        } else {
+            $result = [
+                "success" => false,
+                "message" => 'Unable to create script'
+            ];
+        }
         
-        return json_encode($new_script);
+        return $result;
     }
 
     public static function recommend(Request $request) {
