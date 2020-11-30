@@ -172,7 +172,7 @@ class ScriptsController extends Controller
     }
 
     private static function getOfficiallyDevelopedScripts($limit = 10) {
-        $official_scripts = Script::where('author_id', 1)->get()->all();
+        $official_scripts = Script::where('author_id', 1)->orWhere('author_id', 2)->orWhere('author_id', 3)->get()->all();
         $script_list = static::removeCodeFromScriptResults($official_scripts);
         shuffle($script_list); // Add some variety and randomness
         return array_slice($script_list, 0, $limit); // Return only the right number of results
