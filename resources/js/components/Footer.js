@@ -6,7 +6,7 @@ function Footer(props) {
   return (
     <footer className="footer">
       <div className="container">
-        I am a footer!
+        © Michael Aboff, 2020
       </div>
     </footer>
   );

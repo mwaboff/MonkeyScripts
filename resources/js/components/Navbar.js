@@ -70,12 +70,15 @@ function NavbarLinks(props) {
     <div className="collapse navbar-collapse" id="navbarSupportedContent">
       <ul className="navbar-nav ml-auto">
       <li className="nav-item">
-          <a href="/tutorial" className="nav-link">Tutorial</a>
-        </li>
-        <li className="nav-item">
-          <Link to="/search" className="nav-link">Search</Link>
-        </li>
-        { logged_links }
+        <a href="/" className="nav-link">Home</a>
+      </li>
+      <li className="nav-item">
+        <a href="/tutorial" className="nav-link">Tutorial</a>
+      </li>
+      <li className="nav-item">
+        <Link to="/search" className="nav-link">Search</Link>
+      </li>
+      { logged_links }
       </ul>
     </div>
   )

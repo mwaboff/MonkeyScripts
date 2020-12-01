@@ -18,7 +18,7 @@ export function ScriptControlButton(props) {
   let inner_content = <ScriptControlText logo={ props.logo } text = { props.text } />
   if (props.link_type == "external") {
     return (
-      <a href={ props.target } id={ props.elem_id } target="_blank" className={ shared_class_names }>{ inner_content }</a>
+      <a href={ props.target } id={ props.elem_id } className={ shared_class_names }>{ inner_content }</a>
     )
   }
 

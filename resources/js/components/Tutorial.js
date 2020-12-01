@@ -12,13 +12,12 @@ export default function Tutorial() {
     <>
     <Header 
       title = "Tutorial"
-      subtitle = "What is this site even?"
+      subtitle = "What are user scripts and how do I use them?"
       supplement = { <SearchBar /> }
     />
     <div className="container section">
       <TutorialText />
       <ScriptList listType="recommended" title="Now check out these scripts!" numScripts="8" is_primary="true" />
-
     </div>
     </>
   )
