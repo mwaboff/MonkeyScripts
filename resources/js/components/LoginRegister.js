@@ -81,7 +81,8 @@ class LoginRegister extends React.Component {
 
   manageRegistration(response) {
     if(response['success'] == true) {
-      AuthInterface.login(this.state.email, this.state.password).then((response) => this.manageLogin(response));
+      // AuthInterface.login(this.state.email, this.state.password).then((response) => this.manageLogin(response));
+      alert("Created account!");
     } else {
       alert(response['message']);
     }

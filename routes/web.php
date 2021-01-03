@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/script/{script_id}.user.js', 'ScriptsController@install')->name('install');
+Route::get('/verify/{verification_code}', 'UserController@verifyUser')->name('verify');
 Route::get('/{path?}', 'HomeController@index')->name('home');
 Route::any('/{any}/{all?}', 'HomeController@index')->name('home2');
 Route::any('/{any}/{some}/{all?}', 'HomeController@index')->name('home3');

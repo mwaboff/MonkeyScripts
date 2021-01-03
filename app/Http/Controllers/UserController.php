@@ -6,12 +6,19 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use \Laravel\Passport\Http\Controllers\AccessTokenController;
 
 
 use App\User;
+use App\VerificationCode;
+use Illuminate\Auth\Notifications\VerifyEmail;
+
+use App\Mail\VerificationEmail;
+use Illuminate\Support\Facades\Mail;
+
 
 class UserController extends Controller
 {
@@ -47,8 +54,6 @@ class UserController extends Controller
             'password' => Hash::make($request['password']),
         ]);
 
-        
-
         if ($user) {
             $result = [
                 'success' => true,
@@ -56,6 +61,8 @@ class UserController extends Controller
                 'email' => $user->email,
                 'uid' => $user->uid
             ];
+
+            static::sendValidateEmail($user);
         } else {
             $result = [
                 'message' => 'failure'
@@ -83,6 +90,33 @@ class UserController extends Controller
     public static function currentLoggedInUser(Request $request) {
         $bearer_token = $request->header('Authorization');
         return PassportUserVerifyController::getUser($bearer_token); 
+    }
+
+    public static function sendValidateEmail(User $user) {
+        $verification_code = VerificationCode::create([
+            'user_id' => $user->id
+        ]);
+        $data = [
+            'username' => $user->name,
+            'activation_code' => $verification_code->code
+        ];
+        Mail::to($user->email)->send(new VerificationEmail($data));
+    }
+
+    public function verifyUser(Request $request, $verification_code) {
+        $success = 0;
+        $verification = VerificationCode::where('code', $verification_code)->first();
+        if (isset($verification)) {
+            $user = User::find($verification->user_id);
+            if (isset($user)) {
+                $user->email_verified_at = date("Y-m-d H:i:s");
+                $user->save();
+                $success = 1;
+            }
+        }
+
+        return redirect('?verified=' . strval($success));
+        
     }
 
 }
