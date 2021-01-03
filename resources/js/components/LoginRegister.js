@@ -75,16 +75,23 @@ class LoginRegister extends React.Component {
       $('#login-modal').modal('hide');
       $('#register-modal').modal('hide');  
     } else {
-      alert("Error: Invalid Credentials.")
+      this.manageLoginErrors(response);
     }
   }
 
   manageRegistration(response) {
     if(response['success'] == true) {
-      // AuthInterface.login(this.state.email, this.state.password).then((response) => this.manageLogin(response));
-      alert("Created account!");
+      alert("Account has been created. Please check your email for the activation email before logging in.");
     } else {
       alert(response['message']);
+    }
+  }
+
+  manageLoginErrors(response) {
+    if (response['code'] == 2) {
+      alert("Email has not been activated yet. Please check your emails.");
+    } else {
+      alert("Invalid Credentials");
     }
   }
 

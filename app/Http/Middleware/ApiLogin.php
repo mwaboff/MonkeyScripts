@@ -19,8 +19,6 @@ class ApiLogin
      */
     public function handle($request, Closure $next)
     {
-
-        
         $secret = DB::table('oauth_clients')->where('id', 1)->pluck('secret')->first();
 
         $request->merge([
@@ -38,15 +36,13 @@ class ApiLogin
             } else {
                 dd(json_encode([
                     'success' => false,
-                    'message' => 'Email needs to be verified before logging in.'
+                    'message' => 'Email needs to be verified before logging in.',
+                    'error_code' => 2
                 ]));
             }
         }
 
-        dd(json_encode([
-            'success' => false,
-            'message' => 'Account not found.'
-        ]));
+        return $next($request);
         
     }
 }
