@@ -23,7 +23,7 @@ class VerificationEmail extends Mailable
         $address = 'noreply@monkeyscripts.org';
         $subject = 'Verify your MonkeyScripts email address';
         $name = 'MonkeyScripts';
-        $activation_link = "http://127.0.0.1:8000/verify/" . $this->data['activation_code'];
+        $activation_link = "https://monkeyscripts.org/verify/" . $this->data['activation_code'];
 
         return $this->view('emails.verify_email')
                     ->from($address, $name)
