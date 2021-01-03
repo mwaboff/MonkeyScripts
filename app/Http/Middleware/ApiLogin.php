@@ -34,7 +34,7 @@ class ApiLogin
             if (isset($user->email_verified_at)) {
                 return $next($request);
             } else {
-                dd(json_encode([
+                return response(json_encode([
                     'success' => false,
                     'message' => 'Email needs to be verified before logging in.',
                     'error_code' => 2

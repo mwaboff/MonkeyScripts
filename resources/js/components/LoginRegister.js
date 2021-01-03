@@ -81,14 +81,16 @@ class LoginRegister extends React.Component {
 
   manageRegistration(response) {
     if(response['success'] == true) {
-      alert("Account has been created. Please check your email for the activation email before logging in.");
+      alert("Account has been created. Please follow the instructions in the activation email. Make sure to check your spam folder!");
+      $('#register-modal').modal('hide');  
     } else {
       alert(response['message']);
     }
   }
 
   manageLoginErrors(response) {
-    if (response['code'] == 2) {
+    console.log(response['error_code']);
+    if (response['error_code'] == 2) {
       alert("Email has not been activated yet. Please check your emails.");
     } else {
       alert("Invalid Credentials");
