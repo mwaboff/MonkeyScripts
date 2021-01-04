@@ -50,13 +50,27 @@ class User extends Authenticatable
 
     protected $dates = ['deleted_at'];
 
+    /**
+     * Get all scripts for this user.
+     * 
+     * @return Array
+     */
     public function scripts() {
         return $this->hasMany('App\Script', 'author_id');
     }
 
+    /**
+     * Get all ratings for this user. NOT IMPLEMENTED
+     * 
+     * @return Array
+     */
     public function ratings() {
         return $this->hasMany('App\Rating', 'user_id');
     }
+
+    /**
+     * Convert the model parementers into an array that Algolia search needs to index the model
+     */
 
     public function toSearchableArray()
     {
@@ -67,10 +81,16 @@ class User extends Authenticatable
         return $array;
     }
 
+    /**
+     * Get a list of all scripts that a user interacted with (downloaded or visited)
+     */
     public function getInteractedScripts() {
         return Interaction::getAllInteractedScriptsByUser($this->id, $visited=true, $downloaded=true, $and=false);
     }
 
+    /**
+     * Get a list of all scripts that a user both downloaded and visited
+     */
     public function getDownloadedScripts() {
         return Interaction::getAllInteractedScriptsByUser($this->id, $visited=true, $downloaded=true);
     }

@@ -19,6 +19,12 @@ class LoginRegister extends React.Component {
     }
   }
 
+  /**
+   * Insert text at cursor position.
+   *
+   * @param {string} text
+   * @public
+   */
   componentDidMount() {
     let elem_id = this.state.type + '-modal';
     let login_form = document.getElementById(elem_id);
@@ -31,6 +37,11 @@ class LoginRegister extends React.Component {
   }
 
 
+  /**
+   * Callback when login button is clicked. Collect login details from the form and send it to the backend via the AuthInterface interface.
+   *
+   * @param {Object} e (event)
+   */
   submitLogin(e) {
     e.preventDefault();
 
@@ -46,6 +57,11 @@ class LoginRegister extends React.Component {
     AuthInterface.login(email, password).then((response) => this.manageLogin(response));
   }
 
+  /**
+   * Callback when register button is clicked. Collect register details from the form and send it to the backend via the AuthInterface interface.
+   *
+   * @param {Object} e (event)
+   */
   submitRegistration(e) {
     e.preventDefault();
 
@@ -69,6 +85,11 @@ class LoginRegister extends React.Component {
     AuthInterface.register(username, email, password, password_confirmation).then((response) => this.manageRegistration(response));
   }
 
+  /**
+   * Parses response from the server after login and sets the state of the server to log the user in
+   *
+   * @param {Object} response
+   */
   manageLogin(response) {
     if(response['user_id']) {
       this.state.setLoggedIn(response['user_name'], response['user_id']);
@@ -79,6 +100,11 @@ class LoginRegister extends React.Component {
     }
   }
 
+  /**
+   * Parses response from the server after registration and determines if we have successfully registered
+   *
+   * @param {Object} response
+   */
   manageRegistration(response) {
     if(response['success'] == true) {
       alert("Account has been created. Please follow the instructions in the activation email. Make sure to check your spam folder!");
@@ -198,7 +224,11 @@ function RegisterForm(props) {
 }
 
 
-
+/**
+ * Validate if registration form to make sure it matches string length count.
+ *
+ * @param {bool}
+ */
 function validateRegistrationForm() {
   Alert.removeAllBadInput();
   let result = true;
@@ -228,6 +258,11 @@ function validateRegistrationForm() {
 
 }
 
+/**
+ * Validate if login form to make sure it matches string length count.
+ *
+ * @param {bool}
+ */
 
 function validateLoginForm() {
   Alert.removeAllBadInput();

@@ -24,9 +24,9 @@ class UserController extends Controller
 {
 
     /**
-     * Show the form for creating a new resource.
+     * Accept api request to create a new User.
      *
-     * @return \Illuminate\Http\Response
+     * @return json array
      */
     public function create(Request $request)
     {
@@ -72,6 +72,12 @@ class UserController extends Controller
         return json_encode($result);
     }
 
+
+    /**
+     * Return user metadata from API request.
+     *
+     * @return json array
+     */
     public function info(Request $request)
     {
         $id = $request["id"];
@@ -86,12 +92,23 @@ class UserController extends Controller
         ]);
     }
 
-    // This will return null if noone is logged in
+    /**
+     * Accept api request to create a new User. Will return null if noone is logged in
+     *
+     * @param  \Request $request
+     * @return User
+     */
     public static function currentLoggedInUser(Request $request) {
         $bearer_token = $request->header('Authorization');
         return PassportUserVerifyController::getUser($bearer_token); 
     }
 
+    
+    /**
+     * Initialize a new verification code and send it to the provided user.
+     * 
+     * @param  \User $user
+     */
     public static function sendValidateEmail(User $user) {
         $verification_code = VerificationCode::create([
             'user_id' => $user->id
@@ -103,6 +120,13 @@ class UserController extends Controller
         Mail::to($user->email)->send(new VerificationEmail($data));
     }
 
+    /**
+     * Verifies the verification code in the URL when a user clicks on the verification email link.
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @param  String  $verification_code
+     * 
+     */
     public function verifyUser(Request $request, $verification_code) {
         $success = 0;
         $verification = VerificationCode::where('code', $verification_code)->first();

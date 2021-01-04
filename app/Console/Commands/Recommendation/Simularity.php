@@ -10,10 +10,26 @@ class Simularity
     const VISIT_SCORE=1;
     const DOWNLOAD_SCORE=1;
 
+    /**
+     * Calculate a score based off of above defined constants. Separate function created to provide future flexibility if scoring process changes.
+     *   Right now viewed_status is 0 or 1, downloaded_status is 0 or 1
+     * 
+     * @param int $viewed_status
+     * @param int $downloaded_status
+     * @return int
+     * 
+     */
     static function scoreInteraction($viewed_status, $downloaded_status) {
         return ($viewed_status * Simularity::VISIT_SCORE) + ($downloaded_status * Simularity::DOWNLOAD_SCORE);
     }
 
+    /**
+     * Get all of the interactions based off of provided column name (i.e. user or script id)
+     * 
+     * @param int $column_name
+     * @return Array
+     * 
+     */
     static function getInteractionsOrderedByColumn($column_name) {
         // If I start worrying about having too big of a database, I can switch to using the "chunk" command
         return DB::table('monkeyscripts.interactions')
@@ -21,6 +37,14 @@ class Simularity
             ->orderBy($column_name)->get();
     }
 
+    /**
+     * Generate both the naive "sum score" and the pearson correllation between all simularities
+     * 
+     * @param Array $interaction_scores
+     * @param string $algorithm
+     * @return Array
+     * 
+     */
     static function generateSimularities($interaction_scores, $algorithm="pearson") {
         $results = [];
         foreach ($interaction_scores as $entity1 => $entity1_scores) {
@@ -41,7 +65,15 @@ class Simularity
         return $results;
     }
 
-
+    /**
+     * Calculate Pearson Correlation score for each script scores for each score that  
+     *   https://en.wikipedia.org/wiki/Pearson_correlation_coefficient#For_a_sample
+     * 
+     * @param Array $interaction_scores
+     * @param string $algorithm
+     * @return Array
+     * 
+     */
     private static function pearsonScore($entity1_scores, $entity2_scores) {
         // First find the entities that have shared experiences (i.e. if a single user interacted with 2 different scripts, that user would be the "intersection")
         $intersections = array_intersect(array_keys($entity1_scores), array_keys($entity2_scores));
@@ -78,7 +110,17 @@ class Simularity
     }
 
 
-    // This isn't to determine simularity to a script but rather say "this is what other people who viewed this script have interacted with most"
+    /**
+     * Compare two different entities (scripts or users (not implemented yet)) and try to determine how strong the connection is between the two
+     *   by adding up their matching scores
+     * 
+     * This isn't to determine simularity to a script but rather say "this is what other people who viewed this script have interacted with most"
+     * 
+     * @param Array $entity1_scores
+     * @param Array $entity2_scores
+     * @return Array
+     * 
+     */
     private static function sumScore($entity1_scores, $entity2_scores) {
         $intersections = array_intersect(array_keys($entity1_scores), array_keys($entity2_scores));
         $num_intersections = count($intersections);
@@ -89,12 +131,6 @@ class Simularity
         $sum1 = 0;
         $sum2 = 0;
 
-        // print_r($entity1_scores);
-        // print_r($entity2_scores);
-        // print_r($intersections);
-        // dd('--');
-
-        // This isn't to determine 
         foreach ($intersections as $i => $intersection_id) {
             $sum1 += $entity1_scores[$intersection_id];
             $sum2 += $entity2_scores[$intersection_id];
